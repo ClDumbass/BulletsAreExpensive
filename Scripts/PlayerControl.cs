@@ -49,11 +49,12 @@ public partial class PlayerControl : Sprite2D
 
 		//simple sprite visibility toggle to animate iframes?
 		int iframeAnimationState = (int)(iframes * 20f);
-		//if (iframeAnimationState % 2 == 0) {
-		//	Visible = true;
-		//} else {
-		//	Visible = false;
-		//}
+		if (iframeAnimationState % 2 == 0) {
+			Visible = true;
+		}
+		else {
+			Visible = false;
+		}
 
 		///Movement
 		float speed = (float)delta * MOVE_SPEED;
@@ -138,7 +139,7 @@ public partial class PlayerControl : Sprite2D
 		iframes = 3.0f;
 	}
 	private void OnBulletExit(Area2D area) {
-		if ( area.IsQueuedForDeletion() || area.GetParent().IsQueuedForDeletion())
+		if ( area.IsQueuedForDeletion() || area.GetParent().IsQueuedForDeletion() || Health <=0)
 		{
 			return;
 		}

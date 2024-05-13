@@ -149,5 +149,6 @@ offset_right = 272.0
 offset_bottom = 252.0
 text = "Quit"
 
+[connection signal="tree_exiting" from="." to="." method="OnQuit"]
 [connection signal="pressed" from="MainMenu/MainSubmenu/Stage1" to="." method="OnStageOneButtonClicked"]
 [connection signal="pressed" from="MainMenu/MainSubmenu/Quit" to="." method="OnQuitClicked"]
