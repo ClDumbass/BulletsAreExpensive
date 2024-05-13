@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://p2314b3027pa"]
+
+[ext_resource type="Script" path="res://Scripts/Attacks/BulletScript.cs" id="1_1yjtw"]
+[ext_resource type="Texture2D" uid="uid://bb2hwyxprhsgx" path="res://Sprites/small_bullet.png" id="1_a6m5p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fma3i"]
+radius = 4.0
+
+[node name="BulletClone" type="Node2D"]
+position = Vector2(0, 2)
+script = ExtResource("1_1yjtw")
+Speed = 30.0
+
+[node name="Bullet" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet"]
+shape = SubResource("CircleShape2D_fma3i")
+
+[node name="Sprite2D" type="Sprite2D" parent="Bullet"]
+texture = ExtResource("1_a6m5p")
+
+[connection signal="area_entered" from="Bullet" to="." method="OnCollision"]

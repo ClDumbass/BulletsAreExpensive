@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxt8flx1ksgkx"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/SpikeballEnemyScript.cs" id="1_5xaeo"]
+[ext_resource type="PackedScene" uid="uid://p2314b3027pa" path="res://Scenes/Attacks/EnemyBullet.tscn" id="2_lu1yc"]
+[ext_resource type="Texture2D" uid="uid://ce2nsvenrw6q6" path="res://Sprites/spikeball_enemy.png" id="3_8gfhe"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x7gsu"]
+radius = 7.0
+
+[node name="Spikeball Enemy" type="Node2D"]
+position = Vector2(469, 125)
+script = ExtResource("1_5xaeo")
+bulletMaster = ExtResource("2_lu1yc")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("3_8gfhe")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_x7gsu")
+
+[connection signal="area_entered" from="Hitbox" to="." method="OnCollision"]

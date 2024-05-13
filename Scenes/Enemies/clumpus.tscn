@@ -1,0 +1,247 @@
+[gd_scene load_steps=11 format=3 uid="uid://cdei1vmldwe7w"]
+
+[ext_resource type="Texture2D" uid="uid://cnta4ej73imij" path="res://Sprites/test_enemy.png" id="1_05tvo"]
+[ext_resource type="Script" path="res://Scripts/Enemies/ClumpusScript.cs" id="1_wplpl"]
+[ext_resource type="PackedScene" uid="uid://p2314b3027pa" path="res://Scenes/Attacks/EnemyBullet.tscn" id="2_h67ha"]
+[ext_resource type="Texture2D" uid="uid://ce2nsvenrw6q6" path="res://Sprites/spikeball_enemy.png" id="2_uk5kl"]
+[ext_resource type="PackedScene" uid="uid://e2f5bjs5imjg" path="res://Scenes/Attacks/EnemyBomb.tscn" id="3_1b7v7"]
+
+[sub_resource type="Theme" id="Theme_ogjjd"]
+default_font_size = 10
+
+[sub_resource type="Theme" id="Theme_65ens"]
+
+[sub_resource type="Theme" id="Theme_thvkb"]
+default_font_size = 10
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c4eob"]
+size = Vector2(57, 19)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qanhu"]
+
+[node name="Clumpus" type="Node2D"]
+script = ExtResource("1_wplpl")
+BulletMaster = ExtResource("2_h67ha")
+BombMaster = ExtResource("3_1b7v7")
+
+[node name="HealthBars" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_ogjjd")
+
+[node name="MainBody" type="Control" parent="HealthBars"]
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 254.0
+offset_right = 80.0
+offset_bottom = 294.0
+
+[node name="Backdrop" type="ColorRect" parent="HealthBars/MainBody"]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 16.0
+color = Color(0.384314, 0.478431, 0.647059, 1)
+
+[node name="Foreground" type="ColorRect" parent="HealthBars/MainBody"]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 16.0
+color = Color(1, 0, 0, 1)
+
+[node name="Label" type="Label" parent="HealthBars/MainBody"]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 16.0
+theme = SubResource("Theme_65ens")
+text = "500"
+horizontal_alignment = 1
+
+[node name="ClusterL" type="Control" parent="HealthBars"]
+anchors_preset = 0
+offset_left = 42.0
+offset_top = 236.0
+offset_right = 82.0
+offset_bottom = 276.0
+
+[node name="Backdrop" type="ColorRect" parent="HealthBars/ClusterL"]
+layout_mode = 0
+offset_right = 125.0
+offset_bottom = 16.0
+color = Color(0.384314, 0.478431, 0.647059, 1)
+
+[node name="Foreground" type="ColorRect" parent="HealthBars/ClusterL"]
+offset_right = 125.0
+offset_bottom = 16.0
+color = Color(0, 0.380392, 0.862745, 1)
+
+[node name="Label" type="Label" parent="HealthBars/ClusterL"]
+layout_mode = 0
+offset_right = 125.0
+offset_bottom = 16.0
+theme = SubResource("Theme_thvkb")
+text = "100"
+horizontal_alignment = 1
+
+[node name="ClusterM" type="Control" parent="HealthBars"]
+anchors_preset = 0
+offset_left = 178.0
+offset_top = 236.0
+offset_right = 218.0
+offset_bottom = 276.0
+
+[node name="Backdrop" type="ColorRect" parent="HealthBars/ClusterM"]
+layout_mode = 0
+offset_right = 125.0
+offset_bottom = 16.0
+color = Color(0.384314, 0.478431, 0.647059, 1)
+
+[node name="Foreground" type="ColorRect" parent="HealthBars/ClusterM"]
+offset_right = 125.0
+offset_bottom = 16.0
+color = Color(0, 0.380392, 0.862745, 1)
+
+[node name="Label" type="Label" parent="HealthBars/ClusterM"]
+layout_mode = 0
+offset_right = 125.0
+offset_bottom = 16.0
+theme = SubResource("Theme_thvkb")
+text = "100"
+horizontal_alignment = 1
+
+[node name="ClusterR" type="Control" parent="HealthBars"]
+anchors_preset = 0
+offset_left = 312.0
+offset_top = 236.0
+offset_right = 352.0
+offset_bottom = 276.0
+
+[node name="Backdrop" type="ColorRect" parent="HealthBars/ClusterR"]
+layout_mode = 0
+offset_right = 125.0
+offset_bottom = 16.0
+color = Color(0.384314, 0.478431, 0.647059, 1)
+
+[node name="Foreground" type="ColorRect" parent="HealthBars/ClusterR"]
+offset_right = 125.0
+offset_bottom = 16.0
+color = Color(0, 0.380392, 0.862745, 1)
+
+[node name="Label" type="Label" parent="HealthBars/ClusterR"]
+layout_mode = 0
+offset_right = 125.0
+offset_bottom = 16.0
+theme = SubResource("Theme_thvkb")
+text = "100"
+horizontal_alignment = 1
+
+[node name="ClumpusBody" type="Node2D" parent="."]
+position = Vector2(480, 135)
+
+[node name="Core" type="Sprite2D" parent="ClumpusBody"]
+texture = ExtResource("1_05tvo")
+
+[node name="Hitbox" type="Area2D" parent="ClumpusBody/Core"]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClumpusBody/Core/Hitbox"]
+position = Vector2(-2.5, -0.5)
+shape = SubResource("RectangleShape2D_c4eob")
+
+[node name="RArmStart" type="Sprite2D" parent="ClumpusBody"]
+position = Vector2(-7, -28)
+rotation = -1.62316
+texture = ExtResource("1_05tvo")
+flip_v = true
+
+[node name="Hitbox" type="Area2D" parent="ClumpusBody/RArmStart"]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClumpusBody/RArmStart/Hitbox"]
+position = Vector2(-2.5, -0.5)
+shape = SubResource("RectangleShape2D_c4eob")
+
+[node name="RArmEnd" type="Sprite2D" parent="ClumpusBody"]
+position = Vector2(-17, -73)
+rotation = 1.20428
+texture = ExtResource("1_05tvo")
+
+[node name="Hitbox" type="Area2D" parent="ClumpusBody/RArmEnd"]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClumpusBody/RArmEnd/Hitbox"]
+position = Vector2(-2.5, -0.5)
+shape = SubResource("RectangleShape2D_c4eob")
+
+[node name="LArmStart" type="Sprite2D" parent="ClumpusBody"]
+position = Vector2(-7, 28)
+rotation = 1.62316
+texture = ExtResource("1_05tvo")
+
+[node name="Hitbox" type="Area2D" parent="ClumpusBody/LArmStart"]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClumpusBody/LArmStart/Hitbox"]
+position = Vector2(-2.5, -0.5)
+shape = SubResource("RectangleShape2D_c4eob")
+
+[node name="LArmEnd" type="Sprite2D" parent="ClumpusBody"]
+position = Vector2(-17, 73)
+rotation = -1.20428
+texture = ExtResource("1_05tvo")
+flip_v = true
+
+[node name="Hitbox" type="Area2D" parent="ClumpusBody/LArmEnd"]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClumpusBody/LArmEnd/Hitbox"]
+position = Vector2(-2.5, -0.5)
+shape = SubResource("RectangleShape2D_c4eob")
+
+[node name="ClusterR" type="Sprite2D" parent="ClumpusBody"]
+position = Vector2(-32, -10)
+texture = ExtResource("2_uk5kl")
+
+[node name="Hitbox" type="Area2D" parent="ClumpusBody/ClusterR"]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClumpusBody/ClusterR/Hitbox"]
+shape = SubResource("CircleShape2D_qanhu")
+
+[node name="ClusterM" type="Sprite2D" parent="ClumpusBody"]
+position = Vector2(-40, 0)
+texture = ExtResource("2_uk5kl")
+
+[node name="Hitbox" type="Area2D" parent="ClumpusBody/ClusterM"]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClumpusBody/ClusterM/Hitbox"]
+shape = SubResource("CircleShape2D_qanhu")
+
+[node name="ClusterL" type="Sprite2D" parent="ClumpusBody"]
+position = Vector2(-32, 10)
+texture = ExtResource("2_uk5kl")
+
+[node name="Hitbox" type="Area2D" parent="ClumpusBody/ClusterL"]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClumpusBody/ClusterL/Hitbox"]
+shape = SubResource("CircleShape2D_qanhu")
+
+[connection signal="area_entered" from="ClumpusBody/Core/Hitbox" to="." method="OnCoreHit"]
+[connection signal="area_entered" from="ClumpusBody/RArmStart/Hitbox" to="." method="OnRArmHit"]
+[connection signal="area_entered" from="ClumpusBody/RArmEnd/Hitbox" to="." method="OnRArmHit"]
+[connection signal="area_entered" from="ClumpusBody/LArmStart/Hitbox" to="." method="OnLArmHit"]
+[connection signal="area_entered" from="ClumpusBody/LArmEnd/Hitbox" to="." method="OnLArmHit"]
+[connection signal="area_entered" from="ClumpusBody/ClusterR/Hitbox" to="." method="OnClusterRHit"]
+[connection signal="area_entered" from="ClumpusBody/ClusterM/Hitbox" to="." method="OnClusterMHit"]
+[connection signal="area_entered" from="ClumpusBody/ClusterL/Hitbox" to="." method="OnClusterLHit"]
