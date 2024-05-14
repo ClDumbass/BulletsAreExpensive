@@ -12,6 +12,8 @@ public partial class MainSceneScript : Node
 	public PackedScene StageThree { get; set; }
 
 	private Control MainMenuNode;
+	private Control MainSubmenuNode;
+	private Control PerkSubmenuNode;
 	private BaseStageScript activeStage;
 
 	private int stageOneHighscore = 0;
@@ -22,6 +24,10 @@ public partial class MainSceneScript : Node
 	public override void _Ready()
 	{
 		MainMenuNode = GetNode<Control>("MainMenu");
+		MainSubmenuNode = GetNode<Control>("MainMenu/MainSubmenu");
+		MainSubmenuNode.Visible = true;
+		PerkSubmenuNode = GetNode<Control>("MainMenu/PerkSubmenu");
+		PerkSubmenuNode.Visible = false;
 		LoadData();
 		UpdateScoreboard();
 		GetNode<Control>("MainMenu/MainSubmenu/Stage1").GrabFocus();
@@ -66,6 +72,17 @@ public partial class MainSceneScript : Node
 	}
 	public void OnStageThreeButtonClicked() {
 
+	}
+
+	private void OnUpgradeButtonPressed() {
+		MainSubmenuNode.Visible = false;
+		PerkSubmenuNode.Visible = true;
+		GetNode<Control>("MainMenu/PerkSubmenu/Back").GrabFocus();
+	}
+	private void OnPerksBackButtonPressed() {
+		PerkSubmenuNode.Visible = false;
+		MainSubmenuNode.Visible = true;
+		GetNode<Control>("MainMenu/MainSubmenu/Upgrade").GrabFocus();
 	}
 
 	private void OnQuitClicked() {
