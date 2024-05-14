@@ -10,6 +10,8 @@ public partial class MainSceneScript : Node
 	public PackedScene StageTwo { get; set; }
 	[Export]
 	public PackedScene StageThree { get; set; }
+	[Export]
+	public AudioStreamPlayer MenuBoopPlayer { get; set; }
 
 	private Control MainMenuNode;
 	private Control MainSubmenuNode;
@@ -92,6 +94,12 @@ public partial class MainSceneScript : Node
 	public void OnQuit() {
 		GD.Print("SaveAttempt");
 		SaveData();
+	}
+
+	public void OnUIFocusMoved() {
+		MenuBoopPlayer.PitchScale = (float)(0.95 + Random.Shared.NextDouble() * 0.1);
+		MenuBoopPlayer.Play();
+
 	}
 
 	private void SaveData() {

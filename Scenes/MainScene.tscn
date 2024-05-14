@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cqeg05mwl3iww"]
+[gd_scene load_steps=8 format=3 uid="uid://cqeg05mwl3iww"]
 
 [ext_resource type="Script" path="res://Scripts/MainSceneScript.cs" id="1_q8rje"]
 [ext_resource type="PackedScene" uid="uid://cnwyavaed7qqv" path="res://Scenes/StageOne.tscn" id="2_yho7g"]
 [ext_resource type="Texture2D" uid="uid://bb2hwyxprhsgx" path="res://Sprites/small_bullet.png" id="3_rjobs"]
+[ext_resource type="AudioStream" uid="uid://d313pxt0p1at7" path="res://Audio/SFX/Menu_Options.mp3" id="4_qx8pi"]
 
 [sub_resource type="Theme" id="Theme_2nbrs"]
 default_font_size = 12
@@ -13,9 +14,10 @@ default_font_size = 8
 [sub_resource type="Theme" id="Theme_tmq3i"]
 default_font_size = 10
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("MenuBoopPlayer")]
 script = ExtResource("1_q8rje")
 StageOne = ExtResource("2_yho7g")
+MenuBoopPlayer = NodePath("MenuBoop")
 
 [node name="MainMenu" type="Control" parent="."]
 layout_mode = 3
@@ -265,10 +267,21 @@ focus_neighbor_top = NodePath("../Upgrade")
 focus_neighbor_bottom = NodePath("../Stage2")
 text = "Quit"
 
+[node name="MenuBoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_qx8pi")
+
 [connection signal="tree_exiting" from="." to="." method="OnQuit"]
+[connection signal="focus_exited" from="MainMenu/PerkSubmenu/PerkPanel/Controls/MinusButton" to="." method="OnUIFocusMoved"]
+[connection signal="focus_exited" from="MainMenu/PerkSubmenu/PerkPanel/Controls/PlusButton" to="." method="OnUIFocusMoved"]
+[connection signal="focus_exited" from="MainMenu/PerkSubmenu/Back" to="." method="OnUIFocusMoved"]
 [connection signal="pressed" from="MainMenu/PerkSubmenu/Back" to="." method="OnPerksBackButtonPressed"]
+[connection signal="focus_exited" from="MainMenu/MainSubmenu/Stage1" to="." method="OnUIFocusMoved"]
 [connection signal="pressed" from="MainMenu/MainSubmenu/Stage1" to="." method="OnStageOneButtonClicked"]
+[connection signal="focus_exited" from="MainMenu/MainSubmenu/Stage2" to="." method="OnUIFocusMoved"]
 [connection signal="pressed" from="MainMenu/MainSubmenu/Stage2" to="." method="OnStageTwoButtonClicked"]
+[connection signal="focus_exited" from="MainMenu/MainSubmenu/Stage3" to="." method="OnUIFocusMoved"]
 [connection signal="pressed" from="MainMenu/MainSubmenu/Stage3" to="." method="OnStageThreeButtonClicked"]
+[connection signal="focus_exited" from="MainMenu/MainSubmenu/Upgrade" to="." method="OnUIFocusMoved"]
 [connection signal="pressed" from="MainMenu/MainSubmenu/Upgrade" to="." method="OnUpgradeButtonPressed"]
+[connection signal="focus_exited" from="MainMenu/MainSubmenu/Quit" to="." method="OnUIFocusMoved"]
 [connection signal="pressed" from="MainMenu/MainSubmenu/Quit" to="." method="OnQuitClicked"]
