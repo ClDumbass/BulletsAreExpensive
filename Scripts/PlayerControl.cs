@@ -91,7 +91,7 @@ public partial class PlayerControl : Sprite2D
 		this.Position = new Vector2(Math.Clamp(newPos.X, edgeBuffer, 480 - edgeBuffer), Math.Clamp(newPos.Y, edgeBuffer, 270 - edgeBuffer));
 		
 		///Attacking
-		if (Input.IsMouseButtonPressed(MouseButton.Left) && bullets > 0 && bulletCooldown <= 0) {
+		if (Input.IsActionPressed("fire_bullet") && bullets > 0 && bulletCooldown <= 0) {
 			bulletCooldown = 0.3f / (int)Math.Sqrt(bullets);
 			--bullets;
 			BulletScript bulletClone = bulletMaster.Instantiate() as BulletScript;
@@ -106,7 +106,7 @@ public partial class PlayerControl : Sprite2D
 
 			AddSibling(bulletClone);
 		}
-		if (Input.IsMouseButtonPressed(MouseButton.Right) && bombs > 0 && bombCooldown <= 0) {
+		if (Input.IsActionPressed("fire_bomb") && bombs > 0 && bombCooldown <= 0) {
 			--bombs;
 			bombCooldown = 1.0f;
 

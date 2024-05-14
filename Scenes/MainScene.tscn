@@ -57,6 +57,10 @@ offset_right = 172.0
 offset_bottom = 131.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_neighbor_left = NodePath("../Stage3")
+focus_neighbor_top = NodePath("../Quit")
+focus_neighbor_right = NodePath("../Stage2")
+focus_neighbor_bottom = NodePath("../Upgrade")
 text = "Stage 1"
 
 [node name="HighScoreLabel" type="Label" parent="MainMenu/MainSubmenu/Stage1"]
@@ -88,6 +92,10 @@ offset_right = 252.0
 offset_bottom = 131.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_neighbor_left = NodePath("../Stage1")
+focus_neighbor_top = NodePath("../Quit")
+focus_neighbor_right = NodePath("../Stage3")
+focus_neighbor_bottom = NodePath("../Upgrade")
 text = "Stage 2"
 
 [node name="HighScoreLabel" type="Label" parent="MainMenu/MainSubmenu/Stage2"]
@@ -117,6 +125,10 @@ offset_right = 332.0
 offset_bottom = 131.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_neighbor_left = NodePath("../Stage2")
+focus_neighbor_top = NodePath("../Quit")
+focus_neighbor_right = NodePath("../Stage1")
+focus_neighbor_bottom = NodePath("../Upgrade")
 text = "Stage 3"
 
 [node name="HighScoreLabel" type="Label" parent="MainMenu/MainSubmenu/Stage3"]
@@ -139,6 +151,10 @@ offset_left = 208.0
 offset_top = 171.0
 offset_right = 272.0
 offset_bottom = 202.0
+focus_neighbor_left = NodePath("../Stage1")
+focus_neighbor_top = NodePath("../Stage2")
+focus_neighbor_right = NodePath("../Stage3")
+focus_neighbor_bottom = NodePath("../Quit")
 text = "Upgrade"
 
 [node name="Quit" type="Button" parent="MainMenu/MainSubmenu"]
@@ -147,8 +163,12 @@ offset_left = 208.0
 offset_top = 221.0
 offset_right = 272.0
 offset_bottom = 252.0
+focus_neighbor_top = NodePath("../Upgrade")
+focus_neighbor_bottom = NodePath("../Stage2")
 text = "Quit"
 
 [connection signal="tree_exiting" from="." to="." method="OnQuit"]
 [connection signal="pressed" from="MainMenu/MainSubmenu/Stage1" to="." method="OnStageOneButtonClicked"]
+[connection signal="pressed" from="MainMenu/MainSubmenu/Stage2" to="." method="OnStageTwoButtonClicked"]
+[connection signal="pressed" from="MainMenu/MainSubmenu/Stage3" to="." method="OnStageThreeButtonClicked"]
 [connection signal="pressed" from="MainMenu/MainSubmenu/Quit" to="." method="OnQuitClicked"]

@@ -24,6 +24,7 @@ public partial class MainSceneScript : Node
 		MainMenuNode = GetNode<Control>("MainMenu");
 		LoadData();
 		UpdateScoreboard();
+		GetNode<Control>("MainMenu/MainSubmenu/Stage1").GrabFocus();
 	}
 
 	private void UpdateScoreboard() {
@@ -49,6 +50,7 @@ public partial class MainSceneScript : Node
 			activeStage = null;
 			MainMenuNode.Visible = true;
 			MainMenuNode.SetProcess(true);
+			GetNode<Control>("MainMenu/MainSubmenu/Stage1").GrabFocus();
 		}
 	}
 	private void OnStageOneButtonClicked() {
@@ -58,6 +60,14 @@ public partial class MainSceneScript : Node
 		MainMenuNode.Visible = false;
 		MainMenuNode.SetProcess(false);
 	}
+
+	public void OnStageTwoButtonClicked() {
+
+	}
+	public void OnStageThreeButtonClicked() {
+
+	}
+
 	private void OnQuitClicked() {
 		GetTree().Quit();
 	}
