@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cnwyavaed7qqv"]
+[gd_scene load_steps=18 format=3 uid="uid://cnwyavaed7qqv"]
 
 [ext_resource type="Theme" uid="uid://ckubkf5g1yxvq" path="res://Scenes/TestScene.tres" id="1_858y7"]
 [ext_resource type="Script" path="res://Scripts/StageOneScript.cs" id="1_gtsu5"]
@@ -12,6 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://cio0sgegid06e" path="res://Scenes/Enemies/bomber_enemy.tscn" id="7_x2f2s"]
 [ext_resource type="PackedScene" uid="uid://cxt8flx1ksgkx" path="res://Scenes/Enemies/spikeball_enemy.tscn" id="8_audc0"]
 [ext_resource type="PackedScene" uid="uid://cdei1vmldwe7w" path="res://Scenes/Enemies/clumpus.tscn" id="9_olhvm"]
+[ext_resource type="PackedScene" uid="uid://c48kxao2dfidp" path="res://Scenes/Enemies/laser_pair.tscn" id="12_lfjm7"]
+[ext_resource type="AudioStream" uid="uid://jaue38vd6dig" path="res://Audio/SFX/Bullet_FirePlayer_opt-2.mp3" id="13_co4mm"]
+[ext_resource type="AudioStream" uid="uid://bko333va7ekqk" path="res://Audio/SFX/Bullet_Absorb_1.mp3" id="14_xsfje"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_15vmv"]
 radius = 1.0
@@ -31,8 +34,9 @@ flybyEnemy = ExtResource("6_e38qi")
 bomberEnemy = ExtResource("7_x2f2s")
 spikeballEnemy = ExtResource("8_audc0")
 clumpusScene = ExtResource("9_olhvm")
+laserEmitterEnemy = ExtResource("12_lfjm7")
 
-[node name="Player" type="Sprite2D" parent="." node_paths=PackedStringArray("textLabel")]
+[node name="Player" type="Sprite2D" parent="." node_paths=PackedStringArray("textLabel", "bulletFireSound", "absorbSound")]
 position = Vector2(71, 57)
 texture = ExtResource("2_sqbad")
 flip_h = true
@@ -40,6 +44,8 @@ script = ExtResource("3_5tnjq")
 textLabel = NodePath("../UI Base/Panel/Label")
 bulletMaster = ExtResource("4_psmwg")
 bombMaster = ExtResource("7_35ryd")
+bulletFireSound = NodePath("BulletSound")
+absorbSound = NodePath("AbsorbSound")
 
 [node name="Hitbox" type="Area2D" parent="Player"]
 collision_mask = 200
@@ -54,6 +60,12 @@ collision_mask = 40
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Catchbox"]
 scale = Vector2(1.00824, 1.01922)
 shape = SubResource("CircleShape2D_dlmvn")
+
+[node name="BulletSound" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("13_co4mm")
+
+[node name="AbsorbSound" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("14_xsfje")
 
 [node name="UI Base" type="Control" parent="."]
 layout_mode = 3

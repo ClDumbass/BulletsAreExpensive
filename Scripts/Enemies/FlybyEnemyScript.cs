@@ -9,6 +9,8 @@ public partial class FlybyEnemyScript : Node2D
 	public float Speed { get; set; } = 30.0f;
 	[Export]
 	public bool Flip {get; set;} = false;
+	[Export]
+	public AudioStreamPlayer BulletFireSound { get; set; }
 
 	private float timer = 0;
 	// Called when the node enters the scene tree for the first time.
@@ -30,6 +32,7 @@ public partial class FlybyEnemyScript : Node2D
 			} else {
 				FireBullet(Vector2.Down);
 			}
+			BulletFireSound.Play();
 		}
 		Position += new Vector2((float)(-Speed * delta), 0);
 

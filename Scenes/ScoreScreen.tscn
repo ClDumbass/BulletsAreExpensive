@@ -116,7 +116,7 @@ offset_bottom = 220.0
 layout_mode = 0
 offset_right = 120.0
 offset_bottom = 34.0
-text = "Score:"
+text = "Payout"
 
 [node name="Amount" type="Label" parent="Total"]
 layout_mode = 0

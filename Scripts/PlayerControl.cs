@@ -9,14 +9,18 @@ public partial class PlayerControl : Sprite2D
 	public PackedScene bulletMaster { get; set; }
 	[Export]
 	public PackedScene bombMaster { get; set; }
+	[Export]
+	public AudioStreamPlayer bulletFireSound { get; set; }
+    [Export]
+    public AudioStreamPlayer absorbSound { get; set; }
 
-	const float MOVE_SPEED = 90.0f;
+    const float MOVE_SPEED = 90.0f;
 	// Called when the node enters the scene tree for the first time.
 
 	public int Health { get { return health; } }
 	private int health = 3;
 	public int Bullets { get { return bullets; } }
-	private int bullets = 10;
+	private int bullets = 100;
 	public int Bombs { get { return bombs; } }
 	private int bombs = 1;
 	private int mines = 0;
@@ -105,6 +109,7 @@ public partial class PlayerControl : Sprite2D
 			bulletHitbox.CollisionMask = 2;
 
 			AddSibling(bulletClone);
+			bulletFireSound.Play(0.06f);
 		}
 		if (Input.IsActionPressed("fire_bomb") && bombs > 0 && bombCooldown <= 0) {
 			--bombs;
@@ -143,6 +148,7 @@ public partial class PlayerControl : Sprite2D
 		{
 			return;
 		}
+		absorbSound.Play();
 		if (area.GetParent() is BulletScript) {
 			++bullets;
 			Absorbed absorbedEffect = new Absorbed

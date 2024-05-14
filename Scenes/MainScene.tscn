@@ -50,7 +50,7 @@ offset_left = 161.0
 offset_top = 42.0
 offset_right = 229.0
 offset_bottom = 59.0
-text = "Total Score:"
+text = "Total Funds:"
 
 [node name="TotalScore" type="Label" parent="MainMenu/PerkSubmenu/TotalScoreLabel"]
 layout_mode = 0
@@ -165,11 +165,13 @@ text = "Stage 1"
 
 [node name="HighScoreLabel" type="Label" parent="MainMenu/MainSubmenu/Stage1"]
 layout_mode = 0
-offset_top = -32.0
-offset_right = 64.0
-offset_bottom = -15.0
-text = "High Score"
+offset_left = 1.0
+offset_top = -51.0
+offset_right = 61.0
+offset_bottom = -14.0
+text = "Highest Earnings"
 horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="Score" type="Label" parent="MainMenu/MainSubmenu/Stage1"]
 layout_mode = 0
@@ -198,14 +200,6 @@ focus_neighbor_right = NodePath("../Stage3")
 focus_neighbor_bottom = NodePath("../Upgrade")
 text = "Stage 2"
 
-[node name="HighScoreLabel" type="Label" parent="MainMenu/MainSubmenu/Stage2"]
-layout_mode = 0
-offset_top = -32.0
-offset_right = 64.0
-offset_bottom = -15.0
-text = "High Score"
-horizontal_alignment = 1
-
 [node name="Score" type="Label" parent="MainMenu/MainSubmenu/Stage2"]
 layout_mode = 0
 offset_top = -16.0
@@ -213,6 +207,15 @@ offset_right = 64.0
 offset_bottom = 1.0
 text = "N/A"
 horizontal_alignment = 1
+
+[node name="HighScoreLabel2" type="Label" parent="MainMenu/MainSubmenu/Stage2"]
+offset_left = 1.0
+offset_top = -51.0
+offset_right = 61.0
+offset_bottom = -14.0
+text = "Highest Earnings"
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="Stage3" type="Button" parent="MainMenu/MainSubmenu"]
 layout_mode = 1
@@ -233,14 +236,6 @@ focus_neighbor_right = NodePath("../Stage1")
 focus_neighbor_bottom = NodePath("../Upgrade")
 text = "Stage 3"
 
-[node name="HighScoreLabel" type="Label" parent="MainMenu/MainSubmenu/Stage3"]
-layout_mode = 0
-offset_top = -32.0
-offset_right = 64.0
-offset_bottom = -15.0
-text = "High Score"
-horizontal_alignment = 1
-
 [node name="Score" type="Label" parent="MainMenu/MainSubmenu/Stage3"]
 layout_mode = 0
 offset_top = -16.0
@@ -248,6 +243,15 @@ offset_right = 64.0
 offset_bottom = 1.0
 text = "N/A"
 horizontal_alignment = 1
+
+[node name="HighScoreLabel2" type="Label" parent="MainMenu/MainSubmenu/Stage3"]
+offset_left = 1.0
+offset_top = -51.0
+offset_right = 61.0
+offset_bottom = -14.0
+text = "Highest Earnings"
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="Upgrade" type="Button" parent="MainMenu/MainSubmenu"]
 layout_mode = 0

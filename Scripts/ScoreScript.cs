@@ -30,8 +30,8 @@ public partial class ScoreScript : Node
 		GD.Print("Tabulate!");
 		score = bullets + 10 * bombs;
 
-		BulletScoreLabel.Text = bullets.ToString();
-		BombScoreLabel.Text = (10 * bombs).ToString();
+		BulletScoreLabel.Text = bullets.ToString() + "cr";
+		BombScoreLabel.Text = (10 * bombs).ToString() + "cr";
 		if (health <= 0) {
 			HealthScoreLabel.Text = "0.1x";
 			score /= 10;
@@ -41,7 +41,7 @@ public partial class ScoreScript : Node
 			score *= health;
 		}
 
-		TotalScoreLabel.Text =score.ToString();
+		TotalScoreLabel.Text = score.ToString() + "cr";
 	}
 
 	public void OnReturnClicked() {

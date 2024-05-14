@@ -40,9 +40,9 @@ public partial class MainSceneScript : Node
 		Label s2ScoreLabel = GetNode<Label>("MainMenu/MainSubmenu/Stage2/Score");
 		Label s3ScoreLabel = GetNode<Label>("MainMenu/MainSubmenu/Stage3/Score");
 
-		s1ScoreLabel.Text = stageOneHighscore.ToString();
-		s2ScoreLabel.Text = stageTwoHighscore.ToString();
-		s3ScoreLabel.Text = stageThreeHighscore.ToString();
+		s1ScoreLabel.Text = stageOneHighscore.ToString() + "cr";
+		s2ScoreLabel.Text = stageTwoHighscore.ToString() + "cr";
+		s3ScoreLabel.Text = stageThreeHighscore.ToString() + "cr";
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
