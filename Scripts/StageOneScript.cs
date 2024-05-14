@@ -11,6 +11,10 @@ public partial class StageOneScript : BaseStageScript
 	public PlayerControl Player { get; set; }
 	[Export]
 	public PackedScene ScoreScreen { get; set; }
+	[Export]
+	public Control EnrageTimerPanel { get; set; }
+
+	public int LevelRequested = 1;
 
 	// Called when the node enters the scene tree for the first time.
 
@@ -18,9 +22,20 @@ public partial class StageOneScript : BaseStageScript
 	private float offset = 0;
 
 	private PriorityQueue<Node, double> LevelScriptPreBoss = new PriorityQueue<Node, double>();
+	BaseBossScript bossObject;
 	public override void _Ready()
 	{
-		LevelOne();
+		switch (LevelRequested) {
+			case 1:
+				LevelOne();
+				break;
+			case 2:
+				LevelTwo();
+				break;
+			default:
+				LevelThree();
+				break;
+		}
 	}
 
 	private void LevelOne() {
@@ -44,9 +59,18 @@ public partial class StageOneScript : BaseStageScript
 		AddClumpus(60);
 
 
-		for (int i = 8; i < 46; i += 3) {
-			AddSpikeball(35 + (19 * i) % 200, i);
+		for (int i = 8; i < 46; i += 5) {
+			//AddSpikeball(35 + (19 * i) % 200, i);
+			AddSpikeball(135, i);
 		}
+	}
+
+	private void LevelTwo() {
+		AddLaserEmitters(new Vector2(500, 20), new Vector2(500, 60), 0);
+	}
+
+	private void LevelThree() {
+
 	}
 
 	public void EndStage() {
@@ -79,6 +103,14 @@ public partial class StageOneScript : BaseStageScript
 			Node poppedNode = LevelScriptPreBoss.Dequeue();
 			AddChild(poppedNode);
 			LevelScriptPreBoss.TryPeek(out peekNode, out peekPriority);
+			if (LevelScriptPreBoss.Count == 0) {
+				EnrageTimerPanel.Visible = true;
+				bossObject = poppedNode as BaseBossScript;
+			}
+		}
+
+		if (bossObject != null && bossObject.Dead) {
+			EndStage();
 		}
 	}
 
@@ -96,5 +128,9 @@ public partial class StageOneScript : BaseStageScript
 
 	private void AddClumpus (float time) {
 		LevelScriptPreBoss.Enqueue(EnemyMaster.MakeClumpus(), time);
+	}
+
+	private void AddLaserEmitters(Vector2 start, Vector2 end, float time) {
+		LevelScriptPreBoss.Enqueue(EnemyMaster.MakeLaserEmitter(start, end), time);
 	}
 }

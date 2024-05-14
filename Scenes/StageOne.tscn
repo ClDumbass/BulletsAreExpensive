@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cnwyavaed7qqv"]
+[gd_scene load_steps=19 format=3 uid="uid://cnwyavaed7qqv"]
 
 [ext_resource type="Theme" uid="uid://ckubkf5g1yxvq" path="res://Scenes/TestScene.tres" id="1_858y7"]
 [ext_resource type="Script" path="res://Scripts/StageOneScript.cs" id="1_gtsu5"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://c48kxao2dfidp" path="res://Scenes/Enemies/laser_pair.tscn" id="12_lfjm7"]
 [ext_resource type="AudioStream" uid="uid://jaue38vd6dig" path="res://Audio/SFX/Bullet_FirePlayer_opt-2.mp3" id="13_co4mm"]
 [ext_resource type="AudioStream" uid="uid://bko333va7ekqk" path="res://Audio/SFX/Bullet_Absorb_1.mp3" id="14_xsfje"]
+[ext_resource type="AudioStream" uid="uid://djkb3tddlqrcj" path="res://Audio/SFX/Bomb_Fire_2.mp3" id="15_doje5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_15vmv"]
 radius = 1.0
@@ -22,21 +23,23 @@ radius = 1.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_dlmvn"]
 radius = 12.0
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("EnemyMaster", "Player")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("EnemyMaster", "Player", "EnrageTimerPanel")]
 script = ExtResource("1_gtsu5")
 EnemyMaster = NodePath("EnemyMaster")
 Player = NodePath("Player")
 ScoreScreen = ExtResource("2_lkq6o")
+EnrageTimerPanel = NodePath("UI Base/Enrage")
 
-[node name="EnemyMaster" type="Node" parent="."]
+[node name="EnemyMaster" type="Node" parent="." node_paths=PackedStringArray("EnrageTimerLabel")]
 script = ExtResource("1_uwpn2")
 flybyEnemy = ExtResource("6_e38qi")
 bomberEnemy = ExtResource("7_x2f2s")
 spikeballEnemy = ExtResource("8_audc0")
 clumpusScene = ExtResource("9_olhvm")
 laserEmitterEnemy = ExtResource("12_lfjm7")
+EnrageTimerLabel = NodePath("../UI Base/Enrage/TimeRemaining")
 
-[node name="Player" type="Sprite2D" parent="." node_paths=PackedStringArray("textLabel", "bulletFireSound", "absorbSound")]
+[node name="Player" type="Sprite2D" parent="." node_paths=PackedStringArray("textLabel", "bulletFireSound", "absorbSound", "bombFireSound")]
 position = Vector2(71, 57)
 texture = ExtResource("2_sqbad")
 flip_h = true
@@ -46,6 +49,7 @@ bulletMaster = ExtResource("4_psmwg")
 bombMaster = ExtResource("7_35ryd")
 bulletFireSound = NodePath("BulletSound")
 absorbSound = NodePath("AbsorbSound")
+bombFireSound = NodePath("BombLaunchSound")
 
 [node name="Hitbox" type="Area2D" parent="Player"]
 collision_mask = 200
@@ -67,6 +71,9 @@ stream = ExtResource("13_co4mm")
 [node name="AbsorbSound" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource("14_xsfje")
 
+[node name="BombLaunchSound" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("15_doje5")
+
 [node name="UI Base" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -84,6 +91,29 @@ offset_right = 40.0
 offset_bottom = 23.0
 theme = ExtResource("1_858y7")
 text = "Test Text"
+
+[node name="Enrage" type="Panel" parent="UI Base"]
+visible = false
+layout_mode = 0
+offset_left = 419.0
+offset_top = 229.0
+offset_right = 479.0
+offset_bottom = 269.0
+
+[node name="Label" type="Label" parent="UI Base/Enrage"]
+layout_mode = 0
+offset_right = 60.0
+offset_bottom = 23.0
+text = "Doom"
+horizontal_alignment = 1
+
+[node name="TimeRemaining" type="Label" parent="UI Base/Enrage"]
+layout_mode = 0
+offset_top = 16.0
+offset_right = 60.0
+offset_bottom = 39.0
+text = "90.00s"
+horizontal_alignment = 1
 
 [connection signal="area_entered" from="Player/Hitbox" to="Player" method="OnCollision"]
 [connection signal="area_exited" from="Player/Catchbox" to="Player" method="OnBulletExit"]

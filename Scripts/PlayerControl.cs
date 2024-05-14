@@ -13,19 +13,21 @@ public partial class PlayerControl : Sprite2D
 	public AudioStreamPlayer bulletFireSound { get; set; }
     [Export]
     public AudioStreamPlayer absorbSound { get; set; }
+    [Export]
+    public AudioStreamPlayer bombFireSound { get; set; }
 
     const float MOVE_SPEED = 90.0f;
 	// Called when the node enters the scene tree for the first time.
 
 	public int Health { get { return health; } }
-	private int health = 3;
+	private int health = 1000;
 	public int Bullets { get { return bullets; } }
-	private int bullets = 100;
+	private int bullets = 1000;
 	public int Bombs { get { return bombs; } }
 	private int bombs = 1;
 	private int mines = 0;
 
-	private float iframes = 0;
+	public float iframes = 0;
 	private float bulletCooldown = 0;
 	private float bombCooldown = 0;
 	private CollisionShape2D hitbox;
@@ -132,6 +134,7 @@ public partial class PlayerControl : Sprite2D
 			explosionHitbox.CollisionMask = 2;
 
 			AddSibling(bombClone);
+			bombFireSound.Play();
 		}
 	}
 	private void OnCollision(Area2D area) {

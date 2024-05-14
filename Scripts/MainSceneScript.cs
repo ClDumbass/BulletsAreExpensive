@@ -70,7 +70,11 @@ public partial class MainSceneScript : Node
 	}
 
 	public void OnStageTwoButtonClicked() {
-
+		activeStage = StageOne.Instantiate<BaseStageScript>();
+		(activeStage as StageOneScript).LevelRequested = 2;
+		AddChild(activeStage);
+		MainMenuNode.Visible = false;
+		MainMenuNode.SetProcess(false);
 	}
 	public void OnStageThreeButtonClicked() {
 

@@ -2,7 +2,7 @@ using GameJamBulletHell.Scripts.Attacks;
 using Godot;
 using System;
 
-public partial class ClumpusScript : Node2D
+public partial class ClumpusScript : BaseBossScript
 {
 	[Export]
 	public PackedScene BulletMaster { get; set; }
@@ -14,6 +14,11 @@ public partial class ClumpusScript : Node2D
 	public Node2D PlayerNode { get; set; }
 	[Export]
 	public int Health { get; set; } = 500;
+	[Export]
+	public AudioStreamPlayer BombFireSound { get; set; }
+	[Export]
+	public AudioStreamPlayer BulletFireSound { get; set; }
+	public Label EnrageTimerLabel { get; set; }
 
 	private int RArmHealth=100, LArmHealth=100, ClusterLHealth=100, ClusterRHealth = 100, ClusterMHealth = 100;
 	bool clustersDead = false;
@@ -32,7 +37,8 @@ public partial class ClumpusScript : Node2D
 	/// 0 - Coming on screen slowly.
 	/// 1 - Phase 1a, bullet lines and random bombs.
 	/// 2 - Phase 1b, bomb arrays and bullet cones.
-	/// 12 - Boss has only the core left and thus begins summoning reinforcements
+	/// 11 - Boss has only the core left and thus begins summoning reinforcements
+	/// 12 - Enrage has begun
 	/// 13 - Death sequence?
 	/// </summary>
 	int sequence = 0;
@@ -62,6 +68,8 @@ public partial class ClumpusScript : Node2D
 	public override void _Process(double delta)
 	{
 		timer += (float)delta;
+		EnrageTimer -= (float)delta;
+		EnrageTimerLabel.Text = EnrageTimer.ToString("0.00") + "s";
 
 		//check for add spawning conditions related to breaking the arms
 		if ((LArmHealth <=0 || RArmHealth <= 0) && sequence < 13) {
@@ -89,7 +97,13 @@ public partial class ClumpusScript : Node2D
 		}
 
 		//Check for add spawn condition for the cores being broken
-		if (clustersDead && sequence < 12) {
+		if (clustersDead && sequence < 11) {
+			sequence = 11;
+			specialCounter = 0;
+		}
+
+		//Check for enrage
+		if (Health > 0 && sequence < 12 && EnrageTimer <= 0f) {
 			sequence = 12;
 			specialCounter = 0;
 		}
@@ -183,20 +197,32 @@ public partial class ClumpusScript : Node2D
 					specialCounter = 0;
 				}
 				break;
-			case 12:
-				if (timer > 1.0f) {
+			case 11:
+				if (timer > 3.0f) {
 					++specialCounter;
 					timer -= 1.0f;
-					AddChild(EnemyMaster.MakeSpikeballEnemy(30 + 50 * (specialCounter % 5)));
+					AddChild(EnemyMaster.MakeSpikeballEnemy(135));
+				}
+				break;
+			case 12:
+				if (timer > 0.5f) {
+					timer -= 0.5f;
+					AddChild(EnemyMaster.MakeSpikeballEnemy(15));
+					AddChild(EnemyMaster.MakeSpikeballEnemy(45));
+					AddChild(EnemyMaster.MakeSpikeballEnemy(75));
+					AddChild(EnemyMaster.MakeSpikeballEnemy(105));
+					AddChild(EnemyMaster.MakeSpikeballEnemy(135));
+					AddChild(EnemyMaster.MakeSpikeballEnemy(165));
+					AddChild(EnemyMaster.MakeSpikeballEnemy(195));
+					AddChild(EnemyMaster.MakeSpikeballEnemy(225));
+					AddChild(EnemyMaster.MakeSpikeballEnemy(255));
 				}
 				break;
 			case 13:
-				//allow time for death animation
+				//allow time for death animation, but make the player invuln so they don't lose
+				(PlayerNode as PlayerControl).iframes = 1000;
 				if (timer >= 2.0f) {
-					//then clear screen of baddies
-					foreach (Node n in GetParent().GetChildren()) {
-						n.QueueFree();
-					}
+					Dead = true;
 				}
 				break;
 			default:
@@ -221,6 +247,7 @@ public partial class ClumpusScript : Node2D
 		bulletClone.InitialPosition = sourcePos;
 		bulletClone.Direction = direction;
 		GetParent().AddChild(bulletClone);
+		BulletFireSound.Play();
 	}
 
 	private void FireBomb(Vector2 sourcePos, Vector2 target) {
@@ -230,6 +257,7 @@ public partial class ClumpusScript : Node2D
 		bombClone.Radius = 19;
 		bombClone.Speed = MathF.Abs(0.2f * (sourcePos.X - target.X)) + 30f;
 		GetParent().AddChild(bombClone);
+		BombFireSound.Play();
 	}
 
 	private void OnCoreHit(Area2D area) {

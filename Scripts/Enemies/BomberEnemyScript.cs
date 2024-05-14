@@ -9,6 +9,8 @@ public partial class BomberEnemyScript : Node2D
 	public float Speed { get; set; } = 30.0f;
 	[Export]
 	public bool Flip { get; set; } = false;
+	[Export]
+	public AudioStreamPlayer BombFireSound { get; set; }
 
 	private float timer = 0;
 	// Called when the node enters the scene tree for the first time.
@@ -39,6 +41,7 @@ public partial class BomberEnemyScript : Node2D
 				bombClone.Visible = true;
 
 				GetParent().AddChild(bombClone);
+				BombFireSound.Play();
 			}
 		}
 		Position += new Vector2((float)(-Speed * delta), 0);

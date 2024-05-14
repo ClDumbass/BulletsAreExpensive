@@ -37,6 +37,9 @@ public partial class ScoreScript : Node
 			score /= 10;
 			TitleLabel.Text = "YOU DIED";
 		} else {
+			if (health > 3) {
+				health = 3;
+			}
 			HealthScoreLabel.Text = health.ToString() + "x";
 			score *= health;
 		}

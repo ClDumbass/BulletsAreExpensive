@@ -6,6 +6,8 @@ public partial class SpikeballEnemyScript : Node2D
 	[Export]
 	PackedScene bulletMaster { get; set; }
 	[Export]
+	AudioStreamPlayer BulletSound { get; set; }
+	[Export]
 	float Speed { get; set; } = 49;
 
 	/// <summary>
@@ -37,6 +39,7 @@ public partial class SpikeballEnemyScript : Node2D
 					FireBullet(Vector2.Down.Rotated(Rotation));
 					FireBullet(Vector2.Left.Rotated(Rotation));
 					FireBullet(Vector2.Right.Rotated(Rotation));
+					BulletSound.Play();
 				}
 				break;
 			case 1:
@@ -49,23 +52,23 @@ public partial class SpikeballEnemyScript : Node2D
 				//Trying to make it turn exactly 135 degrees every 0.3s
 				Rotation += (float)delta * (3 * MathF.PI / 1.2f);
 
-                if (Rotation >= targetRotation) { //using this as the seqeuence change condition allows forcing it on the exact correct frame
+				if (Rotation >= targetRotation) { //using this as the seqeuence change condition allows forcing it on the exact correct frame
 					sequence = 0;
 					timer = 0;
 					Rotation = targetRotation; //force away the little errors
 					targetRotation = Rotation + 3 * MathF.PI / 4;
-                }
+				}
 				break;
 			default:
 				sequence = 0;
 				timer = 0;
 				break;
-        }
+		}
 
-        if (Position.X <= -100) {
-            QueueFree();
-        }
-    }
+		if (Position.X <= -100) {
+			QueueFree();
+		}
+	}
 	private void FireBullet(Vector2 direction) {
 		BulletScript bulletClone = bulletMaster.Instantiate() as BulletScript;
 		bulletClone.InitialPosition = Position;

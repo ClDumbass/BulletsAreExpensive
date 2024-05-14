@@ -13,6 +13,8 @@ public partial class EnemyMasterScript : Node
 	public PackedScene clumpusScene { get; set; }
 	[Export]
 	public PackedScene laserEmitterEnemy { get; set; }
+	[Export]
+	public Label EnrageTimerLabel { get; set; }
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -60,6 +62,7 @@ public partial class EnemyMasterScript : Node
 
 		clumpusScript.PlayerNode = GetNode("../Player") as Node2D;
 		clumpusScript.EnemyMaster = this;
+		clumpusScript.EnrageTimerLabel = EnrageTimerLabel;
 
 		return clumpusScript;
 	}
