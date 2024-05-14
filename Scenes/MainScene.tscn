@@ -199,6 +199,7 @@ focus_neighbor_bottom = NodePath("../Upgrade")
 text = "Stage 2"
 
 [node name="HighScoreLabel" type="Label" parent="MainMenu/MainSubmenu/Stage2"]
+layout_mode = 0
 offset_top = -32.0
 offset_right = 64.0
 offset_bottom = -15.0
@@ -206,6 +207,7 @@ text = "High Score"
 horizontal_alignment = 1
 
 [node name="Score" type="Label" parent="MainMenu/MainSubmenu/Stage2"]
+layout_mode = 0
 offset_top = -16.0
 offset_right = 64.0
 offset_bottom = 1.0
@@ -232,6 +234,7 @@ focus_neighbor_bottom = NodePath("../Upgrade")
 text = "Stage 3"
 
 [node name="HighScoreLabel" type="Label" parent="MainMenu/MainSubmenu/Stage3"]
+layout_mode = 0
 offset_top = -32.0
 offset_right = 64.0
 offset_bottom = -15.0
@@ -239,6 +242,7 @@ text = "High Score"
 horizontal_alignment = 1
 
 [node name="Score" type="Label" parent="MainMenu/MainSubmenu/Stage3"]
+layout_mode = 0
 offset_top = -16.0
 offset_right = 64.0
 offset_bottom = 1.0

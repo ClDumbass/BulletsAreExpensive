@@ -23,6 +23,12 @@ HealthScoreLabel = NodePath("Health/Amount")
 TotalScoreLabel = NodePath("Total/Amount")
 TitleLabel = NodePath("BigLabel")
 
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 110.0
+offset_right = 370.0
+offset_bottom = 270.0
+
 [node name="BigLabel" type="Label" parent="."]
 layout_mode = 0
 offset_right = 480.0
@@ -121,6 +127,7 @@ text = "1928"
 horizontal_alignment = 2
 
 [node name="Quit" type="Button" parent="."]
+layout_mode = 0
 offset_left = 114.0
 offset_top = 221.0
 offset_right = 366.0
