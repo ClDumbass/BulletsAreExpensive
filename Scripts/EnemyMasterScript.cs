@@ -11,6 +11,8 @@ public partial class EnemyMasterScript : Node
 	public PackedScene spikeballEnemy { get; set; }
 	[Export]
 	public PackedScene clumpusScene { get; set; }
+	[Export]
+	public PackedScene laserEmitterEnemy { get; set; }
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -61,4 +63,18 @@ public partial class EnemyMasterScript : Node
 
 		return clumpusScript;
 	}
+
+	/// <summary>
+	/// Creates a laser beam enemy with destroyables at the given endpoints,
+	/// dealing damage to the player at point between.
+	/// </summary>
+	/// <param name="start"></param>
+	/// <param name="end"></param>
+	/// <returns></returns>
+	public Node MakeLaserEmitter(Vector2 start, Vector2 end) {
+        LaserPair laserPairScript = laserEmitterEnemy.Instantiate() as LaserPair;
+		laserPairScript.InitialPosA = start;
+		laserPairScript.InitialPosB = end;
+        return laserPairScript;
+    }
 }

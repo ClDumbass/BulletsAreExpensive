@@ -42,7 +42,7 @@ bulletMaster = ExtResource("4_psmwg")
 bombMaster = ExtResource("7_35ryd")
 
 [node name="Hitbox" type="Area2D" parent="Player"]
-collision_mask = 8
+collision_mask = 200
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Hitbox"]
 shape = SubResource("CircleShape2D_15vmv")

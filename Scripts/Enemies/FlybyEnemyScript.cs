@@ -33,15 +33,16 @@ public partial class FlybyEnemyScript : Node2D
 		}
 		Position += new Vector2((float)(-Speed * delta), 0);
 
-        if (Position.X <= -100) {
-            QueueFree();
-        }
-    }
+		if (Position.X <= -100) {
+			QueueFree();
+		}
+	}
 
 	private void FireBullet(Vector2 direction) {
 		BulletScript bulletClone = bulletMaster.Instantiate() as BulletScript;
 		bulletClone.InitialPosition = Position;
 		bulletClone.Direction = direction;
+		bulletClone.Speed = 40.0f;
 		bulletClone.Visible = true;
 		GetParent().AddChild(bulletClone);
 	}

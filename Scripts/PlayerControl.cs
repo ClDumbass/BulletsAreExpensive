@@ -76,13 +76,13 @@ public partial class PlayerControl : Sprite2D
 			positionOffset.Y += 1;
 		}
 
-		if (positionOffset.Y != 0 && positionOffset.X != 0) {
-			positionOffset = new Vector2(positionOffset.X * 0.7f * speed, 
-										 positionOffset.Y * 0.7f * speed);
-		} else {
+		//if (positionOffset.Y != 0 && positionOffset.X != 0) {
+		//	positionOffset = new Vector2(positionOffset.X * 0.7f * speed, 
+		//								 positionOffset.Y * 0.7f * speed);
+		//} else {
 			positionOffset = new Vector2(positionOffset.X * speed, 
 										 positionOffset.Y * speed);
-		}
+		//}
 
 		Vector2 newPos = this.Position + positionOffset;
 

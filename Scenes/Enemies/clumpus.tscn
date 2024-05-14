@@ -25,6 +25,7 @@ BulletMaster = ExtResource("2_h67ha")
 BombMaster = ExtResource("3_1b7v7")
 
 [node name="HealthBars" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0.498039)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
