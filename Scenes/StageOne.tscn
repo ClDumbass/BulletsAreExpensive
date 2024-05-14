@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://cnwyavaed7qqv"]
+[gd_scene load_steps=15 format=3 uid="uid://cnwyavaed7qqv"]
 
 [ext_resource type="Theme" uid="uid://ckubkf5g1yxvq" path="res://Scenes/TestScene.tres" id="1_858y7"]
 [ext_resource type="Script" path="res://Scripts/StageOneScript.cs" id="1_gtsu5"]
 [ext_resource type="Script" path="res://Scripts/EnemyMasterScript.cs" id="1_uwpn2"]
+[ext_resource type="PackedScene" uid="uid://cukvuyv4bc2n8" path="res://Scenes/ScoreScreen.tscn" id="2_lkq6o"]
 [ext_resource type="Texture2D" uid="uid://dcl1av4hlxtcw" path="res://Sprites/TestSprite.png" id="2_sqbad"]
 [ext_resource type="Script" path="res://Scripts/PlayerControl.cs" id="3_5tnjq"]
 [ext_resource type="PackedScene" uid="uid://p2314b3027pa" path="res://Scenes/Attacks/EnemyBullet.tscn" id="4_psmwg"]
@@ -22,6 +23,7 @@ radius = 12.0
 script = ExtResource("1_gtsu5")
 EnemyMaster = NodePath("EnemyMaster")
 Player = NodePath("Player")
+ScoreScreen = ExtResource("2_lkq6o")
 
 [node name="EnemyMaster" type="Node" parent="."]
 script = ExtResource("1_uwpn2")

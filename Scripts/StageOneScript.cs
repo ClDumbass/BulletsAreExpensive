@@ -9,6 +9,8 @@ public partial class StageOneScript : BaseStageScript
 	public EnemyMasterScript EnemyMaster { get; set; }
 	[Export]
 	public PlayerControl Player { get; set; }
+	[Export]
+	public PackedScene ScoreScreen { get; set; }
 
 	// Called when the node enters the scene tree for the first time.
 
@@ -48,8 +50,16 @@ public partial class StageOneScript : BaseStageScript
 	}
 
 	public void EndStage() {
-		Score = Player.Bullets + 10 * Player.Bombs;
-		StageComplete = true;
+		GD.Print("Hello?!");
+		ScoreScript scoreScript = ScoreScreen.Instantiate() as ScoreScript;
+		AddSibling(scoreScript);
+		scoreScript.TabulateScore(Player.Bullets, Player.Bombs, Player.Health);
+		scoreScript.stageScript = this;
+
+		this.SetProcess(false);
+		Godot.Collections.Array args = new Godot.Collections.Array{ false };
+		this.PropagateCall("set_process", args);
+		Player.SetProcess(false);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -57,8 +67,7 @@ public partial class StageOneScript : BaseStageScript
 	{
 		timer += delta;
 		if (Player.Health <=0 ) {
-			Score = -1;
-			StageComplete = true;
+			EndStage();
 			return;
 		}
 

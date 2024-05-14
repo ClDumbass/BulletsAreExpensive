@@ -1,0 +1,132 @@
+[gd_scene load_steps=4 format=3 uid="uid://cukvuyv4bc2n8"]
+
+[ext_resource type="Script" path="res://Scripts/ScoreScript.cs" id="1_a6xqe"]
+
+[sub_resource type="Theme" id="Theme_a8bma"]
+default_font_size = 24
+
+[sub_resource type="Theme" id="Theme_b8fb1"]
+default_font_size = 36
+
+[node name="ScoreScreen" type="Control" node_paths=PackedStringArray("BulletScoreLabel", "BombScoreLabel", "HealthScoreLabel", "TotalScoreLabel", "TitleLabel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_a8bma")
+script = ExtResource("1_a6xqe")
+BulletScoreLabel = NodePath("Bullets/Amount")
+BombScoreLabel = NodePath("Bombs/Amount")
+HealthScoreLabel = NodePath("Health/Amount")
+TotalScoreLabel = NodePath("Total/Amount")
+TitleLabel = NodePath("BigLabel")
+
+[node name="BigLabel" type="Label" parent="."]
+layout_mode = 0
+offset_right = 480.0
+offset_bottom = 67.0
+theme = SubResource("Theme_b8fb1")
+text = "VICTORY"
+horizontal_alignment = 1
+
+[node name="Bullets" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 120.0
+offset_top = 60.0
+offset_right = 360.0
+offset_bottom = 100.0
+
+[node name="ItemLabel" type="Label" parent="Bullets"]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 34.0
+text = "Bullets:"
+
+[node name="Amount" type="Label" parent="Bullets"]
+layout_mode = 0
+offset_left = 120.0
+offset_right = 240.0
+offset_bottom = 34.0
+text = "844"
+horizontal_alignment = 2
+
+[node name="Bombs" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 120.0
+offset_top = 100.0
+offset_right = 360.0
+offset_bottom = 140.0
+
+[node name="ItemLabel" type="Label" parent="Bombs"]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 34.0
+text = "Bombs x10:"
+
+[node name="Amount" type="Label" parent="Bombs"]
+layout_mode = 0
+offset_left = 120.0
+offset_right = 240.0
+offset_bottom = 34.0
+text = "120"
+horizontal_alignment = 2
+
+[node name="Health" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 120.0
+offset_top = 140.0
+offset_right = 360.0
+offset_bottom = 180.0
+
+[node name="ItemLabel" type="Label" parent="Health"]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 34.0
+text = "Health:"
+
+[node name="Amount" type="Label" parent="Health"]
+layout_mode = 0
+offset_left = 120.0
+offset_right = 240.0
+offset_bottom = 34.0
+text = "*2"
+horizontal_alignment = 2
+
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2(120, 180)
+points = PackedVector2Array(0, 0, 240, 0)
+width = 3.0
+
+[node name="Total" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 120.0
+offset_top = 180.0
+offset_right = 360.0
+offset_bottom = 220.0
+
+[node name="ItemLabel" type="Label" parent="Total"]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 34.0
+text = "Score:"
+
+[node name="Amount" type="Label" parent="Total"]
+layout_mode = 0
+offset_left = 120.0
+offset_right = 240.0
+offset_bottom = 34.0
+text = "1928"
+horizontal_alignment = 2
+
+[node name="Quit" type="Button" parent="."]
+offset_left = 114.0
+offset_top = 221.0
+offset_right = 366.0
+offset_bottom = 263.0
+focus_neighbor_top = NodePath("../Upgrade")
+focus_neighbor_bottom = NodePath("../Stage2")
+text = "Return to Main Menu"
+
+[connection signal="pressed" from="Quit" to="." method="OnReturnClicked"]

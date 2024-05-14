@@ -14,7 +14,7 @@ public partial class PlayerControl : Sprite2D
 	// Called when the node enters the scene tree for the first time.
 
 	public int Health { get { return health; } }
-	private int health = 3;
+	private int health = 1;
 	public int Bullets { get { return bullets; } }
 	private int bullets = 10;
 	public int Bombs { get { return bombs; } }
