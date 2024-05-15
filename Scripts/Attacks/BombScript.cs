@@ -7,6 +7,8 @@ public partial class BombScript : AttackBaseScript
 	public override int Damage { get { return 10; } }
 
 	[Export]
+	public AudioStreamPlayer ExplosionSound { get; set; }
+	[Export]
 	public Vector2 InitialPosition { get; set; }
 	[Export]
 	public Vector2 TargetLocation { get; set; }
@@ -59,6 +61,8 @@ public partial class BombScript : AttackBaseScript
 			explosionNode.Visible = true;
 			explosionNode.Position = TargetLocation;
 			timer = 0;
+			ExplosionSound.Play();
+
 		} else {
 			QueueRedraw();
 		}
@@ -77,5 +81,6 @@ public partial class BombScript : AttackBaseScript
 		explosionNode.Visible = true;
 		bombNode.Visible = false;
 		timer = 0;
+		ExplosionSound.Play();
 	}
 }

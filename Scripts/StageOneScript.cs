@@ -67,6 +67,8 @@ public partial class StageOneScript : BaseStageScript
 
 	private void LevelTwo() {
 		AddLaserEmitters(new Vector2(500, 20), new Vector2(500, 60), 0);
+		AddLaserEmitters(new Vector2(490, 50), new Vector2(600, 50), 0);
+		AddLaserEmitters(new Vector2(590, 40), new Vector2(590, 100), 0);
 	}
 
 	private void LevelThree() {

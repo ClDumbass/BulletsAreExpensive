@@ -13,7 +13,7 @@ public partial class ClumpusScript : BaseBossScript
 	[Export]
 	public Node2D PlayerNode { get; set; }
 	[Export]
-	public int Health { get; set; } = 500;
+	public int Health { get; set; } = 300;
 	[Export]
 	public AudioStreamPlayer BombFireSound { get; set; }
 	[Export]
@@ -72,7 +72,7 @@ public partial class ClumpusScript : BaseBossScript
 		EnrageTimerLabel.Text = EnrageTimer.ToString("0.00") + "s";
 
 		//check for add spawning conditions related to breaking the arms
-		if ((LArmHealth <=0 || RArmHealth <= 0) && sequence < 13) {
+		if ((LArmHealth <=0 || RArmHealth <= 0) && sequence < 12) {
 			addsTimer += (float)delta;
 
 			if (addsTimer > 3.0f) { 
@@ -112,6 +112,7 @@ public partial class ClumpusScript : BaseBossScript
 		if (Health <= 0 && sequence < 13) {
 			sequence = 13;
 			timer = 0;
+			(PlayerNode as PlayerControl).iframes = 1000;
 		}
 
 		//Handle basic attack pattern sequences
@@ -220,7 +221,6 @@ public partial class ClumpusScript : BaseBossScript
 				break;
 			case 13:
 				//allow time for death animation, but make the player invuln so they don't lose
-				(PlayerNode as PlayerControl).iframes = 1000;
 				if (timer >= 2.0f) {
 					Dead = true;
 				}

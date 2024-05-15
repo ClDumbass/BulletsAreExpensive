@@ -23,7 +23,7 @@ public partial class BomberEnemyScript : Node2D
 		if (!Visible) return;
 
 		timer += (float)delta;
-		if (timer > 4) {
+		if (timer > 3.75) {
 			timer = 0;
 			BombScript bombClone;
 
@@ -37,7 +37,7 @@ public partial class BomberEnemyScript : Node2D
 					bombClone.TargetLocation = GlobalPosition + new Vector2(0, 32 * (i + 1));
 				}
 				bombClone.Radius = 20;
-				bombClone.Speed = 20 * (i + 1);
+				bombClone.Speed = 10 + 10 * (i + 1);
 				bombClone.Visible = true;
 
 				GetParent().AddChild(bombClone);
