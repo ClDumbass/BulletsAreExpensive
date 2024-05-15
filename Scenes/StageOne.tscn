@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cnwyavaed7qqv"]
+[gd_scene load_steps=23 format=3 uid="uid://cnwyavaed7qqv"]
 
 [ext_resource type="Theme" uid="uid://ckubkf5g1yxvq" path="res://Scenes/TestScene.tres" id="1_858y7"]
 [ext_resource type="Script" path="res://Scripts/StageOneScript.cs" id="1_gtsu5"]
@@ -19,6 +19,7 @@
 [ext_resource type="AudioStream" uid="uid://jaue38vd6dig" path="res://Audio/SFX/Bullet_FirePlayer_opt-2.mp3" id="13_co4mm"]
 [ext_resource type="AudioStream" uid="uid://bko333va7ekqk" path="res://Audio/SFX/Bullet_Absorb_1.mp3" id="14_xsfje"]
 [ext_resource type="AudioStream" uid="uid://djkb3tddlqrcj" path="res://Audio/SFX/Bomb_Fire_2.mp3" id="15_doje5"]
+[ext_resource type="AudioStream" uid="uid://brc3u4phe4xt2" path="res://Audio/SFX/Player_Damaged.mp3" id="19_15aqo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_15vmv"]
 radius = 1.0
@@ -45,7 +46,7 @@ gigaspinnyEnemy = ExtResource("10_qokfo")
 twinziesScene = ExtResource("11_e0qbs")
 EnrageTimerLabel = NodePath("../UI Base/Enrage/TimeRemaining")
 
-[node name="Player" type="Sprite2D" parent="." node_paths=PackedStringArray("textLabel", "bulletFireSound", "absorbSound", "bombFireSound")]
+[node name="Player" type="Sprite2D" parent="." node_paths=PackedStringArray("textLabel", "bulletFireSound", "absorbSound", "bombFireSound", "damagedSound")]
 position = Vector2(71, 57)
 texture = ExtResource("2_sqbad")
 flip_h = true
@@ -56,6 +57,7 @@ bombMaster = ExtResource("7_35ryd")
 bulletFireSound = NodePath("BulletSound")
 absorbSound = NodePath("AbsorbSound")
 bombFireSound = NodePath("BombLaunchSound")
+damagedSound = NodePath("PlayerDamaged")
 
 [node name="Hitbox" type="Area2D" parent="Player"]
 collision_mask = 200
@@ -76,9 +78,13 @@ stream = ExtResource("13_co4mm")
 
 [node name="AbsorbSound" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource("14_xsfje")
+volume_db = -6.9
 
 [node name="BombLaunchSound" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource("15_doje5")
+
+[node name="PlayerDamaged" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("19_15aqo")
 
 [node name="UI Base" type="Control" parent="."]
 layout_mode = 3

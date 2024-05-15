@@ -37,7 +37,7 @@ texture = ExtResource("1_1q5vq")
 shape = SubResource("CircleShape2D_o6y2x")
 
 [node name="Beam" type="Area2D" parent="."]
-collision_layer = 128
+collision_layer = 130
 collision_mask = 0
 
 [node name="Shape" type="CollisionShape2D" parent="Beam"]

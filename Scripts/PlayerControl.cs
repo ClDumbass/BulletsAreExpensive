@@ -15,14 +15,16 @@ public partial class PlayerControl : Sprite2D
     public AudioStreamPlayer absorbSound { get; set; }
     [Export]
     public AudioStreamPlayer bombFireSound { get; set; }
+    [Export]
+    public AudioStreamPlayer damagedSound { get; set; }
 
     const float MOVE_SPEED = 90.0f;
 	// Called when the node enters the scene tree for the first time.
 
 	public int Health { get { return health; } }
-	private int health = 1000;
+	private int health = 3;
 	public int Bullets { get { return bullets; } }
-	private int bullets = 1000;
+	private int bullets = 10;
 	public int Bombs { get { return bombs; } }
 	private int bombs = 1;
 	private int mines = 0;
@@ -145,7 +147,9 @@ public partial class PlayerControl : Sprite2D
 
 		--health;
 		iframes = 3.0f;
-	}
+		damagedSound.Play();
+
+    }
 	private void OnBulletExit(Area2D area) {
 		if ( area.IsQueuedForDeletion() || area.GetParent().IsQueuedForDeletion() || Health <=0)
 		{

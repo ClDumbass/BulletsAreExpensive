@@ -11,6 +11,7 @@ public partial class GigaspinnyScript : Node2D
     float Speed { get; set; } = 30;
 
     private float timer = 0;
+    private int health = 10;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
@@ -44,6 +45,9 @@ public partial class GigaspinnyScript : Node2D
         GetParent().AddChild(bulletClone);
     }
     private void OnCollision(Area2D area) {
-        QueueFree();
+        --health;
+        if (health <= 0) {
+            QueueFree();
+        }
     }
 }
