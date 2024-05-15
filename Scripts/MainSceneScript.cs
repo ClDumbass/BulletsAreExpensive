@@ -17,6 +17,7 @@ public partial class MainSceneScript : Node
 	private Control MainSubmenuNode;
 	private Control PerkSubmenuNode;
 	private BaseStageScript activeStage;
+	int activeStageIndex = 1;
 
 	private int stageOneHighscore = 0;
 	private int stageTwoHighscore = 0;
@@ -49,12 +50,26 @@ public partial class MainSceneScript : Node
 	public override void _Process(double delta)
 	{
 		if (activeStage != null && activeStage.StageComplete) {
-			if (stageOneHighscore < activeStage.Score) {
-				stageOneHighscore = activeStage.Score;
-				UpdateScoreboard();
-			}
+			if (activeStageIndex == 1) {
+                if (stageOneHighscore < activeStage.Score) {
+                    stageOneHighscore = activeStage.Score;
+                    UpdateScoreboard();
+                }
+            }
+            if (activeStageIndex == 2) {
+                if (stageTwoHighscore < activeStage.Score) {
+                    stageTwoHighscore = activeStage.Score;
+                    UpdateScoreboard();
+                }
+            }
+            if (activeStageIndex == 3) {
+                if (stageThreeHighscore < activeStage.Score) {
+                    stageThreeHighscore = activeStage.Score;
+                    UpdateScoreboard();
+                }
+            }
 
-			activeStage.QueueFree();
+            activeStage.QueueFree();
 			activeStage = null;
 			MainMenuNode.Visible = true;
 			MainMenuNode.SetProcess(true);
@@ -67,6 +82,7 @@ public partial class MainSceneScript : Node
 		AddChild(activeStage);
 		MainMenuNode.Visible = false;
 		MainMenuNode.SetProcess(false);
+		activeStageIndex = 1;
 	}
 
 	public void OnStageTwoButtonClicked() {
@@ -75,7 +91,8 @@ public partial class MainSceneScript : Node
 		AddChild(activeStage);
 		MainMenuNode.Visible = false;
 		MainMenuNode.SetProcess(false);
-	}
+        activeStageIndex = 2;
+    }
 	public void OnStageThreeButtonClicked() {
 
 	}
