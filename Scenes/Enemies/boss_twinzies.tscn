@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpth2gqbcqvrw"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/TwinziesScript.cs" id="1_nr2eq"]
+[ext_resource type="Texture2D" uid="uid://ohmqpq1ocx1p" path="res://Sprites/boss_sprite.png" id="1_vkw1s"]
+
+[node name="BossTwinzies" type="Node2D"]
+script = ExtResource("1_nr2eq")
+
+[node name="PairedMovement" type="Node2D" parent="."]
+position = Vector2(0, 32)
+
+[node name="Top" type="Sprite2D" parent="PairedMovement"]
+texture = ExtResource("1_vkw1s")
+
+[node name="Bottom" type="Sprite2D" parent="PairedMovement"]
+position = Vector2(0, 206)
+texture = ExtResource("1_vkw1s")
+flip_v = true

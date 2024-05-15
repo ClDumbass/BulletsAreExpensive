@@ -209,6 +209,7 @@ text = "N/A"
 horizontal_alignment = 1
 
 [node name="HighScoreLabel2" type="Label" parent="MainMenu/MainSubmenu/Stage2"]
+layout_mode = 0
 offset_left = 1.0
 offset_top = -51.0
 offset_right = 61.0
@@ -245,6 +246,7 @@ text = "N/A"
 horizontal_alignment = 1
 
 [node name="HighScoreLabel2" type="Label" parent="MainMenu/MainSubmenu/Stage3"]
+layout_mode = 0
 offset_left = 1.0
 offset_top = -51.0
 offset_right = 61.0

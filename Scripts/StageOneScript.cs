@@ -66,27 +66,65 @@ public partial class StageOneScript : BaseStageScript
 	}
 
 	private void LevelTwo() {
-		AddLaserEmitters(new Vector2(530, 20), new Vector2(500, 180), 0);
-		AddLaserEmitters(new Vector2(530, 90), new Vector2(500, 250), 1);
-		AddLaserEmitters(new Vector2(530, 90), new Vector2(560, 250), 1);
-		AddLaserEmitters(new Vector2(530, 20), new Vector2(560, 180), 2);
 
-		AddPeekaboo(33, Vector2.Left, 2);
+		/// Formation 1
+		float formation1start = 0;
+		AddLaserEmitters(new Vector2(530, 20), new Vector2(500, 180), formation1start + 0);
+		AddLaserEmitters(new Vector2(530, 90), new Vector2(500, 250), formation1start + 1);
+		AddLaserEmitters(new Vector2(530, 90), new Vector2(560, 250), formation1start + 1);
+		AddLaserEmitters(new Vector2(530, 20), new Vector2(560, 180), formation1start + 2);
+		AddPeekaboo(33, Vector2.Left, formation1start + 2);
+
+
+		/// Formation 2
+		float formation2start = 8;
 		//formation 2, horizontals
-		AddLaserEmitters(new Vector2(540,  45), new Vector2(760,  45), 8);
-		AddLaserEmitters(new Vector2(660, 105), new Vector2(760, 105), 8);
-		AddLaserEmitters(new Vector2(600, 165), new Vector2(660, 165), 8);
-		AddLaserEmitters(new Vector2(600, 225), new Vector2(780, 225), 8);
+		AddLaserEmitters(new Vector2(540, 45), new Vector2(760, 45), formation2start);
+		AddLaserEmitters(new Vector2(660, 105), new Vector2(760, 105), formation2start);
+		AddLaserEmitters(new Vector2(600, 165), new Vector2(660, 165), formation2start);
+		AddLaserEmitters(new Vector2(600, 225), new Vector2(780, 225), formation2start);
 		//formation 2, diagonals
-		AddLaserEmitters(new Vector2(540,  45), new Vector2(660, 165), 8);
-		AddLaserEmitters(new Vector2(660, 105), new Vector2(780, 225), 8);
+		AddLaserEmitters(new Vector2(540, 45), new Vector2(660, 165), formation2start);
+		AddLaserEmitters(new Vector2(660, 105), new Vector2(780, 225), formation2start);
 		//formation 2, peekaboo
-		AddPeekaboo(180, Vector2.Left, 10);
-		AddPeekaboo(205, Vector2.Left, 10);
-		AddPeekaboo(60, Vector2.Left, 14);
-		AddPeekaboo(85, Vector2.Left, 14);
+		AddPeekaboo(180, Vector2.Left, formation2start + 2);
+		AddPeekaboo(205, Vector2.Left, formation2start + 2);
+		AddPeekaboo(60, Vector2.Left, formation2start + 6);
+		AddPeekaboo(85, Vector2.Left, formation2start + 6);
 		//formation 2, bomber that messes with you
-		AddFlybyBomb(false, 12);
+		AddFlybyBomb(false, formation2start + 4);
+
+
+		/// Formation 3
+		float formation3start = 22;
+		AddLaserEmitters(new Vector2(500, 50), new Vector2(600, 50), formation3start);
+		AddLaserEmitters(new Vector2(500, 220), new Vector2(600, 220), formation3start);
+		AddLaserEmitters(new Vector2(500, 50), new Vector2(500, 220), formation3start);
+		AddLaserEmitters(new Vector2(600, 50), new Vector2(600, 220), formation3start);
+		AddGigaspinny(135, formation3start + 1.67f);
+		AddPeekaboo(35, Vector2.Left, formation3start + 1.67f);
+		AddPeekaboo(235, Vector2.Left, formation3start + 1.67f);
+
+
+		///Formation 4
+		float formation4Start = 36;
+		AddFlybyBomb(true, formation4Start + 0);
+		AddPeekaboo(135, Vector2.Left.Rotated(MathF.PI / 32.0f), formation4Start + 2);
+		AddPeekaboo(135, Vector2.Left.Rotated(-MathF.PI / 32.0f), formation4Start + 2);
+		AddLaserEmitters(new Vector2(530, 20), new Vector2(500, 180), formation4Start + 1);
+		AddLaserEmitters(new Vector2(530, 90), new Vector2(500, 250), formation4Start + 2);
+		AddFlybyBomb(false, formation4Start + 2);
+		AddLaserEmitters(new Vector2(530, 90), new Vector2(560, 250), formation4Start + 3);
+		AddLaserEmitters(new Vector2(530, 20), new Vector2(560, 180), formation4Start + 4);
+
+		///Formation 6, just a gift
+		float formation6Start = 49;
+		AddPeekaboo(16, Vector2.Down.Rotated(MathF.PI / 16.0f), formation6Start + 2);
+		AddPeekaboo(254, Vector2.Up.Rotated(-MathF.PI / 16.0f), formation6Start + 2);
+
+		//boss here, have them slap in from the left with a laser between them that you "dodge" because you're eating those bullets up ahead
+		AddTwinzies(60);
+
 	}
 
 	private void LevelThree() {
@@ -156,5 +194,11 @@ public partial class StageOneScript : BaseStageScript
 
 	private void AddPeekaboo(float height, Vector2 direction, float time) {
 		LevelScript.Enqueue(EnemyMaster.MakePeekabooEnemy(height, direction), time);
+	}
+	private void AddGigaspinny(float height, float time) {
+		LevelScript.Enqueue(EnemyMaster.MakeGigaspinny(height), time);
+	}
+	private void AddTwinzies(float time) {
+		LevelScript.Enqueue(EnemyMaster.MakeTwinzies(), time);
 	}
 }

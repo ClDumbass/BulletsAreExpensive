@@ -119,6 +119,9 @@ public partial class MainSceneScript : Node
 	}
 
 	private void LoadData() {
+		if (!FileAccess.FileExists("user://savegame.save")) {
+			return;
+		}
 		using FileAccess fa = FileAccess.Open("user://savegame.save", FileAccess.ModeFlags.Read);
 		
 		string jsonString = fa.GetLine();

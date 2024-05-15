@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cnwyavaed7qqv"]
+[gd_scene load_steps=22 format=3 uid="uid://cnwyavaed7qqv"]
 
 [ext_resource type="Theme" uid="uid://ckubkf5g1yxvq" path="res://Scenes/TestScene.tres" id="1_858y7"]
 [ext_resource type="Script" path="res://Scripts/StageOneScript.cs" id="1_gtsu5"]
@@ -13,6 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://cxt8flx1ksgkx" path="res://Scenes/Enemies/spikeball_enemy.tscn" id="8_audc0"]
 [ext_resource type="PackedScene" uid="uid://dd2a5yuwdw0qr" path="res://Scenes/Enemies/peekaboo_enemy.tscn" id="9_mxl63"]
 [ext_resource type="PackedScene" uid="uid://cdei1vmldwe7w" path="res://Scenes/Enemies/clumpus.tscn" id="9_olhvm"]
+[ext_resource type="PackedScene" uid="uid://bsrq7ue3tpoje" path="res://Scenes/Enemies/gigaspinny.tscn" id="10_qokfo"]
+[ext_resource type="PackedScene" uid="uid://dpth2gqbcqvrw" path="res://Scenes/Enemies/boss_twinzies.tscn" id="11_e0qbs"]
 [ext_resource type="PackedScene" uid="uid://c48kxao2dfidp" path="res://Scenes/Enemies/laser_pair.tscn" id="12_lfjm7"]
 [ext_resource type="AudioStream" uid="uid://jaue38vd6dig" path="res://Audio/SFX/Bullet_FirePlayer_opt-2.mp3" id="13_co4mm"]
 [ext_resource type="AudioStream" uid="uid://bko333va7ekqk" path="res://Audio/SFX/Bullet_Absorb_1.mp3" id="14_xsfje"]
@@ -39,6 +41,8 @@ spikeballEnemy = ExtResource("8_audc0")
 clumpusScene = ExtResource("9_olhvm")
 laserEmitterEnemy = ExtResource("12_lfjm7")
 peekabooEnemy = ExtResource("9_mxl63")
+gigaspinnyEnemy = ExtResource("10_qokfo")
+twinziesScene = ExtResource("11_e0qbs")
 EnrageTimerLabel = NodePath("../UI Base/Enrage/TimeRemaining")
 
 [node name="Player" type="Sprite2D" parent="." node_paths=PackedStringArray("textLabel", "bulletFireSound", "absorbSound", "bombFireSound")]

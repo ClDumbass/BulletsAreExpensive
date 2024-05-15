@@ -8,17 +8,12 @@ public partial class ClumpusScript : BaseBossScript
 	public PackedScene BulletMaster { get; set; }
 	[Export]
 	public PackedScene BombMaster { get; set; }
-	[Export]
-	public EnemyMasterScript EnemyMaster { get; set; }
-	[Export]
-	public Node2D PlayerNode { get; set; }
-	[Export]
+    [Export]
 	public int Health { get; set; } = 300;
 	[Export]
 	public AudioStreamPlayer BombFireSound { get; set; }
 	[Export]
 	public AudioStreamPlayer BulletFireSound { get; set; }
-	public Label EnrageTimerLabel { get; set; }
 
 	private int RArmHealth=100, LArmHealth=100, ClusterLHealth=100, ClusterRHealth = 100, ClusterMHealth = 100;
 	bool clustersDead = false;

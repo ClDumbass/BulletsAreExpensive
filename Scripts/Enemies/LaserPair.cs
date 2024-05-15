@@ -45,7 +45,6 @@ public partial class LaserPair : Node2D
 	}
 
 	public override void _Draw() {
-		GD.Print("DRAW");
 		DrawLine(EmitterA.Position, EmitterB.Position, new Color(1,0.3f,0.3f,0.7f), 3 + 2*animationState);
 		base._Draw();
 	}

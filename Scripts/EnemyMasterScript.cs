@@ -13,9 +13,13 @@ public partial class EnemyMasterScript : Node
 	public PackedScene clumpusScene { get; set; }
 	[Export]
 	public PackedScene laserEmitterEnemy { get; set; }
-    [Export]
-    public PackedScene peekabooEnemy { get; set; }
-    [Export]
+	[Export]
+	public PackedScene peekabooEnemy { get; set; }
+	[Export]
+	public PackedScene gigaspinnyEnemy { get; set; }
+	[Export]
+	public PackedScene twinziesScene { get; set; }
+	[Export]
 	public Label EnrageTimerLabel { get; set; }
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -77,11 +81,11 @@ public partial class EnemyMasterScript : Node
 	/// <param name="end"></param>
 	/// <returns></returns>
 	public Node MakeLaserEmitter(Vector2 start, Vector2 end) {
-        LaserPair laserPairScript = laserEmitterEnemy.Instantiate() as LaserPair;
+		LaserPair laserPairScript = laserEmitterEnemy.Instantiate() as LaserPair;
 		laserPairScript.InitialPosA = start;
 		laserPairScript.InitialPosB = end;
-        return laserPairScript;
-    }
+		return laserPairScript;
+	}
 
 	public Node MakePeekabooEnemy(float height, Vector2 fireDirection) {
 		PeekabooEnemy enemy = peekabooEnemy.Instantiate<PeekabooEnemy>();
@@ -90,5 +94,23 @@ public partial class EnemyMasterScript : Node
 		enemy.FireDirection = fireDirection;
 
 		return enemy;
+	}
+
+	public Node MakeGigaspinny(float height) {
+		GigaspinnyScript enemy = gigaspinnyEnemy.Instantiate<GigaspinnyScript>();
+
+		enemy.Position = new Vector2(500, height);
+
+		return enemy;
+	}
+
+	public Node MakeTwinzies() {
+		TwinziesScript twinziesScript = twinziesScene.Instantiate() as TwinziesScript;
+
+		twinziesScript.PlayerNode = GetNode("../Player") as Node2D;
+		twinziesScript.EnemyMaster = this;
+		twinziesScript.EnrageTimerLabel = EnrageTimerLabel;
+
+		return twinziesScript;
 	}
 }
