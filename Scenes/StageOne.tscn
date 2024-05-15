@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cnwyavaed7qqv"]
+[gd_scene load_steps=20 format=3 uid="uid://cnwyavaed7qqv"]
 
 [ext_resource type="Theme" uid="uid://ckubkf5g1yxvq" path="res://Scenes/TestScene.tres" id="1_858y7"]
 [ext_resource type="Script" path="res://Scripts/StageOneScript.cs" id="1_gtsu5"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://e2f5bjs5imjg" path="res://Scenes/Attacks/EnemyBomb.tscn" id="7_35ryd"]
 [ext_resource type="PackedScene" uid="uid://cio0sgegid06e" path="res://Scenes/Enemies/bomber_enemy.tscn" id="7_x2f2s"]
 [ext_resource type="PackedScene" uid="uid://cxt8flx1ksgkx" path="res://Scenes/Enemies/spikeball_enemy.tscn" id="8_audc0"]
+[ext_resource type="PackedScene" uid="uid://dd2a5yuwdw0qr" path="res://Scenes/Enemies/peekaboo_enemy.tscn" id="9_mxl63"]
 [ext_resource type="PackedScene" uid="uid://cdei1vmldwe7w" path="res://Scenes/Enemies/clumpus.tscn" id="9_olhvm"]
 [ext_resource type="PackedScene" uid="uid://c48kxao2dfidp" path="res://Scenes/Enemies/laser_pair.tscn" id="12_lfjm7"]
 [ext_resource type="AudioStream" uid="uid://jaue38vd6dig" path="res://Audio/SFX/Bullet_FirePlayer_opt-2.mp3" id="13_co4mm"]
@@ -37,6 +38,7 @@ bomberEnemy = ExtResource("7_x2f2s")
 spikeballEnemy = ExtResource("8_audc0")
 clumpusScene = ExtResource("9_olhvm")
 laserEmitterEnemy = ExtResource("12_lfjm7")
+peekabooEnemy = ExtResource("9_mxl63")
 EnrageTimerLabel = NodePath("../UI Base/Enrage/TimeRemaining")
 
 [node name="Player" type="Sprite2D" parent="." node_paths=PackedStringArray("textLabel", "bulletFireSound", "absorbSound", "bombFireSound")]

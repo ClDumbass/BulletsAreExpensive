@@ -21,7 +21,7 @@ public partial class StageOneScript : BaseStageScript
 	private double timer = 0;
 	private float offset = 0;
 
-	private PriorityQueue<Node, double> LevelScriptPreBoss = new PriorityQueue<Node, double>();
+	private PriorityQueue<Node, double> LevelScript = new PriorityQueue<Node, double>();
 	BaseBossScript bossObject;
 	public override void _Ready()
 	{
@@ -66,9 +66,27 @@ public partial class StageOneScript : BaseStageScript
 	}
 
 	private void LevelTwo() {
-		AddLaserEmitters(new Vector2(500, 20), new Vector2(500, 60), 0);
-		AddLaserEmitters(new Vector2(490, 50), new Vector2(600, 50), 0);
-		AddLaserEmitters(new Vector2(590, 40), new Vector2(590, 100), 0);
+		AddLaserEmitters(new Vector2(530, 20), new Vector2(500, 180), 0);
+		AddLaserEmitters(new Vector2(530, 90), new Vector2(500, 250), 1);
+		AddLaserEmitters(new Vector2(530, 90), new Vector2(560, 250), 1);
+		AddLaserEmitters(new Vector2(530, 20), new Vector2(560, 180), 2);
+
+		AddPeekaboo(33, Vector2.Left, 2);
+		//formation 2, horizontals
+		AddLaserEmitters(new Vector2(540,  45), new Vector2(760,  45), 8);
+		AddLaserEmitters(new Vector2(660, 105), new Vector2(760, 105), 8);
+		AddLaserEmitters(new Vector2(600, 165), new Vector2(660, 165), 8);
+		AddLaserEmitters(new Vector2(600, 225), new Vector2(780, 225), 8);
+		//formation 2, diagonals
+		AddLaserEmitters(new Vector2(540,  45), new Vector2(660, 165), 8);
+		AddLaserEmitters(new Vector2(660, 105), new Vector2(780, 225), 8);
+		//formation 2, peekaboo
+		AddPeekaboo(180, Vector2.Left, 10);
+		AddPeekaboo(205, Vector2.Left, 10);
+		AddPeekaboo(60, Vector2.Left, 14);
+		AddPeekaboo(85, Vector2.Left, 14);
+		//formation 2, bomber that messes with you
+		AddFlybyBomb(false, 12);
 	}
 
 	private void LevelThree() {
@@ -100,12 +118,12 @@ public partial class StageOneScript : BaseStageScript
 		Node peekNode;
 		double peekPriority;
 
-		LevelScriptPreBoss.TryPeek(out peekNode, out peekPriority);
+		LevelScript.TryPeek(out peekNode, out peekPriority);
 		while (peekNode != null && timer >= peekPriority) {
-			Node poppedNode = LevelScriptPreBoss.Dequeue();
+			Node poppedNode = LevelScript.Dequeue();
 			AddChild(poppedNode);
-			LevelScriptPreBoss.TryPeek(out peekNode, out peekPriority);
-			if (LevelScriptPreBoss.Count == 0) {
+			LevelScript.TryPeek(out peekNode, out peekPriority);
+			if (LevelScript.Count == 0) {
 				EnrageTimerPanel.Visible = true;
 				bossObject = poppedNode as BaseBossScript;
 			}
@@ -117,22 +135,26 @@ public partial class StageOneScript : BaseStageScript
 	}
 
 	private void AddSpikeball(float height, float time) {
-		LevelScriptPreBoss.Enqueue(EnemyMaster.MakeSpikeballEnemy(height), time);
+		LevelScript.Enqueue(EnemyMaster.MakeSpikeballEnemy(height), time);
 	}
 
 	private void AddFlybyBullet(bool flip, float time) {
-		LevelScriptPreBoss.Enqueue(EnemyMaster.MakeFlybyBulletEnemy(flip), time);
+		LevelScript.Enqueue(EnemyMaster.MakeFlybyBulletEnemy(flip), time);
 	}
 
 	private void AddFlybyBomb(bool flip, float time) {
-		LevelScriptPreBoss.Enqueue(EnemyMaster.MakeFlybyBombEnemy(flip), time);
+		LevelScript.Enqueue(EnemyMaster.MakeFlybyBombEnemy(flip), time);
 	}
 
 	private void AddClumpus (float time) {
-		LevelScriptPreBoss.Enqueue(EnemyMaster.MakeClumpus(), time);
+		LevelScript.Enqueue(EnemyMaster.MakeClumpus(), time);
 	}
 
 	private void AddLaserEmitters(Vector2 start, Vector2 end, float time) {
-		LevelScriptPreBoss.Enqueue(EnemyMaster.MakeLaserEmitter(start, end), time);
+		LevelScript.Enqueue(EnemyMaster.MakeLaserEmitter(start, end), time);
+	}
+
+	private void AddPeekaboo(float height, Vector2 direction, float time) {
+		LevelScript.Enqueue(EnemyMaster.MakePeekabooEnemy(height, direction), time);
 	}
 }

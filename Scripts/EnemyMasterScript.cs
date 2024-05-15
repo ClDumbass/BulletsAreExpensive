@@ -13,7 +13,9 @@ public partial class EnemyMasterScript : Node
 	public PackedScene clumpusScene { get; set; }
 	[Export]
 	public PackedScene laserEmitterEnemy { get; set; }
-	[Export]
+    [Export]
+    public PackedScene peekabooEnemy { get; set; }
+    [Export]
 	public Label EnrageTimerLabel { get; set; }
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -80,4 +82,13 @@ public partial class EnemyMasterScript : Node
 		laserPairScript.InitialPosB = end;
         return laserPairScript;
     }
+
+	public Node MakePeekabooEnemy(float height, Vector2 fireDirection) {
+		PeekabooEnemy enemy = peekabooEnemy.Instantiate<PeekabooEnemy>();
+
+		enemy.Position = new Vector2(500, height);
+		enemy.FireDirection = fireDirection;
+
+		return enemy;
+	}
 }

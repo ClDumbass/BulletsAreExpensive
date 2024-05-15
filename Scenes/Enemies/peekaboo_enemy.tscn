@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://dd2a5yuwdw0qr"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/PeekabooEnemy.cs" id="1_anu76"]
+[ext_resource type="PackedScene" uid="uid://p2314b3027pa" path="res://Scenes/Attacks/EnemyBullet.tscn" id="2_edata"]
+[ext_resource type="Texture2D" uid="uid://ce2nsvenrw6q6" path="res://Sprites/spikeball_enemy.png" id="3_vmmhl"]
+[ext_resource type="AudioStream" uid="uid://dtwy0bwp7uo2a" path="res://Audio/SFX/Bullet_FirePlayer.mp3" id="4_85els"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x7gsu"]
+radius = 7.0
+
+[node name="Peekaboo Enemy" type="Node2D" node_paths=PackedStringArray("BulletSound")]
+position = Vector2(469, 125)
+script = ExtResource("1_anu76")
+bulletMaster = ExtResource("2_edata")
+BulletSound = NodePath("BulletSound")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("3_vmmhl")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_x7gsu")
+
+[node name="BulletSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_85els")
+pitch_scale = 1.1
+
+[connection signal="area_entered" from="Hitbox" to="." method="OnCollision"]
