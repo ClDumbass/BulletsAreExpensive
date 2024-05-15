@@ -13,6 +13,10 @@ public partial class StageOneScript : BaseStageScript
 	public PackedScene ScoreScreen { get; set; }
 	[Export]
 	public Control EnrageTimerPanel { get; set; }
+	[Export]
+	AudioStreamPlayer WarmupBGMStage1 { get; set; }
+	[Export]
+	AudioStreamPlayer WarmupBGMStage2 { get; set; }
 
 	public int LevelRequested = 1;
 
@@ -63,6 +67,7 @@ public partial class StageOneScript : BaseStageScript
 			//AddSpikeball(35 + (19 * i) % 200, i);
 			AddSpikeball(135, i);
 		}
+		WarmupBGMStage1.Play(1);
 	}
 
 	private void LevelTwo() {
@@ -124,7 +129,7 @@ public partial class StageOneScript : BaseStageScript
 
 		//boss here, have them slap in from the left with a laser between them that you "dodge" because you're eating those bullets up ahead
 		AddTwinzies(60);
-
+		WarmupBGMStage2.Play(1);
 	}
 
 	private void LevelThree() {

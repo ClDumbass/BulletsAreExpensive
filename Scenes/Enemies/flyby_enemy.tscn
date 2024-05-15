@@ -28,7 +28,7 @@ shape = SubResource("RectangleShape2D_okv7r")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_jeuba")
-volume_db = -11.243
+volume_db = -25.0
 pitch_scale = 0.71
 
 [connection signal="area_entered" from="Area2D" to="." method="OnCollision"]

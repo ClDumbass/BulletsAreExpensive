@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cnwyavaed7qqv"]
+[gd_scene load_steps=25 format=3 uid="uid://cnwyavaed7qqv"]
 
 [ext_resource type="Theme" uid="uid://ckubkf5g1yxvq" path="res://Scenes/TestScene.tres" id="1_858y7"]
 [ext_resource type="Script" path="res://Scripts/StageOneScript.cs" id="1_gtsu5"]
@@ -20,6 +20,8 @@
 [ext_resource type="AudioStream" uid="uid://bko333va7ekqk" path="res://Audio/SFX/Bullet_Absorb_1.mp3" id="14_xsfje"]
 [ext_resource type="AudioStream" uid="uid://djkb3tddlqrcj" path="res://Audio/SFX/Bomb_Fire_2.mp3" id="15_doje5"]
 [ext_resource type="AudioStream" uid="uid://brc3u4phe4xt2" path="res://Audio/SFX/Player_Damaged.mp3" id="19_15aqo"]
+[ext_resource type="AudioStream" uid="uid://clokhd7uq7au4" path="res://Audio/BGM/BAE_-_Stage_1_Theme.mp3" id="21_2dp7o"]
+[ext_resource type="AudioStream" uid="uid://bbp2udqp3xl7k" path="res://Audio/BGM/BAE_-_Stage_2_Theme.mp3" id="22_alggi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_15vmv"]
 radius = 1.0
@@ -27,12 +29,14 @@ radius = 1.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_dlmvn"]
 radius = 12.0
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("EnemyMaster", "Player", "EnrageTimerPanel")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("EnemyMaster", "Player", "EnrageTimerPanel", "WarmupBGMStage1", "WarmupBGMStage2")]
 script = ExtResource("1_gtsu5")
 EnemyMaster = NodePath("EnemyMaster")
 Player = NodePath("Player")
 ScoreScreen = ExtResource("2_lkq6o")
 EnrageTimerPanel = NodePath("UI Base/Enrage")
+WarmupBGMStage1 = NodePath("WarmupBGM_Stage1")
+WarmupBGMStage2 = NodePath("WarmupBGM_Stage2")
 
 [node name="EnemyMaster" type="Node" parent="." node_paths=PackedStringArray("EnrageTimerLabel")]
 script = ExtResource("1_uwpn2")
@@ -126,6 +130,12 @@ offset_right = 60.0
 offset_bottom = 39.0
 text = "90.00s"
 horizontal_alignment = 1
+
+[node name="WarmupBGM_Stage1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("21_2dp7o")
+
+[node name="WarmupBGM_Stage2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("22_alggi")
 
 [connection signal="area_entered" from="Player/Hitbox" to="Player" method="OnCollision"]
 [connection signal="area_exited" from="Player/Catchbox" to="Player" method="OnBulletExit"]
