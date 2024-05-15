@@ -2,18 +2,17 @@
 
 [ext_resource type="Texture2D" uid="uid://ce2nsvenrw6q6" path="res://Sprites/spikeball_enemy.png" id="1_1q5vq"]
 [ext_resource type="Script" path="res://Scripts/Enemies/LaserPair.cs" id="1_cfxal"]
+[ext_resource type="PackedScene" uid="uid://dnf383etboj03" path="res://Scenes/Attacks/BeamAttack.tscn" id="3_8jlgc"]
 [ext_resource type="AudioStream" uid="uid://dytqywvqc6vae" path="res://Audio/SFX/Laser1no_silence2.mp3" id="3_n0bri"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o6y2x"]
 radius = 7.0
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_o2bow"]
-
-[node name="LaserPair" type="Node2D" node_paths=PackedStringArray("EmitterA", "EmitterB", "CollisionShape")]
+[node name="LaserPair" type="Node2D" node_paths=PackedStringArray("EmitterA", "EmitterB", "Beam")]
 script = ExtResource("1_cfxal")
 EmitterA = NodePath("EmitterA")
 EmitterB = NodePath("EmitterB")
-CollisionShape = NodePath("Beam/Shape")
+Beam = NodePath("BeamAttack")
 
 [node name="EmitterA" type="Area2D" parent="."]
 collision_layer = 2
@@ -36,12 +35,7 @@ texture = ExtResource("1_1q5vq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EmitterB"]
 shape = SubResource("CircleShape2D_o6y2x")
 
-[node name="Beam" type="Area2D" parent="."]
-collision_layer = 130
-collision_mask = 0
-
-[node name="Shape" type="CollisionShape2D" parent="Beam"]
-shape = SubResource("SegmentShape2D_o2bow")
+[node name="BeamAttack" parent="." instance=ExtResource("3_8jlgc")]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_n0bri")
