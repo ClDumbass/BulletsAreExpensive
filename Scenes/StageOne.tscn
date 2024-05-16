@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cnwyavaed7qqv"]
+[gd_scene load_steps=26 format=3 uid="uid://cnwyavaed7qqv"]
 
 [ext_resource type="Theme" uid="uid://ckubkf5g1yxvq" path="res://Scenes/TestScene.tres" id="1_858y7"]
 [ext_resource type="Script" path="res://Scripts/StageOneScript.cs" id="1_gtsu5"]
@@ -22,6 +22,7 @@
 [ext_resource type="AudioStream" uid="uid://brc3u4phe4xt2" path="res://Audio/SFX/Player_Damaged.mp3" id="19_15aqo"]
 [ext_resource type="AudioStream" uid="uid://clokhd7uq7au4" path="res://Audio/BGM/BAE_-_Stage_1_Theme.mp3" id="21_2dp7o"]
 [ext_resource type="AudioStream" uid="uid://bbp2udqp3xl7k" path="res://Audio/BGM/BAE_-_Stage_2_Theme.mp3" id="22_alggi"]
+[ext_resource type="PackedScene" uid="uid://6tt0ql3mjeom" path="res://Scenes/Enemies/vertiboo_enemy.tscn" id="23_xtna3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_15vmv"]
 radius = 1.0
@@ -46,6 +47,7 @@ spikeballEnemy = ExtResource("8_audc0")
 clumpusScene = ExtResource("9_olhvm")
 laserEmitterEnemy = ExtResource("12_lfjm7")
 peekabooEnemy = ExtResource("9_mxl63")
+vertibooEnemy = ExtResource("23_xtna3")
 gigaspinnyEnemy = ExtResource("10_qokfo")
 twinziesScene = ExtResource("11_e0qbs")
 EnrageTimerLabel = NodePath("../UI Base/Enrage/TimeRemaining")

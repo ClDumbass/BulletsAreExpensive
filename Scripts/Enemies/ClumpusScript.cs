@@ -8,7 +8,7 @@ public partial class ClumpusScript : BaseBossScript
 	public PackedScene BulletMaster { get; set; }
 	[Export]
 	public PackedScene BombMaster { get; set; }
-    [Export]
+	[Export]
 	public int Health { get; set; } = 300;
 	[Export]
 	public AudioStreamPlayer BombFireSound { get; set; }
@@ -262,7 +262,7 @@ public partial class ClumpusScript : BaseBossScript
 				Health = 0;
 			}
 			CoreHealthLabel.Text = Health.ToString();
-			CoreHealthBar.Scale = new Vector2((float)Health / 500f, 1);
+			CoreHealthBar.Scale = new Vector2((float)Health / 300f, 1);
 			if (Health <= 0) {
 				ClumpusBody.QueueFree();
 			}

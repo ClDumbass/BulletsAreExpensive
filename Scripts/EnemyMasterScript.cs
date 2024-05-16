@@ -16,6 +16,8 @@ public partial class EnemyMasterScript : Node
 	[Export]
 	public PackedScene peekabooEnemy { get; set; }
 	[Export]
+	public PackedScene vertibooEnemy { get; set; }
+	[Export]
 	public PackedScene gigaspinnyEnemy { get; set; }
 	[Export]
 	public PackedScene twinziesScene { get; set; }
@@ -91,6 +93,16 @@ public partial class EnemyMasterScript : Node
 		PeekabooEnemy enemy = peekabooEnemy.Instantiate<PeekabooEnemy>();
 
 		enemy.Position = new Vector2(500, height);
+		enemy.FireDirection = fireDirection;
+
+		return enemy;
+	}
+
+	public Node MakeVertiboo(Vector2 initialPos, bool flip, Vector2 fireDirection) {
+		VertibooEnemyScript enemy = vertibooEnemy.Instantiate<VertibooEnemyScript>();
+
+		enemy.Position = initialPos;
+		enemy.flip  = flip;
 		enemy.FireDirection = fireDirection;
 
 		return enemy;

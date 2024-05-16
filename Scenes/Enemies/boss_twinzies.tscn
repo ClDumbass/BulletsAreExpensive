@@ -1,10 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://dpth2gqbcqvrw"]
+[gd_scene load_steps=8 format=3 uid="uid://dpth2gqbcqvrw"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/TwinziesScript.cs" id="1_nr2eq"]
 [ext_resource type="Texture2D" uid="uid://ohmqpq1ocx1p" path="res://Sprites/boss_sprite.png" id="1_vkw1s"]
+[ext_resource type="PackedScene" uid="uid://dnf383etboj03" path="res://Scenes/Attacks/BeamAttack.tscn" id="2_ubs4j"]
+[ext_resource type="PackedScene" uid="uid://e7n2hrha21fp" path="res://Scenes/Enemies/twinzies_bit.tscn" id="3_adtvc"]
 
-[node name="BossTwinzies" type="Node2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v4sk0"]
+radius = 32.0
+height = 128.0
+
+[sub_resource type="Theme" id="Theme_a514d"]
+default_font_size = 10
+
+[sub_resource type="Theme" id="Theme_oogvc"]
+
+[node name="BossTwinzies" type="Node2D" node_paths=PackedStringArray("TopHealthLabel", "BottomHealthLabel", "TopHealthBar", "BottomHealthBar")]
 script = ExtResource("1_nr2eq")
+BeamMaster = ExtResource("2_ubs4j")
+TwinzBit = ExtResource("3_adtvc")
+TopHealthLabel = NodePath("HealthBars/TopBody/Label")
+BottomHealthLabel = NodePath("HealthBars/BottomBody/Label")
+TopHealthBar = NodePath("HealthBars/TopBody/Foreground")
+BottomHealthBar = NodePath("HealthBars/BottomBody/Foreground")
 
 [node name="PairedMovement" type="Node2D" parent="."]
 position = Vector2(0, 32)
@@ -12,7 +29,92 @@ position = Vector2(0, 32)
 [node name="Top" type="Sprite2D" parent="PairedMovement"]
 texture = ExtResource("1_vkw1s")
 
+[node name="Area2D" type="Area2D" parent="PairedMovement/Top"]
+collision_layer = 2
+collision_mask = 4
+
+[node name="Hitbox" type="CollisionShape2D" parent="PairedMovement/Top/Area2D"]
+position = Vector2(0, -32)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_v4sk0")
+
 [node name="Bottom" type="Sprite2D" parent="PairedMovement"]
 position = Vector2(0, 206)
 texture = ExtResource("1_vkw1s")
 flip_v = true
+
+[node name="Area2D" type="Area2D" parent="PairedMovement/Bottom"]
+collision_layer = 2
+collision_mask = 4
+
+[node name="Hitbox" type="CollisionShape2D" parent="PairedMovement/Bottom/Area2D"]
+position = Vector2(0, 32)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_v4sk0")
+
+[node name="AttacksHolder" type="Node2D" parent="PairedMovement"]
+
+[node name="HealthBars" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0.498039)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 20.0
+offset_right = 60.0
+offset_bottom = 40.0
+theme = SubResource("Theme_a514d")
+
+[node name="TopBody" type="Control" parent="HealthBars"]
+anchors_preset = 0
+offset_left = 40.0
+offset_right = 80.0
+offset_bottom = 40.0
+
+[node name="Backdrop" type="ColorRect" parent="HealthBars/TopBody"]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 16.0
+color = Color(0.384314, 0.478431, 0.647059, 1)
+
+[node name="Foreground" type="ColorRect" parent="HealthBars/TopBody"]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 16.0
+color = Color(1, 0, 0, 1)
+
+[node name="Label" type="Label" parent="HealthBars/TopBody"]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 16.0
+theme = SubResource("Theme_oogvc")
+text = "300"
+horizontal_alignment = 1
+
+[node name="BottomBody" type="Control" parent="HealthBars"]
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 254.0
+offset_right = 80.0
+offset_bottom = 294.0
+
+[node name="Backdrop" type="ColorRect" parent="HealthBars/BottomBody"]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 16.0
+color = Color(0.384314, 0.478431, 0.647059, 1)
+
+[node name="Foreground" type="ColorRect" parent="HealthBars/BottomBody"]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 16.0
+color = Color(1, 0, 0, 1)
+
+[node name="Label" type="Label" parent="HealthBars/BottomBody"]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 16.0
+theme = SubResource("Theme_oogvc")
+text = "300"
+horizontal_alignment = 1
+
+[connection signal="area_entered" from="PairedMovement/Top/Area2D" to="." method="OnTopHit"]
+[connection signal="area_entered" from="PairedMovement/Bottom/Area2D" to="." method="OnBottomHit"]

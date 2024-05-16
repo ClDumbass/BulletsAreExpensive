@@ -129,7 +129,7 @@ public partial class StageOneScript : BaseStageScript
 
 		//boss here, have them slap in from the left with a laser between them that you "dodge" because you're eating those bullets up ahead
 		AddTwinzies(60);
-		WarmupBGMStage2.Play(1);
+		WarmupBGMStage2.Play(0);
 	}
 
 	private void LevelThree() {
@@ -139,7 +139,7 @@ public partial class StageOneScript : BaseStageScript
 	public void EndStage() {
 		GD.Print("Hello?!");
 		ScoreScript scoreScript = ScoreScreen.Instantiate() as ScoreScript;
-		AddSibling(scoreScript);
+		GetParent<Node>().AddChild(scoreScript);
 		scoreScript.TabulateScore(Player.Bullets, Player.Bombs, Player.Health);
 		scoreScript.stageScript = this;
 
@@ -199,6 +199,9 @@ public partial class StageOneScript : BaseStageScript
 
 	private void AddPeekaboo(float height, Vector2 direction, float time) {
 		LevelScript.Enqueue(EnemyMaster.MakePeekabooEnemy(height, direction), time);
+	}
+	private void AddVertiboo(Vector2 position, Vector2 direction, bool flip, float time) {
+		LevelScript.Enqueue(EnemyMaster.MakeVertiboo(position, flip, direction), time);
 	}
 	private void AddGigaspinny(float height, float time) {
 		LevelScript.Enqueue(EnemyMaster.MakeGigaspinny(height), time);
