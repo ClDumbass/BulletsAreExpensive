@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cydsdsjti2htl"]
+[gd_scene load_steps=8 format=3 uid="uid://cydsdsjti2htl"]
 
 [ext_resource type="Script" path="res://Scripts/Attacks/MineScript.cs" id="1_1lrl8"]
 [ext_resource type="AudioStream" uid="uid://chxd6qoa1eisi" path="res://Audio/SFX/Mine_Proximity.mp3" id="2_er6ai"]
@@ -7,6 +7,16 @@
 radius = 11.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gwmkm"]
+radius = 0.01
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5l5t4"]
+size = Vector2(0, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dw4mg"]
+size = Vector2(0, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j34xc"]
+radius = 11.0
 
 [node name="Mine" type="Node2D" node_paths=PackedStringArray("MineBeep", "BodyNode", "ExplosionNode")]
 script = ExtResource("1_1lrl8")
@@ -30,7 +40,22 @@ collision_mask = 0
 monitoring = false
 monitorable = false
 
-[node name="Hitbox" type="CollisionShape2D" parent="MineExplosion"]
+[node name="Hitbox_Circle" type="CollisionShape2D" parent="MineExplosion"]
 shape = SubResource("CircleShape2D_gwmkm")
 
+[node name="Hitbox_RectA" type="CollisionShape2D" parent="MineExplosion"]
+shape = SubResource("RectangleShape2D_5l5t4")
+
+[node name="Hitbox_RectB" type="CollisionShape2D" parent="MineExplosion"]
+shape = SubResource("RectangleShape2D_dw4mg")
+
+[node name="DisarmDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DisarmDetector"]
+shape = SubResource("CircleShape2D_j34xc")
+
 [connection signal="area_entered" from="MineBody" to="." method="OnStruck"]
+[connection signal="area_entered" from="DisarmDetector" to="." method="OnCatchboxEnter"]
+[connection signal="area_exited" from="DisarmDetector" to="." method="OnCatchboxExit"]

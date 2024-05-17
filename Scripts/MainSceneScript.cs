@@ -51,25 +51,25 @@ public partial class MainSceneScript : Node
 	{
 		if (activeStage != null && activeStage.StageComplete) {
 			if (activeStageIndex == 1) {
-                if (stageOneHighscore < activeStage.Score) {
-                    stageOneHighscore = activeStage.Score;
-                    UpdateScoreboard();
-                }
-            }
-            if (activeStageIndex == 2) {
-                if (stageTwoHighscore < activeStage.Score) {
-                    stageTwoHighscore = activeStage.Score;
-                    UpdateScoreboard();
-                }
-            }
-            if (activeStageIndex == 3) {
-                if (stageThreeHighscore < activeStage.Score) {
-                    stageThreeHighscore = activeStage.Score;
-                    UpdateScoreboard();
-                }
-            }
+				if (stageOneHighscore < activeStage.Score) {
+					stageOneHighscore = activeStage.Score;
+					UpdateScoreboard();
+				}
+			}
+			if (activeStageIndex == 2) {
+				if (stageTwoHighscore < activeStage.Score) {
+					stageTwoHighscore = activeStage.Score;
+					UpdateScoreboard();
+				}
+			}
+			if (activeStageIndex == 3) {
+				if (stageThreeHighscore < activeStage.Score) {
+					stageThreeHighscore = activeStage.Score;
+					UpdateScoreboard();
+				}
+			}
 
-            activeStage.QueueFree();
+			activeStage.QueueFree();
 			activeStage = null;
 			MainMenuNode.Visible = true;
 			MainMenuNode.SetProcess(true);
@@ -91,16 +91,16 @@ public partial class MainSceneScript : Node
 		AddChild(activeStage);
 		MainMenuNode.Visible = false;
 		MainMenuNode.SetProcess(false);
-        activeStageIndex = 2;
-    }
+		activeStageIndex = 2;
+	}
 	public void OnStageThreeButtonClicked() {
-        activeStage = StageOne.Instantiate<BaseStageScript>();
-        (activeStage as StageOneScript).LevelRequested = 3;
-        AddChild(activeStage);
-        MainMenuNode.Visible = false;
-        MainMenuNode.SetProcess(false);
-        activeStageIndex = 3;
-    }
+		activeStage = StageOne.Instantiate<BaseStageScript>();
+		(activeStage as StageOneScript).LevelRequested = 3;
+		AddChild(activeStage);
+		MainMenuNode.Visible = false;
+		MainMenuNode.SetProcess(false);
+		activeStageIndex = 3;
+	}
 
 	private void OnUpgradeButtonPressed() {
 		MainSubmenuNode.Visible = false;

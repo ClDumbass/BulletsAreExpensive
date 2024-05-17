@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cnwyavaed7qqv"]
+[gd_scene load_steps=37 format=3 uid="uid://cnwyavaed7qqv"]
 
 [ext_resource type="Theme" uid="uid://ckubkf5g1yxvq" path="res://Scenes/TestScene.tres" id="1_858y7"]
 [ext_resource type="Script" path="res://Scripts/StageOneScript.cs" id="1_gtsu5"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dcl1av4hlxtcw" path="res://Sprites/TestSprite.png" id="2_sqbad"]
 [ext_resource type="Script" path="res://Scripts/PlayerControl.cs" id="3_5tnjq"]
 [ext_resource type="PackedScene" uid="uid://p2314b3027pa" path="res://Scenes/Attacks/EnemyBullet.tscn" id="4_psmwg"]
+[ext_resource type="Script" path="res://Scripts/Effects/Background.cs" id="4_wjeob"]
 [ext_resource type="PackedScene" uid="uid://8gff37fd2his" path="res://Scenes/Enemies/flyby_enemy.tscn" id="6_e38qi"]
 [ext_resource type="PackedScene" uid="uid://e2f5bjs5imjg" path="res://Scenes/Attacks/EnemyBomb.tscn" id="7_35ryd"]
 [ext_resource type="PackedScene" uid="uid://cio0sgegid06e" path="res://Scenes/Enemies/bomber_enemy.tscn" id="7_x2f2s"]
@@ -17,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://dpth2gqbcqvrw" path="res://Scenes/Enemies/boss_twinzies.tscn" id="11_e0qbs"]
 [ext_resource type="PackedScene" uid="uid://c48kxao2dfidp" path="res://Scenes/Enemies/laser_pair.tscn" id="12_lfjm7"]
 [ext_resource type="AudioStream" uid="uid://jaue38vd6dig" path="res://Audio/SFX/Bullet_FirePlayer_opt-2.mp3" id="13_co4mm"]
+[ext_resource type="AudioStream" uid="uid://chxd6qoa1eisi" path="res://Audio/SFX/Mine_Proximity.mp3" id="14_l8h0q"]
 [ext_resource type="AudioStream" uid="uid://bko333va7ekqk" path="res://Audio/SFX/Bullet_Absorb_1.mp3" id="14_xsfje"]
 [ext_resource type="AudioStream" uid="uid://djkb3tddlqrcj" path="res://Audio/SFX/Bomb_Fire_2.mp3" id="15_doje5"]
 [ext_resource type="AudioStream" uid="uid://brc3u4phe4xt2" path="res://Audio/SFX/Player_Damaged.mp3" id="19_15aqo"]
@@ -25,6 +27,60 @@
 [ext_resource type="PackedScene" uid="uid://6tt0ql3mjeom" path="res://Scenes/Enemies/vertiboo_enemy.tscn" id="23_xtna3"]
 [ext_resource type="AudioStream" uid="uid://d0hr7ejpixga1" path="res://Audio/BGM/BAE_-_Boss_Theme.mp3" id="24_xmcx1"]
 [ext_resource type="PackedScene" uid="uid://cydsdsjti2htl" path="res://Scenes/Attacks/Mine.tscn" id="25_14oln"]
+[ext_resource type="Texture2D" uid="uid://vopf3mv67pda" path="res://Sprites/background_test_frame_0001.png" id="27_s21mg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xix5w"]
+atlas = ExtResource("27_s21mg")
+region = Rect2(0, 0, 1000, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4or2"]
+atlas = ExtResource("27_s21mg")
+region = Rect2(0, 270, 1000, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4cn4"]
+atlas = ExtResource("27_s21mg")
+region = Rect2(0, 540, 1000, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8301n"]
+atlas = ExtResource("27_s21mg")
+region = Rect2(0, 810, 1000, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_87yut"]
+atlas = ExtResource("27_s21mg")
+region = Rect2(0, 1080, 1000, 270)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8r7ac"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xix5w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g4or2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4cn4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8301n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_87yut")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8301n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4cn4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g4or2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_15vmv"]
 radius = 1.0
@@ -42,7 +98,16 @@ WarmupBGMStage1 = NodePath("WarmupBGM_Stage1")
 WarmupBGMStage2 = NodePath("WarmupBGM_Stage2")
 BossMusic = NodePath("BossMusic")
 
-[node name="EnemyMaster" type="Node" parent="." node_paths=PackedStringArray("EnrageTimerLabel")]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 2
+texture_repeat = 2
+sprite_frames = SubResource("SpriteFrames_8r7ac")
+autoplay = "default"
+frame_progress = 0.101048
+centered = false
+script = ExtResource("4_wjeob")
+
+[node name="EnemyMaster" type="Node" parent="." node_paths=PackedStringArray("mineBeep", "EnrageTimerLabel")]
 script = ExtResource("1_uwpn2")
 flybyEnemy = ExtResource("6_e38qi")
 bomberEnemy = ExtResource("7_x2f2s")
@@ -54,10 +119,14 @@ vertibooEnemy = ExtResource("23_xtna3")
 gigaspinnyEnemy = ExtResource("10_qokfo")
 twinziesScene = ExtResource("11_e0qbs")
 mineScene = ExtResource("25_14oln")
+mineBeep = NodePath("MineBeep")
 EnrageTimerLabel = NodePath("../UI Base/Enrage/TimeRemaining")
 
+[node name="MineBeep" type="AudioStreamPlayer" parent="EnemyMaster"]
+stream = ExtResource("14_l8h0q")
+
 [node name="Player" type="Sprite2D" parent="." node_paths=PackedStringArray("textLabel", "bulletFireSound", "absorbSound", "bombFireSound", "damagedSound")]
-position = Vector2(71, 57)
+position = Vector2(240, 135)
 texture = ExtResource("2_sqbad")
 flip_h = true
 script = ExtResource("3_5tnjq")

@@ -140,31 +140,33 @@ public partial class StageOneScript : BaseStageScript
 	private void LevelThree() {
 
 		///Formation 1
-		AddMine(new Vector2(420, 135), 0);
+		AddMine(new Vector2(420, 135), true, 0);
 		AddPeekaboo(125, Vector2.Left, 0);
 		AddPeekaboo(145, Vector2.Left, 0);
 		AddPeekaboo(40, Vector2.Left.Rotated(-MathF.PI / 18), 4);
 		AddPeekaboo(230, Vector2.Left.Rotated(MathF.PI / 18), 4);
-		AddPeekaboo(120, Vector2.Left,  6);
-		AddPeekaboo(128, Vector2.Left,  6);
-		AddPeekaboo(142, Vector2.Left,  6);
-		AddPeekaboo(150, Vector2.Left,  6);
-		AddMine(new Vector2(500, 12), 8);
-		AddMine(new Vector2(500, 258), 8);
+		AddPeekaboo(120, Vector2.Left, 6);
+		AddPeekaboo(128, Vector2.Left, 6);
+		AddPeekaboo(142, Vector2.Left, 6);
+		AddPeekaboo(150, Vector2.Left, 6);
+		AddMine(new Vector2(500, 12), true, 8);
+		AddMine(new Vector2(500, 258), true, 8);
 
-		///Formation 2
+		/// Formation 2
 		float formation2base = 17;
-		AddMine(new Vector2(500,  75), formation2base);
-		AddMine(new Vector2(530,  75), formation2base);
-		AddMine(new Vector2(560,  75), formation2base);
-		AddMine(new Vector2(500, 105), formation2base);
-		AddMine(new Vector2(500, 135), formation2base);
-		AddMine(new Vector2(560, 135), formation2base);
-		AddMine(new Vector2(560, 165), formation2base);
-		AddMine(new Vector2(500, 195), formation2base);
-		AddMine(new Vector2(530, 195), formation2base);
-		AddMine(new Vector2(560, 195), formation2base);
-
+		AddMine(new Vector2(500, 75), true, formation2base);
+		AddMine(new Vector2(530, 75), true, formation2base);
+		AddMine(new Vector2(560, 75), true, formation2base);
+		AddMine(new Vector2(500, 105), true, formation2base);
+		AddMine(new Vector2(500, 135), true, formation2base);
+		AddMine(new Vector2(560, 135), true, formation2base);
+		AddMine(new Vector2(560, 165), true, formation2base);
+		AddMine(new Vector2(500, 195), true, formation2base);
+		AddMine(new Vector2(530, 195), true, formation2base);
+		AddMine(new Vector2(560, 195), true, formation2base);
+		AddPeekaboo(105, Vector2.Left, formation2base + 9);
+		AddPeekaboo(55, Vector2.Left, formation2base + 7);
+		AddPeekaboo(45, Vector2.Left, formation2base + 7);
 	}
 
 	public void EndStage() {
@@ -249,7 +251,7 @@ public partial class StageOneScript : BaseStageScript
 		LevelScript.Enqueue(EnemyMaster.MakeTwinzies(), time);
 	}
 
-	private void AddMine(Vector2 position, float time) {
-		LevelScript.Enqueue(EnemyMaster.MakeMine(position), time);
+	private void AddMine(Vector2 position, bool isCircle, float time) {
+		LevelScript.Enqueue(EnemyMaster.MakeMine(position, isCircle), time);
 	}
 }
