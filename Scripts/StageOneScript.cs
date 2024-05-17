@@ -17,12 +17,14 @@ public partial class StageOneScript : BaseStageScript
 	AudioStreamPlayer WarmupBGMStage1 { get; set; }
 	[Export]
 	AudioStreamPlayer WarmupBGMStage2 { get; set; }
+	[Export]
+	AudioStreamPlayer BossMusic { get; set; }
 
 	public int LevelRequested = 1;
 
 	// Called when the node enters the scene tree for the first time.
 
-	private double timer = 0;
+	private float timer = 0;
 	private float offset = 0;
 
 	private PriorityQueue<Node, double> LevelScript = new PriorityQueue<Node, double>();
@@ -36,6 +38,7 @@ public partial class StageOneScript : BaseStageScript
 			case 2:
 				LevelTwo();
 				break;
+			case 3:
 			default:
 				LevelThree();
 				break;
@@ -67,7 +70,8 @@ public partial class StageOneScript : BaseStageScript
 			//AddSpikeball(35 + (19 * i) % 200, i);
 			AddSpikeball(135, i);
 		}
-		WarmupBGMStage1.Play(1);
+		WarmupBGMStage1.Play(0);
+		WarmupBGMStage1.VolumeDb = 0;
 	}
 
 	private void LevelTwo() {
@@ -130,10 +134,13 @@ public partial class StageOneScript : BaseStageScript
 		//boss here, have them slap in from the left with a laser between them that you "dodge" because you're eating those bullets up ahead
 		AddTwinzies(60);
 		WarmupBGMStage2.Play(0);
+		WarmupBGMStage2.VolumeDb = 0;
 	}
 
 	private void LevelThree() {
-
+		AddMine(new Vector2(500, 40), 0);
+		AddMine(new Vector2(500, 100), 0);
+		AddPeekaboo(40, Vector2.Left, 2);
 	}
 
 	public void EndStage() {
@@ -152,7 +159,7 @@ public partial class StageOneScript : BaseStageScript
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		timer += delta;
+		timer += (float)delta;
 		if (Player.Health <=0 ) {
 			EndStage();
 			return;
@@ -174,6 +181,14 @@ public partial class StageOneScript : BaseStageScript
 
 		if (bossObject != null && bossObject.Dead) {
 			EndStage();
+		}
+
+		if (timer >= 60 && !BossMusic.Playing) {
+			BossMusic.Play();
+		}
+		if (timer >= 60 && timer <= 62) {
+			WarmupBGMStage1.VolumeDb = -100f * (62f - timer) / 2f;
+			BossMusic.VolumeDb = 100f * (timer - 62f) / 2f;
 		}
 	}
 
@@ -208,5 +223,9 @@ public partial class StageOneScript : BaseStageScript
 	}
 	private void AddTwinzies(float time) {
 		LevelScript.Enqueue(EnemyMaster.MakeTwinzies(), time);
+	}
+
+	private void AddMine(Vector2 position, float time) {
+		LevelScript.Enqueue(EnemyMaster.MakeMine(position), time);
 	}
 }

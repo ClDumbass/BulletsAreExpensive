@@ -94,8 +94,13 @@ public partial class MainSceneScript : Node
         activeStageIndex = 2;
     }
 	public void OnStageThreeButtonClicked() {
-
-	}
+        activeStage = StageOne.Instantiate<BaseStageScript>();
+        (activeStage as StageOneScript).LevelRequested = 3;
+        AddChild(activeStage);
+        MainMenuNode.Visible = false;
+        MainMenuNode.SetProcess(false);
+        activeStageIndex = 3;
+    }
 
 	private void OnUpgradeButtonPressed() {
 		MainSubmenuNode.Visible = false;

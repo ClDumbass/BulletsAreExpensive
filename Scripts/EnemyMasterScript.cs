@@ -22,6 +22,8 @@ public partial class EnemyMasterScript : Node
 	[Export]
 	public PackedScene twinziesScene { get; set; }
 	[Export]
+	public PackedScene mineScene { get; set; }
+	[Export]
 	public Label EnrageTimerLabel { get; set; }
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -124,5 +126,13 @@ public partial class EnemyMasterScript : Node
 		twinziesScript.EnrageTimerLabel = EnrageTimerLabel;
 
 		return twinziesScript;
+	}
+
+	public Node MakeMine(Vector2 position) {
+		MineScript mine = mineScene.Instantiate<MineScript>();
+
+		mine.Position = position;
+
+		return mine;
 	}
 }
