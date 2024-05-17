@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/Mine_Proximity.mp3-059bb35a3e16d80ba9d3d251dd
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0.0
 bpm=0.0
 beat_count=0
