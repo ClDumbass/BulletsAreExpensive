@@ -76,7 +76,7 @@ public partial class MineScript : Node2D
 	/// <param name="timer"></param>
 	/// <returns></returns>
 	private float GetRadiusFromTimer(float timer ) {
-		return 360 * animationTimer;
+		return 551 * animationTimer;
 	}
 
 	public void OnStruck(Area2D area) {

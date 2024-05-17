@@ -138,9 +138,33 @@ public partial class StageOneScript : BaseStageScript
 	}
 
 	private void LevelThree() {
-		AddMine(new Vector2(500, 40), 0);
-		AddMine(new Vector2(500, 100), 0);
-		AddPeekaboo(40, Vector2.Left, 2);
+
+		///Formation 1
+		AddMine(new Vector2(420, 135), 0);
+		AddPeekaboo(125, Vector2.Left, 0);
+		AddPeekaboo(145, Vector2.Left, 0);
+		AddPeekaboo(40, Vector2.Left.Rotated(-MathF.PI / 18), 4);
+		AddPeekaboo(230, Vector2.Left.Rotated(MathF.PI / 18), 4);
+		AddPeekaboo(120, Vector2.Left,  6);
+		AddPeekaboo(128, Vector2.Left,  6);
+		AddPeekaboo(142, Vector2.Left,  6);
+		AddPeekaboo(150, Vector2.Left,  6);
+		AddMine(new Vector2(500, 12), 8);
+		AddMine(new Vector2(500, 258), 8);
+
+		///Formation 2
+		float formation2base = 17;
+		AddMine(new Vector2(500,  75), formation2base);
+		AddMine(new Vector2(530,  75), formation2base);
+		AddMine(new Vector2(560,  75), formation2base);
+		AddMine(new Vector2(500, 105), formation2base);
+		AddMine(new Vector2(500, 135), formation2base);
+		AddMine(new Vector2(560, 135), formation2base);
+		AddMine(new Vector2(560, 165), formation2base);
+		AddMine(new Vector2(500, 195), formation2base);
+		AddMine(new Vector2(530, 195), formation2base);
+		AddMine(new Vector2(560, 195), formation2base);
+
 	}
 
 	public void EndStage() {
