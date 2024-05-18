@@ -106,7 +106,7 @@ texture_filter = 2
 texture_repeat = 2
 sprite_frames = SubResource("SpriteFrames_8r7ac")
 autoplay = "default"
-frame_progress = 0.232939
+frame_progress = 0.787336
 centered = false
 script = ExtResource("4_wjeob")
 
@@ -168,6 +168,7 @@ stream = ExtResource("15_doje5")
 
 [node name="PlayerDamaged" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource("19_15aqo")
+volume_db = 10.0
 
 [node name="UI Base" type="Control" parent="."]
 layout_mode = 3
