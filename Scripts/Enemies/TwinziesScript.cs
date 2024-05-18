@@ -16,6 +16,8 @@ public partial class TwinziesScript : BaseBossScript
 	ColorRect TopHealthBar { get; set; }
 	[Export]
 	ColorRect BottomHealthBar { get; set; }
+	[Export]
+	AudioStreamPlayer LaserSound { get; set; }
 
 	private int HealthTop = 300, HealthBottom = 300;
 
@@ -268,6 +270,8 @@ public partial class TwinziesScript : BaseBossScript
 					specialCounter = 2;
 
 					AddChild(bitBeams[0]);
+					LaserSound.Play();
+					LaserSound.VolumeDb -= 5;
 					AddChild(EnemyMaster.MakePeekabooEnemy(90, Vector2.Left));
 					AddChild(EnemyMaster.MakePeekabooEnemy(180, Vector2.Left));
 				}
@@ -285,6 +289,7 @@ public partial class TwinziesScript : BaseBossScript
 
 					AddChild(bitBeams[1]);
 					AddChild(bitBeams[2]);
+					LaserSound.VolumeDb += 5;
 					AddChild(EnemyMaster.MakePeekabooEnemy(120, Vector2.Left));
 					AddChild(EnemyMaster.MakePeekabooEnemy(150, Vector2.Left));
 				}
@@ -322,6 +327,7 @@ public partial class TwinziesScript : BaseBossScript
 					bitBeams[0].QueueFree();
 					bitBeams[1].QueueFree();
 					bitBeams[2].QueueFree();
+					LaserSound.Stop();
 					bitBeams = null;
 				}
 
@@ -421,10 +427,12 @@ public partial class TwinziesScript : BaseBossScript
 		primaryBeam.Width = 10;
 		primaryBeam.Color = PrimaryBeamColor;
 		attacksHolder.AddChild(primaryBeam);
+		LaserSound.Play();
 	}
 
 	private void ClearAttacksHolder() {
 		primaryBeam = null;
+		LaserSound.Stop();
 		foreach (Node2D n in attacksHolder.GetChildren()) {
 			n.QueueFree();
 		}

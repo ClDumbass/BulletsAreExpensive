@@ -12,6 +12,13 @@ public partial class RubixScript : BaseBossScript
 	PackedScene BulletScriptMaster { get; set; }
 	[Export]
 	PackedScene MineScriptMaster { get; set; }
+	[Export]
+	AudioStreamPlayer BeamSound { get; set; }
+	[Export]
+	AudioStreamPlayer BulletSound { get; set; }
+	[Export]
+	AudioStreamPlayer BombSound { get; set; }
+
 
 	private Node2D RubixNode;
 
@@ -314,6 +321,7 @@ public partial class RubixScript : BaseBossScript
 		activeBeam.Width = beamWidth;
 		activeBeam.Color = beamColor;
 		AddChild(activeBeam);
+		BeamSound.Play();
 	}
 
 	private void FireBullet(Vector2 direction, float speed) {
@@ -325,6 +333,7 @@ public partial class RubixScript : BaseBossScript
 		bullet.Direction = direction;
 		bullet.Speed = speed;
 		AddChild(bullet);
+		BulletSound.Play();
 	}
 
 	private void AddMine(Vector2 position, bool isCircle=true) {
@@ -349,11 +358,13 @@ public partial class RubixScript : BaseBossScript
 		newBomb.Radius = 32;
 
 		AddChild(newBomb);
+		BombSound.Play();
 	}
 
 	private void KillBeam() {
 		activeBeam?.QueueFree();
 		activeBeam = null;
+		BeamSound.Stop();
 	}
 
 	private void UpdateHealthBarDisplay() {

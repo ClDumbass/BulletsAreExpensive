@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dnpfis0vmfh3"]
+[gd_scene load_steps=15 format=3 uid="uid://dnpfis0vmfh3"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/RubixScript.cs" id="1_3tdpj"]
 [ext_resource type="Texture2D" uid="uid://xtdtfumgrder" path="res://Sprites/boss3_spritesheet.png" id="1_urs5l"]
@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://e2f5bjs5imjg" path="res://Scenes/Attacks/EnemyBomb.tscn" id="3_rip8m"]
 [ext_resource type="PackedScene" uid="uid://p2314b3027pa" path="res://Scenes/Attacks/EnemyBullet.tscn" id="4_7uued"]
 [ext_resource type="PackedScene" uid="uid://cydsdsjti2htl" path="res://Scenes/Attacks/Mine.tscn" id="5_bj3ko"]
+[ext_resource type="AudioStream" uid="uid://dytqywvqc6vae" path="res://Audio/SFX/Laser1no_silence2.mp3" id="7_txvod"]
+[ext_resource type="AudioStream" uid="uid://d2exs41t2kfnb" path="res://Audio/SFX/Small_explosionor_a_gun.mp3" id="8_068tf"]
+[ext_resource type="AudioStream" uid="uid://dtwy0bwp7uo2a" path="res://Audio/SFX/Bullet_FirePlayer.mp3" id="9_ldshe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_byg2p"]
 size = Vector2(32, 32)
@@ -21,12 +24,15 @@ default_font_size = 10
 [sub_resource type="Theme" id="Theme_ray2s"]
 default_font_size = 10
 
-[node name="Rubix" type="Node2D"]
+[node name="Rubix" type="Node2D" node_paths=PackedStringArray("BeamSound", "BulletSound", "BombSound")]
 script = ExtResource("1_3tdpj")
 BeamScriptMaster = ExtResource("2_qqt1t")
 BombScriptMaster = ExtResource("3_rip8m")
 BulletScriptMaster = ExtResource("4_7uued")
 MineScriptMaster = ExtResource("5_bj3ko")
+BeamSound = NodePath("LaserSound")
+BulletSound = NodePath("BulletFireSound")
+BombSound = NodePath("BombLaunchSound")
 
 [node name="Cube" type="Node2D" parent="."]
 position = Vector2(480, 135)
@@ -327,6 +333,15 @@ theme = SubResource("Theme_ray2s")
 theme_override_font_sizes/font_size = 8
 text = "Bomb Module"
 horizontal_alignment = 1
+
+[node name="LaserSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_txvod")
+
+[node name="BombLaunchSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_068tf")
+
+[node name="BulletFireSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_ldshe")
 
 [connection signal="area_entered" from="Cube/LaserSegment/Hitbox" to="." method="OnLaserModuleHit"]
 [connection signal="area_entered" from="Cube/BulletSegment/Hitbox" to="." method="OnBulletModuleHit"]
