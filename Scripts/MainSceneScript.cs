@@ -129,7 +129,7 @@ public partial class MainSceneScript : Node
 	}
 
 	private void SaveData() {
-		using FileAccess fa = FileAccess.Open("user://savegame.save", FileAccess.ModeFlags);
+		using FileAccess fa = FileAccess.Open("user://savegame.save", FileAccess.ModeFlags.Write);
 
 		Dictionary<string, Variant> data = new Dictionary<string, Variant>();
 		data.Add("stage1score", stageOneHighscore);
