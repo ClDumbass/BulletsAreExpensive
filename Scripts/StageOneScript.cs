@@ -140,84 +140,86 @@ public partial class StageOneScript : BaseStageScript
 	}
 
 	private void LevelThree() {
-		///Formation 1
-		AddMine(new Vector2(420, 135), true, 0);
-		AddPeekaboo(125, Vector2.Left, 0);
-		AddPeekaboo(145, Vector2.Left, 0);
-		AddPeekaboo(40, Vector2.Left.Rotated(-MathF.PI / 18), 4);
-		AddPeekaboo(230, Vector2.Left.Rotated(MathF.PI / 18), 4);
-		AddMine(new Vector2(500, 12), true, 8);
-		AddMine(new Vector2(500, 258), true, 8);
+		/////Formation 1
+		//AddMine(new Vector2(420, 135), true, 0);
+		//AddPeekaboo(125, Vector2.Left, 0);
+		//AddPeekaboo(145, Vector2.Left, 0);
+		//AddPeekaboo(40, Vector2.Left.Rotated(-MathF.PI / 18), 4);
+		//AddPeekaboo(230, Vector2.Left.Rotated(MathF.PI / 18), 4);
+		//AddMine(new Vector2(500, 12), true, 8);
+		//AddMine(new Vector2(500, 258), true, 8);
 
-		/// Formation 2
-		float formation2base = 13;
-		AddMine(new Vector2(500, 75), false, formation2base);
-		AddMine(new Vector2(530, 75), false, formation2base);
-		AddMine(new Vector2(560, 75), false, formation2base);
-		AddMine(new Vector2(500, 105), false, formation2base);
-		AddMine(new Vector2(500, 135), false, formation2base);
-		AddMine(new Vector2(560, 135), false, formation2base);
-		AddMine(new Vector2(560, 165), false, formation2base);
-		AddMine(new Vector2(500, 195), false, formation2base);
-		AddMine(new Vector2(530, 195), false, formation2base);
-		AddMine(new Vector2(560, 195), false, formation2base);
-		AddMine(new Vector2(500, 258), true, formation2base);
-		AddPeekaboo(105, Vector2.Left, formation2base + 7);
-		AddPeekaboo(55, Vector2.Left, formation2base + 7);
-		AddPeekaboo(45, Vector2.Left, formation2base + 7);
+		///// Formation 2
+		//float formation2base = 13;
+		//AddMine(new Vector2(500, 75), false, formation2base);
+		//AddMine(new Vector2(530, 75), false, formation2base);
+		//AddMine(new Vector2(560, 75), false, formation2base);
+		//AddMine(new Vector2(500, 105), false, formation2base);
+		//AddMine(new Vector2(500, 135), false, formation2base);
+		//AddMine(new Vector2(560, 135), false, formation2base);
+		//AddMine(new Vector2(560, 165), false, formation2base);
+		//AddMine(new Vector2(500, 195), false, formation2base);
+		//AddMine(new Vector2(530, 195), false, formation2base);
+		//AddMine(new Vector2(560, 195), false, formation2base);
+		//AddMine(new Vector2(500, 258), true, formation2base);
+		//AddPeekaboo(105, Vector2.Left, formation2base + 7);
+		//AddPeekaboo(55, Vector2.Left, formation2base + 7);
+		//AddPeekaboo(45, Vector2.Left, formation2base + 7);
 
-		/// Formation 3
-		float formation3base = 30;
-		AddMine(new Vector2(500, 135), true, formation3base);
-		for (int i = 0; i < 15; i++) {
-			AddVertiboo(new Vector2(270 - 15 * i, -16), Vector2.Down, false, formation3base + 0.5f * i);
-		}
+		///// Formation 3
+		//float formation3base = 30;
+		//AddMine(new Vector2(500, 135), true, formation3base);
+		//for (int i = 0; i < 15; i++) {
+		//	AddVertiboo(new Vector2(270 - 15 * i, -16), Vector2.Down, false, formation3base + 0.5f * i);
+		//}
 
-		/// Formation 4 is kind-of a bait since it links to the boss
-		float formation4base = 40;
-		for (int i = 0; i < 11; i++) {
-			if (i==5) { continue; }
-			AddMine(new Vector2(500, 15+24*i), true, formation4base);
-		}
-		for (int i = 0; i < 11; i++) {
-			if (i == 5) { continue; }
-			AddMine(new Vector2(524, 15 + 24 * i), true, formation4base);
-		}
-		for (int i = 6; i < 11; i++) {
-			AddMine(new Vector2(548, 15 + 24 * i), true, formation4base);
-		}
-		for (int i = 1; i < 11; i++) {
-			AddMine(new Vector2(572, 15 + 24 * i), true, formation4base);
-		}
-		for (int i = 6; i < 11; i++) {
-			if (i >= 7 && i <= 9) { continue; }
-			AddMine(new Vector2(596, 15 + 24 * i), true, formation4base);
-		}
-		for (int i = 0; i < 11; i++) {
-			if (i == 5 || i==7 || i==9) { continue; }
-			AddMine(new Vector2(620, 15 + 24 * i), true, formation4base);
-		}
-		for (int i = 0; i < 11; i++) {
-			if (i == 5 || i==7 || i==9) { continue; }
-			AddMine(new Vector2(644, 15 + 24 * i), true, formation4base);
-		}
-		for (int i = 0; i < 11; i++) {
-			if ((i >= 5 && i <= 7) || i==9) { continue; }
-			AddMine(new Vector2(668, 15 + 24 * i), true, formation4base);
-		}
-		for (int i = 0; i < 11; i++) {
-			if (i == 9) { continue; }
-			AddMine(new Vector2(692, 15 + 24 * i), true, formation4base);
-		}
-		for (int i = 0; i < 11; i++) {
-			if (i >= 4 && i <= 9) { continue; }
-			AddMine(new Vector2(716, 15 + 24 * i), true, formation4base);
-		}
-		for (int i = 0; i < 11; i++) {
-			if (i >= 4 && i <= 5) { continue; }
-			AddMine(new Vector2(740, 15 + 24 * i), true, formation4base);
-		}
-		AddMine(new Vector2(764, 135), false, formation4base);
+		///// Formation 4 is kind-of a bait since it links to the boss
+		//float formation4base = 40;
+		//for (int i = 0; i < 11; i++) {
+		//	if (i==5) { continue; }
+		//	AddMine(new Vector2(500, 15+24*i), true, formation4base);
+		//}
+		//for (int i = 0; i < 11; i++) {
+		//	if (i == 5) { continue; }
+		//	AddMine(new Vector2(524, 15 + 24 * i), true, formation4base);
+		//}
+		//for (int i = 6; i < 11; i++) {
+		//	AddMine(new Vector2(548, 15 + 24 * i), true, formation4base);
+		//}
+		//for (int i = 1; i < 11; i++) {
+		//	AddMine(new Vector2(572, 15 + 24 * i), true, formation4base);
+		//}
+		//for (int i = 6; i < 11; i++) {
+		//	if (i >= 7 && i <= 9) { continue; }
+		//	AddMine(new Vector2(596, 15 + 24 * i), true, formation4base);
+		//}
+		//for (int i = 0; i < 11; i++) {
+		//	if (i == 5 || i==7 || i==9) { continue; }
+		//	AddMine(new Vector2(620, 15 + 24 * i), true, formation4base);
+		//}
+		//for (int i = 0; i < 11; i++) {
+		//	if (i == 5 || i==7 || i==9) { continue; }
+		//	AddMine(new Vector2(644, 15 + 24 * i), true, formation4base);
+		//}
+		//for (int i = 0; i < 11; i++) {
+		//	if ((i >= 5 && i <= 7) || i==9) { continue; }
+		//	AddMine(new Vector2(668, 15 + 24 * i), true, formation4base);
+		//}
+		//for (int i = 0; i < 11; i++) {
+		//	if (i == 9) { continue; }
+		//	AddMine(new Vector2(692, 15 + 24 * i), true, formation4base);
+		//}
+		//for (int i = 0; i < 11; i++) {
+		//	if (i >= 4 && i <= 9) { continue; }
+		//	AddMine(new Vector2(716, 15 + 24 * i), true, formation4base);
+		//}
+		//for (int i = 0; i < 11; i++) {
+		//	if (i >= 4 && i <= 5) { continue; }
+		//	AddMine(new Vector2(740, 15 + 24 * i), true, formation4base);
+		//}
+		//AddMine(new Vector2(764, 135), false, formation4base);
+
+		AddRubix(0);
 
 		WarmupBGMStage3.Play();
 		WarmupBGMStage3.VolumeDb = 0;
@@ -309,5 +311,9 @@ public partial class StageOneScript : BaseStageScript
 
 	private void AddMine(Vector2 position, bool isCircle, float time) {
 		LevelScript.Enqueue(EnemyMaster.MakeMine(position, isCircle), time);
+	}
+
+	private void AddRubix(float time) {
+		LevelScript.Enqueue(EnemyMaster.MakeRubix(), time);
 	}
 }

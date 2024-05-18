@@ -51,7 +51,7 @@ public partial class MineScript : Node2D
 
 		if (animationStage != 2) {
 			Position -= new Vector2(20f * (float)delta, 0);
-			if (Position.X <= -32) {
+			if (Position.X <= -100) {
 				QueueFree();
 				return;
 			}

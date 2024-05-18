@@ -1,6 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://dnpfis0vmfh3"]
+[gd_scene load_steps=12 format=3 uid="uid://dnpfis0vmfh3"]
 
+[ext_resource type="Script" path="res://Scripts/Enemies/RubixScript.cs" id="1_3tdpj"]
 [ext_resource type="Texture2D" uid="uid://xtdtfumgrder" path="res://Sprites/boss3_spritesheet.png" id="1_urs5l"]
+[ext_resource type="PackedScene" uid="uid://dnf383etboj03" path="res://Scenes/Attacks/BeamAttack.tscn" id="2_qqt1t"]
+[ext_resource type="PackedScene" uid="uid://e2f5bjs5imjg" path="res://Scenes/Attacks/EnemyBomb.tscn" id="3_rip8m"]
+[ext_resource type="PackedScene" uid="uid://p2314b3027pa" path="res://Scenes/Attacks/EnemyBullet.tscn" id="4_7uued"]
+[ext_resource type="PackedScene" uid="uid://cydsdsjti2htl" path="res://Scenes/Attacks/Mine.tscn" id="5_bj3ko"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_byg2p"]
 size = Vector2(32, 32)
@@ -8,11 +13,24 @@ size = Vector2(32, 32)
 [sub_resource type="CircleShape2D" id="CircleShape2D_yb6c6"]
 radius = 16.0
 
+[sub_resource type="Theme" id="Theme_pyhvf"]
+default_font_size = 10
+
+[sub_resource type="Theme" id="Theme_geupx"]
+
+[sub_resource type="Theme" id="Theme_ray2s"]
+default_font_size = 10
+
 [node name="Rubix" type="Node2D"]
+script = ExtResource("1_3tdpj")
+BeamScriptMaster = ExtResource("2_qqt1t")
+BombScriptMaster = ExtResource("3_rip8m")
+BulletScriptMaster = ExtResource("4_7uued")
+MineScriptMaster = ExtResource("5_bj3ko")
 
 [node name="Cube" type="Node2D" parent="."]
 position = Vector2(480, 135)
-rotation = -0.785398
+rotation = 5.49779
 
 [node name="LaserSegment" type="Sprite2D" parent="Cube"]
 position = Vector2(-32, -32)
@@ -21,6 +39,8 @@ region_enabled = true
 region_rect = Rect2(0, 0, 64, 64)
 
 [node name="Hitbox" type="Area2D" parent="Cube/LaserSegment"]
+collision_layer = 2
+collision_mask = 4
 
 [node name="Rect1" type="CollisionShape2D" parent="Cube/LaserSegment/Hitbox"]
 position = Vector2(16, 0)
@@ -41,6 +61,8 @@ region_rect = Rect2(0, 64, 64, 64)
 
 [node name="Hitbox" type="Area2D" parent="Cube/BulletSegment"]
 rotation = -1.5708
+collision_layer = 2
+collision_mask = 4
 
 [node name="Rect1" type="CollisionShape2D" parent="Cube/BulletSegment/Hitbox"]
 position = Vector2(16, 0)
@@ -61,6 +83,8 @@ region_rect = Rect2(64, 64, 64, 64)
 
 [node name="Hitbox" type="Area2D" parent="Cube/MineSegment"]
 rotation = 3.14159
+collision_layer = 2
+collision_mask = 4
 
 [node name="Rect1" type="CollisionShape2D" parent="Cube/MineSegment/Hitbox"]
 position = Vector2(16, 0)
@@ -81,6 +105,8 @@ region_rect = Rect2(64, 0, 64, 64)
 
 [node name="Hitbox" type="Area2D" parent="Cube/BombSegment"]
 rotation = 1.5708
+collision_layer = 2
+collision_mask = 4
 
 [node name="Rect1" type="CollisionShape2D" parent="Cube/BombSegment/Hitbox"]
 position = Vector2(16, 0)
@@ -92,3 +118,217 @@ shape = SubResource("RectangleShape2D_byg2p")
 
 [node name="Circle" type="CollisionShape2D" parent="Cube/BombSegment/Hitbox"]
 shape = SubResource("CircleShape2D_yb6c6")
+
+[node name="HealthBars" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0.498039)
+layout_mode = 3
+anchors_preset = 0
+offset_left = -30.0
+offset_right = 10.0
+offset_bottom = 40.0
+theme = SubResource("Theme_pyhvf")
+
+[node name="MainBody" type="Control" parent="HealthBars"]
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 258.0
+offset_right = 80.0
+offset_bottom = 298.0
+
+[node name="Backdrop" type="ColorRect" parent="HealthBars/MainBody"]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 12.0
+color = Color(0.384314, 0.478431, 0.647059, 1)
+
+[node name="Foreground" type="ColorRect" parent="HealthBars/MainBody"]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 12.0
+color = Color(1, 0, 0, 1)
+
+[node name="Label" type="Label" parent="HealthBars/MainBody"]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 14.0
+theme = SubResource("Theme_geupx")
+text = "600"
+horizontal_alignment = 1
+
+[node name="LaserHP" type="Control" parent="HealthBars"]
+anchors_preset = 0
+offset_left = 42.0
+offset_top = 236.0
+offset_right = 82.0
+offset_bottom = 276.0
+
+[node name="Backdrop" type="ColorRect" parent="HealthBars/LaserHP"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 6.0
+offset_right = 98.0
+offset_bottom = 22.0
+color = Color(0.384314, 0.478431, 0.647059, 1)
+
+[node name="Foreground" type="ColorRect" parent="HealthBars/LaserHP"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 6.0
+offset_right = 98.0
+offset_bottom = 22.0
+color = Color(0, 0.380392, 0.862745, 1)
+
+[node name="Label" type="Label" parent="HealthBars/LaserHP"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 6.0
+offset_right = 98.0
+offset_bottom = 22.0
+theme = SubResource("Theme_ray2s")
+text = "250"
+horizontal_alignment = 1
+
+[node name="Subtext" type="Label" parent="HealthBars/LaserHP"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 16.0
+offset_right = 98.0
+offset_bottom = 32.0
+theme = SubResource("Theme_ray2s")
+theme_override_font_sizes/font_size = 8
+text = "Laser Module"
+horizontal_alignment = 1
+
+[node name="BulletHP" type="Control" parent="HealthBars"]
+anchors_preset = 0
+offset_left = 142.0
+offset_top = 236.0
+offset_right = 182.0
+offset_bottom = 276.0
+
+[node name="Backdrop" type="ColorRect" parent="HealthBars/BulletHP"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 6.0
+offset_right = 98.0
+offset_bottom = 22.0
+color = Color(0.384314, 0.478431, 0.647059, 1)
+
+[node name="Foreground" type="ColorRect" parent="HealthBars/BulletHP"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 6.0
+offset_right = 98.0
+offset_bottom = 22.0
+color = Color(0, 0.380392, 0.862745, 1)
+
+[node name="Label" type="Label" parent="HealthBars/BulletHP"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 6.0
+offset_right = 98.0
+offset_bottom = 22.0
+theme = SubResource("Theme_ray2s")
+text = "250"
+horizontal_alignment = 1
+
+[node name="Subtext" type="Label" parent="HealthBars/BulletHP"]
+offset_left = -2.0
+offset_top = 16.0
+offset_right = 98.0
+offset_bottom = 32.0
+theme = SubResource("Theme_ray2s")
+theme_override_font_sizes/font_size = 8
+text = "Gun Module"
+horizontal_alignment = 1
+
+[node name="MineHP" type="Control" parent="HealthBars"]
+anchors_preset = 0
+offset_left = 242.0
+offset_top = 236.0
+offset_right = 282.0
+offset_bottom = 276.0
+
+[node name="Backdrop" type="ColorRect" parent="HealthBars/MineHP"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 6.0
+offset_right = 98.0
+offset_bottom = 22.0
+color = Color(0.384314, 0.478431, 0.647059, 1)
+
+[node name="Foreground" type="ColorRect" parent="HealthBars/MineHP"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 6.0
+offset_right = 98.0
+offset_bottom = 22.0
+color = Color(0, 0.380392, 0.862745, 1)
+
+[node name="Label" type="Label" parent="HealthBars/MineHP"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 6.0
+offset_right = 98.0
+offset_bottom = 22.0
+theme = SubResource("Theme_ray2s")
+text = "250"
+horizontal_alignment = 1
+
+[node name="Subtext" type="Label" parent="HealthBars/MineHP"]
+offset_left = -2.0
+offset_top = 16.0
+offset_right = 98.0
+offset_bottom = 32.0
+theme = SubResource("Theme_ray2s")
+theme_override_font_sizes/font_size = 8
+text = "Mine Module"
+horizontal_alignment = 1
+
+[node name="BombHP" type="Control" parent="HealthBars"]
+anchors_preset = 0
+offset_left = 342.0
+offset_top = 236.0
+offset_right = 382.0
+offset_bottom = 276.0
+
+[node name="Backdrop" type="ColorRect" parent="HealthBars/BombHP"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 6.0
+offset_right = 98.0
+offset_bottom = 22.0
+color = Color(0.384314, 0.478431, 0.647059, 1)
+
+[node name="Foreground" type="ColorRect" parent="HealthBars/BombHP"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 6.0
+offset_right = 98.0
+offset_bottom = 22.0
+color = Color(0, 0.380392, 0.862745, 1)
+
+[node name="Label" type="Label" parent="HealthBars/BombHP"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 6.0
+offset_right = 98.0
+offset_bottom = 22.0
+theme = SubResource("Theme_ray2s")
+text = "250"
+horizontal_alignment = 1
+
+[node name="Subtext" type="Label" parent="HealthBars/BombHP"]
+offset_left = -2.0
+offset_top = 16.0
+offset_right = 98.0
+offset_bottom = 32.0
+theme = SubResource("Theme_ray2s")
+theme_override_font_sizes/font_size = 8
+text = "Bomb Module"
+horizontal_alignment = 1
+
+[connection signal="area_entered" from="Cube/LaserSegment/Hitbox" to="." method="OnLaserModuleHit"]
+[connection signal="area_entered" from="Cube/BulletSegment/Hitbox" to="." method="OnBulletModuleHit"]
+[connection signal="area_entered" from="Cube/MineSegment/Hitbox" to="." method="OnMineModuleHit"]
+[connection signal="area_entered" from="Cube/BombSegment/Hitbox" to="." method="OnBombModuleHit"]

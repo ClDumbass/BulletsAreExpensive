@@ -64,6 +64,9 @@ public partial class ClumpusScript : BaseBossScript
 	{
 		timer += (float)delta;
 		EnrageTimer -= (float)delta;
+		if (EnrageTimer < 0) {
+			EnrageTimer = 0;
+		}
 		EnrageTimerLabel.Text = EnrageTimer.ToString("0.00") + "s";
 
 		//check for add spawning conditions related to breaking the arms

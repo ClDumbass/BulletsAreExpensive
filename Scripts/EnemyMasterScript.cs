@@ -24,6 +24,8 @@ public partial class EnemyMasterScript : Node
 	[Export]
 	public PackedScene mineScene { get; set; }
 	[Export]
+	public PackedScene rubixScene { get; set; }
+	[Export]
 	AudioStreamPlayer mineBeep { get; set; }
 	[Export]
 	public Label EnrageTimerLabel { get; set; }
@@ -138,5 +140,15 @@ public partial class EnemyMasterScript : Node
 		mine.IsCircle = isCircle;
 
 		return mine;
+	}
+
+	public Node MakeRubix() {
+		RubixScript rubixScript = rubixScene.Instantiate<RubixScript>();
+
+		rubixScript.PlayerNode = GetNode("../Player") as Node2D;
+		rubixScript.EnemyMaster = this;
+		rubixScript.EnrageTimerLabel= EnrageTimerLabel;
+
+		return rubixScript;
 	}
 }

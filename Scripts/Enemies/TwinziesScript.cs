@@ -57,8 +57,11 @@ public partial class TwinziesScript : BaseBossScript
 	private const int bitzXOffset = 39;
 	private const int bitzYOffset = 18;
 
-	public override void _Ready()
-	{
+	private Control HealthBarGroups;
+	public override void _Ready() {
+		HealthBarGroups = GetNode<Control>("HealthBars");
+		HealthBarGroups.Visible = false;
+
 		pairedMovement = GetNode<Node2D>("PairedMovement");
 		pairedMovement.Position = new Vector2(-64, 32);
 		topHalf = pairedMovement.GetNode<Node2D>("Top");
@@ -123,6 +126,7 @@ public partial class TwinziesScript : BaseBossScript
 					sequence = 1;
 					specialCounter = 0;
 					timer = 0;
+					HealthBarGroups.Visible = true;
 					ClearAttacksHolder();
 				}
 				break;
@@ -205,8 +209,6 @@ public partial class TwinziesScript : BaseBossScript
 					specialCounter = 0;
 					timer = 0;
 				}
-				primaryBeam.PositionA = topHalf.Position;
-				primaryBeam.PositionB = bottomHalf.Position;
 				break;
 			case 6:
 
@@ -220,14 +222,10 @@ public partial class TwinziesScript : BaseBossScript
 					specialCounter = 0;
 					timer = 0;
 				}
-				primaryBeam.PositionA = topHalf.Position;
-				primaryBeam.PositionB = bottomHalf.Position;
 				break;
 			case 7:
 				topHalf.Position += new Vector2(64f * (float)delta, 0);
 				bottomHalf.Position += new Vector2(-64f * (float)delta, 0);
-				primaryBeam.PositionA = topHalf.Position;
-				primaryBeam.PositionB = bottomHalf.Position;
 				if (topHalf.Position.X >= 0) {
 					topHalf.Position = new Vector2(0, topHalf.Position.Y);
 					bottomHalf.Position = new Vector2(0, bottomHalf.Position.Y);
@@ -266,13 +264,6 @@ public partial class TwinziesScript : BaseBossScript
 					bits[1].Position += bitSpeed * toUpperLeft * (float)delta;
 				}
 
-				bitBeams[0].PositionA = bits[0].Position;
-				bitBeams[0].PositionB = bits[1].Position;
-				bitBeams[1].PositionA = topHalf.GlobalPosition;
-				bitBeams[1].PositionB = bits[0].Position;
-				bitBeams[2].PositionA = bits[1].Position;
-				bitBeams[2].PositionB = bottomHalf.GlobalPosition;
-
 				if (specialCounter == 1 && bits[0].Position.Y >= 64) {
 					specialCounter = 2;
 
@@ -309,13 +300,6 @@ public partial class TwinziesScript : BaseBossScript
 			case 9:
 				//continues using bits 0,1 and beams 0,1,2 created by sequence 8
 
-				bitBeams[0].PositionA = bits[0].Position;
-				bitBeams[0].PositionB = bits[1].Position;
-				bitBeams[1].PositionA = topHalf.GlobalPosition;
-				bitBeams[1].PositionB = bits[0].Position;
-				bitBeams[2].PositionA = bits[1].Position;
-				bitBeams[2].PositionB = bottomHalf.GlobalPosition;
-
 				topHalf.Position += new Vector2(64f * (float)delta, 0);
 				bottomHalf.Position += new Vector2(-64f * (float)delta, 0);
 				if (topHalf.Position.X >= 240-64) {
@@ -331,15 +315,6 @@ public partial class TwinziesScript : BaseBossScript
 				//continues using bits 0,1 and beams 0,1,2 created by sequence 8
 				bits[0].Position += new Vector2(0, -bitSpeed * (float)delta);
 				bits[1].Position += new Vector2(0,  bitSpeed * (float)delta);
-
-				if (bitBeams != null) {
-					bitBeams[0].PositionA = bits[0].Position;
-					bitBeams[0].PositionB = bits[1].Position;
-					bitBeams[1].PositionA = topHalf.GlobalPosition;
-					bitBeams[1].PositionB = bits[0].Position;
-					bitBeams[2].PositionA = bits[1].Position;
-					bitBeams[2].PositionB = bottomHalf.GlobalPosition;
-				}
 
 				if (specialCounter == 0 && bits[0].Position.Y <= 128 - bitzYOffset) {
 					specialCounter = 1;
@@ -413,6 +388,33 @@ public partial class TwinziesScript : BaseBossScript
 				break;
 		}
 		QueueRedraw();
+	}
+
+	public override void _PhysicsProcess(double delta) {
+		switch (sequence) {
+			case 5:
+			case 6:
+			case 7:
+				if (primaryBeam != null) {
+					primaryBeam.PositionA = topHalf.Position;
+					primaryBeam.PositionB = bottomHalf.Position;
+				}
+				break;
+			case 8:
+			case 9:
+			case 10:
+				if (bitBeams != null) {
+					bitBeams[0].PositionA = bits[0].Position;
+					bitBeams[0].PositionB = bits[1].Position;
+					bitBeams[1].PositionA = topHalf.GlobalPosition;
+					bitBeams[1].PositionB = bits[0].Position;
+					bitBeams[2].PositionA = bits[1].Position;
+					bitBeams[2].PositionB = bottomHalf.GlobalPosition;
+				}
+				break;
+			default:
+				break;
+		}
 	}
 
 	private void AddPrimaryBeam() {
