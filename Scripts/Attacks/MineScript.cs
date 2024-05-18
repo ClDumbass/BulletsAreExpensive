@@ -107,7 +107,7 @@ public partial class MineScript : Node2D
 			//If it's blink time, draw the blink
 			if (animationStage == 1) {
 				float radius = animationTimer * 120;
-				DrawCircle(Vector2.Zero, radius, Colors.White);
+				DrawCircle(Vector2.Zero, radius, Colors.Gray);
 			}
 			//Draw the indicator for which type of mine it is.
 			if (IsCircle) {

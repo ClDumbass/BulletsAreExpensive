@@ -1,0 +1,94 @@
+[gd_scene load_steps=4 format=3 uid="uid://dnpfis0vmfh3"]
+
+[ext_resource type="Texture2D" uid="uid://xtdtfumgrder" path="res://Sprites/boss3_spritesheet.png" id="1_urs5l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_byg2p"]
+size = Vector2(32, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yb6c6"]
+radius = 16.0
+
+[node name="Rubix" type="Node2D"]
+
+[node name="Cube" type="Node2D" parent="."]
+position = Vector2(480, 135)
+rotation = -0.785398
+
+[node name="LaserSegment" type="Sprite2D" parent="Cube"]
+position = Vector2(-32, -32)
+texture = ExtResource("1_urs5l")
+region_enabled = true
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="Hitbox" type="Area2D" parent="Cube/LaserSegment"]
+
+[node name="Rect1" type="CollisionShape2D" parent="Cube/LaserSegment/Hitbox"]
+position = Vector2(16, 0)
+shape = SubResource("RectangleShape2D_byg2p")
+
+[node name="Rect2" type="CollisionShape2D" parent="Cube/LaserSegment/Hitbox"]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_byg2p")
+
+[node name="Circle" type="CollisionShape2D" parent="Cube/LaserSegment/Hitbox"]
+shape = SubResource("CircleShape2D_yb6c6")
+
+[node name="BulletSegment" type="Sprite2D" parent="Cube"]
+position = Vector2(-32, 32)
+texture = ExtResource("1_urs5l")
+region_enabled = true
+region_rect = Rect2(0, 64, 64, 64)
+
+[node name="Hitbox" type="Area2D" parent="Cube/BulletSegment"]
+rotation = -1.5708
+
+[node name="Rect1" type="CollisionShape2D" parent="Cube/BulletSegment/Hitbox"]
+position = Vector2(16, 0)
+shape = SubResource("RectangleShape2D_byg2p")
+
+[node name="Rect2" type="CollisionShape2D" parent="Cube/BulletSegment/Hitbox"]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_byg2p")
+
+[node name="Circle" type="CollisionShape2D" parent="Cube/BulletSegment/Hitbox"]
+shape = SubResource("CircleShape2D_yb6c6")
+
+[node name="MineSegment" type="Sprite2D" parent="Cube"]
+position = Vector2(32, 32)
+texture = ExtResource("1_urs5l")
+region_enabled = true
+region_rect = Rect2(64, 64, 64, 64)
+
+[node name="Hitbox" type="Area2D" parent="Cube/MineSegment"]
+rotation = 3.14159
+
+[node name="Rect1" type="CollisionShape2D" parent="Cube/MineSegment/Hitbox"]
+position = Vector2(16, 0)
+shape = SubResource("RectangleShape2D_byg2p")
+
+[node name="Rect2" type="CollisionShape2D" parent="Cube/MineSegment/Hitbox"]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_byg2p")
+
+[node name="Circle" type="CollisionShape2D" parent="Cube/MineSegment/Hitbox"]
+shape = SubResource("CircleShape2D_yb6c6")
+
+[node name="BombSegment" type="Sprite2D" parent="Cube"]
+position = Vector2(32, -32)
+texture = ExtResource("1_urs5l")
+region_enabled = true
+region_rect = Rect2(64, 0, 64, 64)
+
+[node name="Hitbox" type="Area2D" parent="Cube/BombSegment"]
+rotation = 1.5708
+
+[node name="Rect1" type="CollisionShape2D" parent="Cube/BombSegment/Hitbox"]
+position = Vector2(16, 0)
+shape = SubResource("RectangleShape2D_byg2p")
+
+[node name="Rect2" type="CollisionShape2D" parent="Cube/BombSegment/Hitbox"]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_byg2p")
+
+[node name="Circle" type="CollisionShape2D" parent="Cube/BombSegment/Hitbox"]
+shape = SubResource("CircleShape2D_yb6c6")

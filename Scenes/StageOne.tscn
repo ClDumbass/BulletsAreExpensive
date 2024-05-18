@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cnwyavaed7qqv"]
+[gd_scene load_steps=38 format=3 uid="uid://cnwyavaed7qqv"]
 
 [ext_resource type="Theme" uid="uid://ckubkf5g1yxvq" path="res://Scenes/TestScene.tres" id="1_858y7"]
 [ext_resource type="Script" path="res://Scripts/StageOneScript.cs" id="1_gtsu5"]
@@ -28,6 +28,7 @@
 [ext_resource type="AudioStream" uid="uid://d0hr7ejpixga1" path="res://Audio/BGM/BAE_-_Boss_Theme.mp3" id="24_xmcx1"]
 [ext_resource type="PackedScene" uid="uid://cydsdsjti2htl" path="res://Scenes/Attacks/Mine.tscn" id="25_14oln"]
 [ext_resource type="Texture2D" uid="uid://vopf3mv67pda" path="res://Sprites/background_test_frame_0001.png" id="27_s21mg"]
+[ext_resource type="AudioStream" uid="uid://drq3ytbjcd1xq" path="res://Audio/BGM/BAE_-_Stage_3_Theme.mp3" id="28_08msj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xix5w"]
 atlas = ExtResource("27_s21mg")
@@ -88,7 +89,7 @@ radius = 1.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_dlmvn"]
 radius = 12.0
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("EnemyMaster", "Player", "EnrageTimerPanel", "WarmupBGMStage1", "WarmupBGMStage2", "BossMusic")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("EnemyMaster", "Player", "EnrageTimerPanel", "WarmupBGMStage1", "WarmupBGMStage2", "WarmupBGMStage3", "BossMusic")]
 script = ExtResource("1_gtsu5")
 EnemyMaster = NodePath("EnemyMaster")
 Player = NodePath("Player")
@@ -96,6 +97,7 @@ ScoreScreen = ExtResource("2_lkq6o")
 EnrageTimerPanel = NodePath("UI Base/Enrage")
 WarmupBGMStage1 = NodePath("WarmupBGM_Stage1")
 WarmupBGMStage2 = NodePath("WarmupBGM_Stage2")
+WarmupBGMStage3 = NodePath("WarmupBGM_Stage3")
 BossMusic = NodePath("BossMusic")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -103,7 +105,7 @@ texture_filter = 2
 texture_repeat = 2
 sprite_frames = SubResource("SpriteFrames_8r7ac")
 autoplay = "default"
-frame_progress = 0.101048
+frame_progress = 0.983579
 centered = false
 script = ExtResource("4_wjeob")
 
@@ -211,6 +213,9 @@ stream = ExtResource("21_2dp7o")
 
 [node name="WarmupBGM_Stage2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("22_alggi")
+
+[node name="WarmupBGM_Stage3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("28_08msj")
 
 [node name="BossMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("24_xmcx1")

@@ -18,6 +18,8 @@ public partial class StageOneScript : BaseStageScript
 	[Export]
 	AudioStreamPlayer WarmupBGMStage2 { get; set; }
 	[Export]
+	AudioStreamPlayer WarmupBGMStage3 { get; set; }
+	[Export]
 	AudioStreamPlayer BossMusic { get; set; }
 
 	public int LevelRequested = 1;
@@ -216,6 +218,9 @@ public partial class StageOneScript : BaseStageScript
 			AddMine(new Vector2(740, 15 + 24 * i), true, formation4base);
 		}
 		AddMine(new Vector2(764, 135), false, formation4base);
+
+		WarmupBGMStage3.Play();
+		WarmupBGMStage3.VolumeDb = 0;
 	}
 
 	public void EndStage() {
@@ -263,6 +268,8 @@ public partial class StageOneScript : BaseStageScript
 		}
 		if (timer >= 60 && timer <= 62) {
 			WarmupBGMStage1.VolumeDb = -100f * (62f - timer) / 2f;
+			WarmupBGMStage2.VolumeDb = -100f * (62f - timer) / 2f;
+			WarmupBGMStage3.VolumeDb = -100f * (62f - timer) / 2f; 
 			BossMusic.VolumeDb = 100f * (timer - 62f) / 2f;
 		}
 	}
