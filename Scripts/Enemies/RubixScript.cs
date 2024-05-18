@@ -43,6 +43,7 @@ public partial class RubixScript : BaseBossScript
 	/// 8 - Do bomb+laser combo
 	/// (2,4,6,8) - If both modules on the side are dead, call an add-spawning function instead and rotate after waiting like 10s.
 	/// 
+	/// 169 - Death animation
 	/// </summary>
 	private int sequence = 0;
 	private int subSequence = 0;
@@ -96,6 +97,14 @@ public partial class RubixScript : BaseBossScript
 			EnrageTimer = 0;
 		}
 		EnrageTimerLabel.Text = EnrageTimer.ToString("0.00") + "s"; 
+
+		if (BodyHealth <= 0 && sequence < 169) {
+			sequence = 169;
+			timer = 0;
+			timer2 = 0;
+			subSequence = 0;
+			KillBeam();
+		}
 
 		switch (sequence) {
 			case 0:
@@ -202,6 +211,12 @@ public partial class RubixScript : BaseBossScript
 					sequence = 1;
 					timer = 0;
 					timer2 = 0;
+				}
+				break;
+			case 169:
+				//allow time for death animation, but make the player invuln so they don't lose
+				if (timer >= 2.0f) {
+					Dead = true;
 				}
 				break;
 			default:

@@ -361,10 +361,7 @@ public partial class TwinziesScript : BaseBossScript
 				break;
 			case 69: 
 				{
-					GD.Print("EARLY ENRAGE");
 					if (timer > 1.0f) {
-
-						GD.Print("EARLY ENRAGE SPAWNS");
 						timer -= 10.0f;
 						for (int i = 0; i < 5; i += 1) {
 							if (HealthTop <= 0) {

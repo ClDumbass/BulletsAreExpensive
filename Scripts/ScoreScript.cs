@@ -27,7 +27,6 @@ public partial class ScoreScript : Node
 	}
 
 	public void TabulateScore(int bullets, int bombs, int health) {
-		GD.Print("Tabulate!");
 		score = bullets + 10 * bombs;
 
 		BulletScoreLabel.Text = bullets.ToString() + "cr";
