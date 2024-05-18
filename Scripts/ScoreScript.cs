@@ -19,6 +19,7 @@ public partial class ScoreScript : Node
 	private int score;
 	public override void _Ready()
 	{
+		GetNode<Button>("Quit").GrabFocus();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

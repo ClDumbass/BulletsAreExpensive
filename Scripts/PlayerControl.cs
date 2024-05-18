@@ -24,7 +24,7 @@ public partial class PlayerControl : Sprite2D
 	public int Health { get { return health; } }
 	private int health = 3;
 	public int Bullets { get { return bullets; } }
-	private int bullets = 10000;
+	private int bullets = 10;
 	public int Bombs { get { return bombs; } }
 	private int bombs = 1;
 	private int mines = 0;
