@@ -74,7 +74,7 @@ public partial class EnemyMasterScript : Node
 	public Node MakeClumpus() {
 		ClumpusScript clumpusScript = clumpusScene.Instantiate() as ClumpusScript;
 
-		clumpusScript.PlayerNode = GetNode("../Player") as Node2D;
+		clumpusScript.PlayerNode = GetNode("../Player") as PlayerControl;
 		clumpusScript.EnemyMaster = this;
 		clumpusScript.EnrageTimerLabel = EnrageTimerLabel;
 
@@ -125,7 +125,7 @@ public partial class EnemyMasterScript : Node
 	public Node MakeTwinzies() {
 		TwinziesScript twinziesScript = twinziesScene.Instantiate() as TwinziesScript;
 
-		twinziesScript.PlayerNode = GetNode("../Player") as Node2D;
+		twinziesScript.PlayerNode = GetNode("../Player") as PlayerControl;
 		twinziesScript.EnemyMaster = this;
 		twinziesScript.EnrageTimerLabel = EnrageTimerLabel;
 
@@ -145,7 +145,7 @@ public partial class EnemyMasterScript : Node
 	public Node MakeRubix() {
 		RubixScript rubixScript = rubixScene.Instantiate<RubixScript>();
 
-		rubixScript.PlayerNode = GetNode("../Player") as Node2D;
+		rubixScript.PlayerNode = GetNode("../Player") as PlayerControl;
 		rubixScript.EnemyMaster = this;
 		rubixScript.EnrageTimerLabel= EnrageTimerLabel;
 

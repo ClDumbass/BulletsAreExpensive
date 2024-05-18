@@ -7,12 +7,15 @@
 radius = 11.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gwmkm"]
+resource_local_to_scene = true
 radius = 0.01
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5l5t4"]
+resource_local_to_scene = true
 size = Vector2(0, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dw4mg"]
+resource_local_to_scene = true
 size = Vector2(0, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j34xc"]

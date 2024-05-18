@@ -110,7 +110,7 @@ public partial class ClumpusScript : BaseBossScript
 		if (Health <= 0 && sequence < 13) {
 			sequence = 13;
 			timer = 0;
-			(PlayerNode as PlayerControl).iframes = 1000;
+			PlayerNode.iframes = 1000;
 		}
 
 		//Handle basic attack pattern sequences

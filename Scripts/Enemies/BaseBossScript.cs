@@ -11,7 +11,7 @@ public partial class BaseBossScript : Node2D
     [Export]
     public EnemyMasterScript EnemyMaster { get; set; }
     [Export]
-    public Node2D PlayerNode { get; set; }
+    public PlayerControl PlayerNode { get; set; }
     public Label EnrageTimerLabel { get; set; }
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()

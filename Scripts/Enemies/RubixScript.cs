@@ -20,7 +20,7 @@ public partial class RubixScript : BaseBossScript
 	private const int BodyHealthMax = 600, LaserModuleHealthMax = 250, BulletModuleHealthMax = 250, BombModuleHealthMax = 250, MineModuleHealthMax = 250;
 	private Label LaserModuleHealthLabel, BulletModuleHealthLabel, BombModuleHealthLabel, MineModuleHealthLabel, BodyHealthLabel;
 	private ColorRect LaserModuleHealthRect, BulletModuleHealthRect, BombModuleHealthRect, MineModuleHealthRect, BodyHealthRect;
-	private Node2D LaserSegment, MineSegment, BulletSegment, BombSegment;
+	private Sprite2D LaserSegment, MineSegment, BulletSegment, BombSegment;
 	private float timer = 0;
 	private float timer2 = 0;
 	/// <summary>
@@ -59,10 +59,10 @@ public partial class RubixScript : BaseBossScript
 	public override void _Ready() {
 		RubixNode = GetNode<Node2D>("Cube");
 		RubixNode.Position = new Vector2(570, 135);
-		LaserSegment = RubixNode.GetNode<Node2D>("LaserSegment");
-		BulletSegment = RubixNode.GetNode<Node2D>("BulletSegment");
-		MineSegment = RubixNode.GetNode<Node2D>("MineSegment");
-		BombSegment = RubixNode.GetNode<Node2D>("BombSegment");
+		LaserSegment = RubixNode.GetNode<Sprite2D>("LaserSegment");
+		BulletSegment = RubixNode.GetNode<Sprite2D>("BulletSegment");
+		MineSegment = RubixNode.GetNode<Sprite2D>("MineSegment");
+		BombSegment = RubixNode.GetNode<Sprite2D>("BombSegment");
 
 		HealthBarGroups = GetNode<Control>("HealthBars");
 		HealthBarGroups.Visible = false;
@@ -103,6 +103,7 @@ public partial class RubixScript : BaseBossScript
 			timer = 0;
 			timer2 = 0;
 			subSequence = 0;
+			PlayerNode.iframes = 1000;
 			KillBeam();
 		}
 
@@ -132,11 +133,12 @@ public partial class RubixScript : BaseBossScript
 					subSequence = 0;
 					timer = 0;
 					timer2 = 0;
+					//prep beam and bullet direction for sequence 2
 					MakeBeam(LaserSegment.GlobalPosition + standardBeamLength * Vector2.Up.Rotated(-MathF.PI / 4));
 					bulletDirection = Vector2.Left.Rotated(-MathF.PI / 4);
 				}
 				break;
-			case 2: {
+			case 2: { //laser+bullet
 					bulletDirection = bulletDirection.Rotated((float)delta * MathF.PI / 20);
 					if (timer2 >= 0.1f) {
 						timer2 -= 0.1f;
@@ -167,11 +169,28 @@ public partial class RubixScript : BaseBossScript
 					subSequence = 0;
 					timer = 0;
 					timer2 = 0;
+
+					//prep for sequence 4
+					AddMine(new Vector2(500, 200), false);
+					AddMine(new Vector2(530, 200), true);
+					bulletDirection = Vector2.Left.Rotated(MathF.PI/8);
+					//these mines are actually for sequence 6
+					AddMine(new Vector2(550, 30), false);
+					AddMine(new Vector2(700, 30), false);
+					AddMine(new Vector2(700, 230), true);
 				}
 				break;
-			case 4:
-				//TODO: Bullet+MinePattern
-				if (timer >= 1f) {
+			case 4: //mine+bullet
+				bulletDirection = bulletDirection.Rotated((float)delta * MathF.PI / -16);
+				if (timer2 >= 0.1f && timer <= 8f) {
+					timer2 -= 0.1f;
+					float bulletSpeed = 90;
+
+					FireBullet(bulletDirection, bulletSpeed);
+					FireBullet(bulletDirection.Rotated(MathF.PI / 12), bulletSpeed);
+					FireBullet(bulletDirection.Rotated(-MathF.PI / 12), bulletSpeed);
+				}
+				if (timer >= 10f) {
 					sequence = 5;
 					timer = 0;
 					timer2 = 0;
@@ -187,9 +206,19 @@ public partial class RubixScript : BaseBossScript
 					timer2 = 0;
 				}
 				break;
-				//TODO: Mine+Bomb Pattern
-			case 6:
-				if (timer >= 1f) {
+			case 6://TODO: Mine+Bomb
+				if (subSequence ==0) {
+					FireBomb(new Vector2(200, 50), 55);
+					subSequence = 1;
+				}
+				if (subSequence != 0) {
+					if (timer2 >= 0.3f) {
+						timer2 -= 0.3f;
+						FireBomb(new Vector2(330 - 30 * (subSequence % 8), 200 - 30 * (subSequence / 8)), 60);
+						subSequence++;
+					}
+				}
+				if (timer >= 10f) {
 					sequence = 7;
 					timer = 0;
 					timer2 = 0;
@@ -203,14 +232,23 @@ public partial class RubixScript : BaseBossScript
 					subSequence = 0;
 					timer = 0;
 					timer2 = 0;
+					MakeBeam(LaserSegment.GlobalPosition + standardBeamLength * Vector2.Down.Rotated(MathF.PI / 4));
+					if (activeBeam != null) {
+						activeBeam.GetNode<Area2D>("Beam").CollisionLayer = 259; //hacky, but I want the bombs to splode as they hit the beam
+					}
 				}
 				break;
-			case 8:
-				//TODO: Laser+Bomb Pattern
-				if (timer >= 1f) {
+			case 8: //Laser+Bomb Pattern
+				if (timer2 >= 0.3f) {
+					timer2 -= 0.3f;
+					FireBomb(new Vector2(330 - 30 * (subSequence % 8), 50 + 30 * (subSequence / 8)), 60);
+					subSequence++;
+				}
+				if (timer >= 10f) {
 					sequence = 1;
 					timer = 0;
 					timer2 = 0;
+					KillBeam();
 				}
 				break;
 			case 169:
@@ -244,9 +282,26 @@ public partial class RubixScript : BaseBossScript
 					}
 				}
 				break;
+			case 8:
+				if (activeBeam != null) {
+					if (timer < 6f) {
+						activeBeam.PositionB = LaserSegment.GlobalPosition + standardBeamLength * Vector2.Down.Rotated(MathF.PI / 4 + timer * MathF.PI / 12);
+					}
+					else if (timer < 9f) {
+						activeBeam.PositionB = LaserSegment.GlobalPosition + standardBeamLength * Vector2.Down.Rotated(MathF.PI / 4 + MathF.PI / 2);
+					}
+					else {
+						activeBeam.PositionB = LaserSegment.GlobalPosition + standardBeamLength * Vector2.Down.Rotated(MathF.PI / 4 + MathF.PI / 2 - (timer - 9F) * MathF.PI / 12);
+					}
+				}
+				break;
 			default:
 				break;
 		}
+	}
+
+	private void AddSpawnHandler() {
+
 	}
 
 	private void MakeBeam(Vector2 target) {
@@ -270,6 +325,30 @@ public partial class RubixScript : BaseBossScript
 		bullet.Direction = direction;
 		bullet.Speed = speed;
 		AddChild(bullet);
+	}
+
+	private void AddMine(Vector2 position, bool isCircle=true) {
+		if (MineModuleHealth <= 0) { return; }
+
+		MineScript newMine = MineScriptMaster.Instantiate<MineScript>();
+
+		newMine.Position = position;
+		newMine.IsCircle = isCircle;
+
+		AddChild(newMine);
+	}
+
+	private void FireBomb(Vector2 target, float speed) {
+		if (BombModuleHealth <= 0) { return; }
+
+		BombScript newBomb = BombScriptMaster.Instantiate<BombScript>();
+
+		newBomb.InitialPosition = BombSegment.GlobalPosition;
+		newBomb.TargetLocation = target;
+		newBomb.Speed = speed;
+		newBomb.Radius = 32;
+
+		AddChild(newBomb);
 	}
 
 	private void KillBeam() {
@@ -311,27 +390,45 @@ public partial class RubixScript : BaseBossScript
 		LaserModuleHealth -= area.GetParent<AttackBaseScript>().Damage;
 		BodyHealth -= 1;
 		UpdateHealthBarDisplay();
+		if (LaserModuleHealth <= 0 && LaserSegment.RegionRect.Position.X < 100) {
+			Rect2 newRegion = new Rect2(new Vector2(LaserSegment.RegionRect.Position.X + 128, LaserSegment.RegionRect.Position.Y),
+										LaserSegment.RegionRect.Size);
+			LaserSegment.RegionRect = newRegion;
+			KillBeam();
+		}
 	}
-
 
 	private void OnBulletModuleHit(Area2D area) {
 		BulletModuleHealth -= area.GetParent<AttackBaseScript>().Damage;
 		BodyHealth -= 1;
 		UpdateHealthBarDisplay();
+		if (BulletModuleHealth <= 0 && BulletSegment.RegionRect.Position.X < 100) {
+			Rect2 newRegion = new Rect2(new Vector2(BulletSegment.RegionRect.Position.X + 128, BulletSegment.RegionRect.Position.Y),
+										BulletSegment.RegionRect.Size);
+			BulletSegment.RegionRect = newRegion;
+		}
 	}
-
 
 	private void OnMineModuleHit(Area2D area) {
 		MineModuleHealth -= area.GetParent<AttackBaseScript>().Damage;
 		BodyHealth -= 1;
 		UpdateHealthBarDisplay();
+		if (MineModuleHealth <= 0 && MineSegment.RegionRect.Position.X < 100) {
+			Rect2 newRegion = new Rect2(new Vector2(MineSegment.RegionRect.Position.X + 128, MineSegment.RegionRect.Position.Y),
+										MineSegment.RegionRect.Size);
+			MineSegment.RegionRect = newRegion;
+		}
 	}
-
 
 	private void OnBombModuleHit(Area2D area) {
 		BombModuleHealth -= area.GetParent<AttackBaseScript>().Damage;
 		BodyHealth -= 1;
 		UpdateHealthBarDisplay();
+		if (BombModuleHealth <= 0 && BombSegment.RegionRect.Position.X < 100) {
+			Rect2 newRegion = new Rect2(new Vector2(BombSegment.RegionRect.Position.X + 128, BombSegment.RegionRect.Position.Y),
+										BombSegment.RegionRect.Size);
+			BombSegment.RegionRect = newRegion;
+		}
 	}
 }
 

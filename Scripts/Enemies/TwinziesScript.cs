@@ -94,7 +94,7 @@ public partial class TwinziesScript : BaseBossScript
 
 		if (HealthTop <= 0 && HealthBottom <= 0 && sequence < 100) {
 			//deadge
-			(PlayerNode as PlayerControl).iframes = 1000;
+			PlayerNode.iframes = 1000;
 			sequence = 169;
 			specialCounter = 0;
 		} else if ((HealthTop <= 0 || HealthBottom <= 0) && sequence < 60) {

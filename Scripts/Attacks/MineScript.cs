@@ -82,18 +82,23 @@ public partial class MineScript : Node2D
 			QueueRedraw();
 			MineBeep.Stop();
 
-			if (IsCircle) {
-				ExplosionHitboxShape.Radius = GetRadiusFromTimer(animationTimer);
-			} else {
-				float radius = GetRectSizeFromTimer(animationTimer);
-				ExplosionRectA.Position = new Vector2(-radius, 0);
-				ExplosionRectAShape.Size = new Vector2(2*radius, rectWidth);
-				ExplosionRectB.Position = new Vector2(0, -radius);
-				ExplosionRectBShape.Size = new Vector2(rectWidth, 2*radius);
-			}
-
 			if (animationTimer >= 1f) {
 				QueueFree();
+			}
+		}
+	}
+
+	public override void _PhysicsProcess(double delta) {
+		if (animationStage == 2) {
+			if (IsCircle) {
+				ExplosionHitboxShape.Radius = GetRadiusFromTimer(animationTimer);
+			}
+			else {
+				float radius = GetRectSizeFromTimer(animationTimer);
+				ExplosionRectA.Position = new Vector2(0, 0);
+				ExplosionRectAShape.Size = new Vector2(2 * radius, rectWidth);
+				ExplosionRectB.Position = new Vector2(0, 0);
+				ExplosionRectBShape.Size = new Vector2(rectWidth, 2 * radius);
 			}
 		}
 	}
