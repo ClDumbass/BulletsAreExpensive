@@ -174,13 +174,13 @@ public partial class StageOneScript : BaseStageScript
 		}
 
 		/// Formation 4 is kind-of a bait since it links to the boss
-		float formation4base = 40;
+		float formation4base = 35;
 		for (int i = 0; i < 11; i++) {
-			if (i == 5) { continue; }
+			if (i == 5 || i==9 || i==10) { continue; }
 			AddMine(new Vector2(500, 15 + 24 * i), true, formation4base);
 		}
 		for (int i = 0; i < 11; i++) {
-			if (i == 5) { continue; }
+			if (i == 5 || i==10) { continue; }
 			AddMine(new Vector2(524, 15 + 24 * i), true, formation4base);
 		}
 		for (int i = 6; i < 11; i++) {
@@ -219,7 +219,7 @@ public partial class StageOneScript : BaseStageScript
 		}
 		AddMine(new Vector2(764, 135), false, formation4base);
 
-		AddRubix(60);
+		AddRubix(62);
 
 		WarmupBGMStage3.Play();
 		WarmupBGMStage3.VolumeDb = 0;

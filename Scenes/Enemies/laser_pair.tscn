@@ -15,8 +15,8 @@ EmitterB = NodePath("EmitterB")
 Beam = NodePath("BeamAttack")
 
 [node name="EmitterA" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 4
+collision_layer = 0
+collision_mask = 0
 
 [node name="Sprite" type="Sprite2D" parent="EmitterA"]
 texture = ExtResource("1_1q5vq")
@@ -26,8 +26,8 @@ shape = SubResource("CircleShape2D_o6y2x")
 
 [node name="EmitterB" type="Area2D" parent="."]
 position = Vector2(30, 62)
-collision_layer = 2
-collision_mask = 4
+collision_layer = 0
+collision_mask = 0
 
 [node name="Sprite" type="Sprite2D" parent="EmitterB"]
 texture = ExtResource("1_1q5vq")

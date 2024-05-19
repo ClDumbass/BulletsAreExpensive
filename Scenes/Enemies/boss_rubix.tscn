@@ -59,6 +59,12 @@ shape = SubResource("RectangleShape2D_byg2p")
 [node name="Circle" type="CollisionShape2D" parent="Cube/LaserSegment/Hitbox"]
 shape = SubResource("CircleShape2D_yb6c6")
 
+[node name="Turret" type="Sprite2D" parent="Cube/LaserSegment"]
+rotation = -5.49779
+texture = ExtResource("1_urs5l")
+region_enabled = true
+region_rect = Rect2(256, 0, 64, 64)
+
 [node name="BulletSegment" type="Sprite2D" parent="Cube"]
 position = Vector2(-32, 32)
 texture = ExtResource("1_urs5l")
@@ -80,6 +86,12 @@ shape = SubResource("RectangleShape2D_byg2p")
 
 [node name="Circle" type="CollisionShape2D" parent="Cube/BulletSegment/Hitbox"]
 shape = SubResource("CircleShape2D_yb6c6")
+
+[node name="Turret" type="Sprite2D" parent="Cube/BulletSegment"]
+rotation = -5.49779
+texture = ExtResource("1_urs5l")
+region_enabled = true
+region_rect = Rect2(256, 64, 64, 64)
 
 [node name="MineSegment" type="Sprite2D" parent="Cube"]
 position = Vector2(32, 32)
@@ -103,6 +115,12 @@ shape = SubResource("RectangleShape2D_byg2p")
 [node name="Circle" type="CollisionShape2D" parent="Cube/MineSegment/Hitbox"]
 shape = SubResource("CircleShape2D_yb6c6")
 
+[node name="Turret" type="Sprite2D" parent="Cube/MineSegment"]
+rotation = -5.49779
+texture = ExtResource("1_urs5l")
+region_enabled = true
+region_rect = Rect2(320, 64, 64, 64)
+
 [node name="BombSegment" type="Sprite2D" parent="Cube"]
 position = Vector2(32, -32)
 texture = ExtResource("1_urs5l")
@@ -124,6 +142,12 @@ shape = SubResource("RectangleShape2D_byg2p")
 
 [node name="Circle" type="CollisionShape2D" parent="Cube/BombSegment/Hitbox"]
 shape = SubResource("CircleShape2D_yb6c6")
+
+[node name="Turret" type="Sprite2D" parent="Cube/BombSegment"]
+rotation = -5.49779
+texture = ExtResource("1_urs5l")
+region_enabled = true
+region_rect = Rect2(320, 0, 64, 64)
 
 [node name="HealthBars" type="Control" parent="."]
 modulate = Color(1, 1, 1, 0.498039)

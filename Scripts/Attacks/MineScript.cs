@@ -49,9 +49,10 @@ public partial class MineScript : Node2D
 	public override void _Process(double delta) {
 		animationTimer += (float)delta;
 
+
 		if (animationStage != 2) {
 			Position -= new Vector2(20f * (float)delta, 0);
-			if (Position.X <= -100) {
+			if (Position.X <= -12) {
 				QueueFree();
 				return;
 			}

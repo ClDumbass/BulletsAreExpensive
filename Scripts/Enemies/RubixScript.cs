@@ -28,6 +28,7 @@ public partial class RubixScript : BaseBossScript
 	private Label LaserModuleHealthLabel, BulletModuleHealthLabel, BombModuleHealthLabel, MineModuleHealthLabel, BodyHealthLabel;
 	private ColorRect LaserModuleHealthRect, BulletModuleHealthRect, BombModuleHealthRect, MineModuleHealthRect, BodyHealthRect;
 	private Sprite2D LaserSegment, MineSegment, BulletSegment, BombSegment;
+	private Sprite2D LaserTurret, BulletTurret, BombTurret, MineTurret;
 	private float timer = 0;
 	private float timer2 = 0;
 	/// <summary>
@@ -49,7 +50,7 @@ public partial class RubixScript : BaseBossScript
 	/// 7 - Rotate to bomb+laser side
 	/// 8 - Do bomb+laser combo
 	/// (2,4,6,8) - If both modules on the side are dead, call an add-spawning function instead and rotate after waiting like 10s.
-	/// 
+	/// 69 - enrage sequence
 	/// 169 - Death animation
 	/// </summary>
 	private int sequence = 0;
@@ -70,6 +71,10 @@ public partial class RubixScript : BaseBossScript
 		BulletSegment = RubixNode.GetNode<Sprite2D>("BulletSegment");
 		MineSegment = RubixNode.GetNode<Sprite2D>("MineSegment");
 		BombSegment = RubixNode.GetNode<Sprite2D>("BombSegment");
+		LaserTurret = LaserSegment.GetNode<Sprite2D>("Turret");
+		BombTurret = BombSegment.GetNode<Sprite2D>("Turret");
+		BulletTurret = BulletSegment.GetNode<Sprite2D>("Turret");
+		MineTurret = MineSegment.GetNode<Sprite2D>("Turret");
 
 		HealthBarGroups = GetNode<Control>("HealthBars");
 		HealthBarGroups.Visible = false;
@@ -105,6 +110,14 @@ public partial class RubixScript : BaseBossScript
 		}
 		EnrageTimerLabel.Text = EnrageTimer.ToString("0.00") + "s"; 
 
+		if (EnrageTimer <= 0 && sequence < 69) {
+			sequence = 69;
+			timer = 0;
+			timer2 = 0;
+			subSequence = 0;
+			KillBeam();
+		}
+
 		if (BodyHealth <= 0 && sequence < 169) {
 			sequence = 169;
 			timer = 0;
@@ -112,6 +125,16 @@ public partial class RubixScript : BaseBossScript
 			subSequence = 0;
 			PlayerNode.iframes = 1000;
 			KillBeam();
+		}
+
+		//Keep the mine turret rotating at all times. It's just a radar effect.
+		if (sequence < 169 && MineModuleHealth > 0) {
+			MineTurret.Rotation += (float)delta * MathF.PI / 2;
+		}
+
+		//Rotate the beam turret to match the active laser, if there is one.
+		if (activeBeam != null) {
+			LaserTurret.Rotation = Vector2.Left.AngleTo(activeBeam.PositionB - activeBeam.PositionA) - RubixNode.Rotation;
 		}
 
 		switch (sequence) {
@@ -151,6 +174,7 @@ public partial class RubixScript : BaseBossScript
 						timer2 -= 0.1f;
 						float bulletSpeedThisFrame = 60 + 10f * timer;
 
+						BulletTurret.Rotation = Vector2.Left.AngleTo(bulletDirection) - RubixNode.Rotation;
 						FireBullet(bulletDirection, bulletSpeedThisFrame);
 						if (timer > 3.5f) {
 							FireBullet(bulletDirection.Rotated(MathF.PI / 12), bulletSpeedThisFrame);
@@ -193,6 +217,7 @@ public partial class RubixScript : BaseBossScript
 					timer2 -= 0.1f;
 					float bulletSpeed = 90;
 
+					BulletTurret.Rotation = Vector2.Left.AngleTo(bulletDirection) - RubixNode.Rotation;
 					FireBullet(bulletDirection, bulletSpeed);
 					FireBullet(bulletDirection.Rotated(MathF.PI / 12), bulletSpeed);
 					FireBullet(bulletDirection.Rotated(-MathF.PI / 12), bulletSpeed);
@@ -258,6 +283,15 @@ public partial class RubixScript : BaseBossScript
 					KillBeam();
 				}
 				break;
+			case 69:
+				RubixNode.Rotation += rotationSpeed * (float)delta;
+				if (timer >= 2f) {
+					timer -= 2f;
+					for (int i = 0; i < 11; i++) {
+						AddMine(new Vector2(500, 15 + 24 * i), true);
+					}
+				}
+				break;
 			case 169:
 				//allow time for death animation, but make the player invuln so they don't lose
 				if (timer >= 2.0f) {
@@ -300,6 +334,11 @@ public partial class RubixScript : BaseBossScript
 					else {
 						activeBeam.PositionB = LaserSegment.GlobalPosition + standardBeamLength * Vector2.Down.Rotated(MathF.PI / 4 + MathF.PI / 2 - (timer - 9F) * MathF.PI / 12);
 					}
+				}
+				break;
+			case 69:
+				if (activeBeam!=null) {
+					activeBeam.PositionB = LaserSegment.GlobalPosition + standardBeamLength * Vector2.Down.Rotated(MathF.PI / 4 + timer * (MathF.PI / 12 - rotationSpeed));
 				}
 				break;
 			default:
@@ -349,6 +388,7 @@ public partial class RubixScript : BaseBossScript
 
 	private void FireBomb(Vector2 target, float speed) {
 		if (BombModuleHealth <= 0) { return; }
+		BombTurret.Rotation = Vector2.Left.AngleTo(target - BombSegment.GlobalPosition) - RubixNode.Rotation;
 
 		BombScript newBomb = BombScriptMaster.Instantiate<BombScript>();
 
@@ -417,6 +457,7 @@ public partial class RubixScript : BaseBossScript
 			Rect2 newRegion = new Rect2(new Vector2(BulletSegment.RegionRect.Position.X + 128, BulletSegment.RegionRect.Position.Y),
 										BulletSegment.RegionRect.Size);
 			BulletSegment.RegionRect = newRegion;
+			BulletTurret.Visible = false;
 		}
 	}
 
@@ -428,6 +469,7 @@ public partial class RubixScript : BaseBossScript
 			Rect2 newRegion = new Rect2(new Vector2(MineSegment.RegionRect.Position.X + 128, MineSegment.RegionRect.Position.Y),
 										MineSegment.RegionRect.Size);
 			MineSegment.RegionRect = newRegion;
+			MineTurret.Visible = false;
 		}
 	}
 
@@ -439,6 +481,7 @@ public partial class RubixScript : BaseBossScript
 			Rect2 newRegion = new Rect2(new Vector2(BombSegment.RegionRect.Position.X + 128, BombSegment.RegionRect.Position.Y),
 										BombSegment.RegionRect.Size);
 			BombSegment.RegionRect = newRegion;
+			BombTurret.Visible = false;
 		}
 	}
 }
