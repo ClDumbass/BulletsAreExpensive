@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://dpth2gqbcqvrw"]
+[gd_scene load_steps=11 format=3 uid="uid://dpth2gqbcqvrw"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/TwinziesScript.cs" id="1_nr2eq"]
 [ext_resource type="Texture2D" uid="uid://ohmqpq1ocx1p" path="res://Sprites/boss_sprite.png" id="1_vkw1s"]
 [ext_resource type="PackedScene" uid="uid://dnf383etboj03" path="res://Scenes/Attacks/BeamAttack.tscn" id="2_ubs4j"]
 [ext_resource type="PackedScene" uid="uid://e7n2hrha21fp" path="res://Scenes/Enemies/twinzies_bit.tscn" id="3_adtvc"]
+[ext_resource type="PackedScene" uid="uid://cj05cwr7r617r" path="res://Scenes/Effects/EnemyExplosionEffect.tscn" id="4_yldtj"]
 [ext_resource type="AudioStream" uid="uid://dytqywvqc6vae" path="res://Audio/SFX/Laser1no_silence2.mp3" id="5_qnpdp"]
+[ext_resource type="AudioStream" uid="uid://c3q0xu2emytae" path="res://Audio/SFX/Boss_Death.mp3" id="6_0xwot"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v4sk0"]
 radius = 32.0
@@ -15,7 +17,7 @@ default_font_size = 10
 
 [sub_resource type="Theme" id="Theme_oogvc"]
 
-[node name="BossTwinzies" type="Node2D" node_paths=PackedStringArray("TopHealthLabel", "BottomHealthLabel", "TopHealthBar", "BottomHealthBar", "LaserSound")]
+[node name="BossTwinzies" type="Node2D" node_paths=PackedStringArray("TopHealthLabel", "BottomHealthLabel", "TopHealthBar", "BottomHealthBar", "LaserSound", "BossDeathSound")]
 script = ExtResource("1_nr2eq")
 BeamMaster = ExtResource("2_ubs4j")
 TwinzBit = ExtResource("3_adtvc")
@@ -24,6 +26,8 @@ BottomHealthLabel = NodePath("HealthBars/BottomBody/Label")
 TopHealthBar = NodePath("HealthBars/TopBody/Foreground")
 BottomHealthBar = NodePath("HealthBars/BottomBody/Foreground")
 LaserSound = NodePath("LaserSound")
+BossDeathSound = NodePath("BossDeathSound")
+DeathExplosion = ExtResource("4_yldtj")
 
 [node name="PairedMovement" type="Node2D" parent="."]
 position = Vector2(0, 32)
@@ -120,6 +124,9 @@ horizontal_alignment = 1
 
 [node name="LaserSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_qnpdp")
+
+[node name="BossDeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_0xwot")
 
 [connection signal="area_entered" from="PairedMovement/Top/Area2D" to="." method="OnTopHit"]
 [connection signal="area_entered" from="PairedMovement/Bottom/Area2D" to="." method="OnBottomHit"]

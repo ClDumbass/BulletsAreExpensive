@@ -65,13 +65,12 @@ public partial class StageOneScript : BaseStageScript
 		AddFlybyBullet(true, 40);
 		AddFlybyBullet(false, 44);
 		AddFlybyBullet(true, 44);
-		AddClumpus(60);
-
-
 		for (int i = 8; i < 46; i += 5) {
 			//AddSpikeball(35 + (19 * i) % 200, i);
 			AddSpikeball(135, i);
 		}
+
+		AddClumpus(60);
 		WarmupBGMStage1.Play(0);
 		WarmupBGMStage1.VolumeDb = 0;
 	}
@@ -176,11 +175,11 @@ public partial class StageOneScript : BaseStageScript
 		/// Formation 4 is kind-of a bait since it links to the boss
 		float formation4base = 35;
 		for (int i = 0; i < 11; i++) {
-			if (i == 5 || i==9 || i==10) { continue; }
+			if (i == 5 || i == 9 || i == 10) { continue; }
 			AddMine(new Vector2(500, 15 + 24 * i), true, formation4base);
 		}
 		for (int i = 0; i < 11; i++) {
-			if (i == 5 || i==10) { continue; }
+			if (i == 5 || i == 10) { continue; }
 			AddMine(new Vector2(524, 15 + 24 * i), true, formation4base);
 		}
 		for (int i = 6; i < 11; i++) {

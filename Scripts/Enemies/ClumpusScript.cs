@@ -108,9 +108,14 @@ public partial class ClumpusScript : BaseBossScript
 
 		//check for death sequence start (not fully implemented tho)
 		if (Health <= 0 && sequence < 13) {
+			//commence the dying
 			sequence = 13;
 			timer = 0;
 			PlayerNode.iframes = 1000;
+			EnemyExplosionScript explosionScript = DeathExplosion.Instantiate<EnemyExplosionScript>();
+			explosionScript.SpawnArea = new Rect2(ClumpusBody.GlobalPosition.X - 32, ClumpusBody.Position.Y - 16, 64, 32);
+			AddChild(explosionScript);
+			BossDeathSound.Play();
 		}
 
 		//Handle basic attack pattern sequences
@@ -219,7 +224,7 @@ public partial class ClumpusScript : BaseBossScript
 				break;
 			case 13:
 				//allow time for death animation, but make the player invuln so they don't lose
-				if (timer >= 2.0f) {
+				if (timer >= 4.0f) {
 					Dead = true;
 				}
 				break;
@@ -266,9 +271,6 @@ public partial class ClumpusScript : BaseBossScript
 			}
 			CoreHealthLabel.Text = Health.ToString();
 			CoreHealthBar.Scale = new Vector2((float)Health / 300f, 1);
-			if (Health <= 0) {
-				ClumpusBody.QueueFree();
-			}
 		}
 		
 	}

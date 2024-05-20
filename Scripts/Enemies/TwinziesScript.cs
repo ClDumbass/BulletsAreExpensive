@@ -99,6 +99,7 @@ public partial class TwinziesScript : BaseBossScript
 			PlayerNode.iframes = 1000;
 			sequence = 169;
 			specialCounter = 0;
+			BossDeathSound.Play();
 		} else if ((HealthTop <= 0 || HealthBottom <= 0) && sequence < 60) {
 			//early enrage, clean stuff up and shift to early enrage sequence
 			sequence = 69;
@@ -383,7 +384,7 @@ public partial class TwinziesScript : BaseBossScript
 				break;
 			case 169:
 				//allow time for death animation, but make the player invuln so they don't lose
-				if (timer >= 2.0f) {
+				if (timer >= 4.0f) {
 					Dead = true;
 				}
 				break;
@@ -439,18 +440,30 @@ public partial class TwinziesScript : BaseBossScript
 	}
 
 	private void OnBottomHit(Area2D area) {
+		if (HealthBottom <= 0) return;
+
 		HealthBottom -= area.GetParent<AttackBaseScript>().Damage;
 		if (HealthBottom <= 0) {
 			HealthBottom = 0;
+			EnemyExplosionScript explosionScript = DeathExplosion.Instantiate<EnemyExplosionScript>();
+			explosionScript.SpawnArea = new Rect2(bottomHalf.GlobalPosition.X - 64, bottomHalf.GlobalPosition.Y, 128, 32);
+			AddChild(explosionScript);
+			BossDeathSound.Play();
 		}
 		BottomHealthLabel.Text = HealthBottom.ToString();
 		BottomHealthBar.Scale = new Vector2((float)HealthBottom / 300f, 1);
 
 	}
 	private void OnTopHit(Area2D area) {
+		if (HealthTop <= 0) return;
+
 		HealthTop -= area.GetParent<AttackBaseScript>().Damage;
 		if (HealthTop <= 0) {
 			HealthTop = 0;
+			EnemyExplosionScript explosionScript = DeathExplosion.Instantiate<EnemyExplosionScript>();
+			explosionScript.SpawnArea = new Rect2(topHalf.GlobalPosition.X - 64, topHalf.GlobalPosition.Y-32, 128, 32);
+			AddChild(explosionScript);
+			BossDeathSound.Play();
 		}
 		TopHealthLabel.Text = HealthTop.ToString();
 		TopHealthBar.Scale = new Vector2((float)HealthTop / 300f, 1);

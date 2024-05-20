@@ -106,7 +106,7 @@ texture_filter = 2
 texture_repeat = 2
 sprite_frames = SubResource("SpriteFrames_8r7ac")
 autoplay = "default"
-frame_progress = 0.559862
+frame_progress = 0.83411
 centered = false
 script = ExtResource("4_wjeob")
 

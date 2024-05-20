@@ -12,6 +12,11 @@ public partial class BaseBossScript : Node2D
     public EnemyMasterScript EnemyMaster { get; set; }
     [Export]
     public PlayerControl PlayerNode { get; set; }
+    [Export]
+    internal AudioStreamPlayer BossDeathSound { get; set; }
+    [Export]
+    internal PackedScene DeathExplosion { get; set; }
+
     public Label EnrageTimerLabel { get; set; }
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()

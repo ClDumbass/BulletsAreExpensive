@@ -119,11 +119,16 @@ public partial class RubixScript : BaseBossScript
 		}
 
 		if (BodyHealth <= 0 && sequence < 169) {
+			//commence with dying
 			sequence = 169;
 			timer = 0;
 			timer2 = 0;
 			subSequence = 0;
 			PlayerNode.iframes = 1000;
+			EnemyExplosionScript explosionScript = DeathExplosion.Instantiate<EnemyExplosionScript>();
+			explosionScript.SpawnArea = new Rect2(RubixNode.GlobalPosition.X - 48, RubixNode.Position.Y - 48, 48, 96);
+			AddChild(explosionScript);
+			BossDeathSound.Play();
 			KillBeam();
 		}
 
@@ -294,7 +299,7 @@ public partial class RubixScript : BaseBossScript
 				break;
 			case 169:
 				//allow time for death animation, but make the player invuln so they don't lose
-				if (timer >= 2.0f) {
+				if (timer >= 4.0f) {
 					Dead = true;
 				}
 				break;
